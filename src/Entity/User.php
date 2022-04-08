@@ -739,9 +739,9 @@ class User implements UserInterface, \Serializable
     private $imageFile;
 
 	public function getImageFile()
-                                                 {
-                                                     return $this->imageFile;
-                                                 }
+                                                                                                          {
+                                                                                                              return $this->imageFile;
+                                                                                                          }
 
     public function setImageFile($image = null): void
     {
@@ -769,6 +769,21 @@ class User implements UserInterface, \Serializable
      */
     private $received;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Test::class, mappedBy="iduser", orphanRemoval=true)
+     */
+    private $tests;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reponse::class, mappedBy="iduser", orphanRemoval=true)
+     */
+    private $reponses;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Evaluation::class, mappedBy="iduser")
+     */
+    private $evaluations;
+
     
 
 
@@ -778,6 +793,9 @@ class User implements UserInterface, \Serializable
         $this->update_at = new \DateTime();
         $this->sent = new ArrayCollection();
         $this->received = new ArrayCollection();
+        $this->tests = new ArrayCollection();
+        $this->reponses = new ArrayCollection();
+        $this->evaluations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1031,5 +1049,97 @@ class User implements UserInterface, \Serializable
         $this->password,
         ) = unserialize($serialized);
         }
+
+        /**
+         * @return Collection<int, Test>
+         */
+        public function getTests(): Collection
+        {
+            return $this->tests;
+        }
+
+        public function addTest(Test $test): self
+        {
+            if (!$this->tests->contains($test)) {
+                $this->tests[] = $test;
+                $test->setIdUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeTest(Test $test): self
+        {
+            if ($this->tests->removeElement($test)) {
+                // set the owning side to null (unless already changed)
+                if ($test->getIdUser() === $this) {
+                    $test->setIdUser(null);
+                }
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, Reponse>
+         */
+        public function getReponses(): Collection
+        {
+            return $this->reponses;
+        }
+
+        public function addReponse(Reponse $reponse): self
+        {
+            if (!$this->reponses->contains($reponse)) {
+                $this->reponses[] = $reponse;
+                $reponse->setIdUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeReponse(Reponse $reponse): self
+        {
+            if ($this->reponses->removeElement($reponse)) {
+                // set the owning side to null (unless already changed)
+                if ($reponse->getIdUser() === $this) {
+                    $reponse->setIdUser(null);
+                }
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, Evaluation>
+         */
+        public function getEvaluations(): Collection
+        {
+            return $this->evaluations;
+        }
+
+        public function addEvaluation(Evaluation $evaluation): self
+        {
+            if (!$this->evaluations->contains($evaluation)) {
+                $this->evaluations[] = $evaluation;
+                $evaluation->setIduser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeEvaluation(Evaluation $evaluation): self
+        {
+            if ($this->evaluations->removeElement($evaluation)) {
+                // set the owning side to null (unless already changed)
+                if ($evaluation->getIduser() === $this) {
+                    $evaluation->setIduser(null);
+                }
+            }
+
+            return $this;
+        }
+
+        
     
 }

@@ -60,7 +60,13 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "symfony/flex": true
+        },
+        "platform": {
+            "php": "8.0.15"
+         }
     },
     "autoload": {
         "psr-4": {
