@@ -107,7 +107,7 @@ class Test
         return $this->id;
     }
 
-    public function getIduser(): ?int
+    public function getIduser(): ?User
     {
         return $this->iduser;
     }
@@ -179,13 +179,14 @@ class Test
         return $this;
     }
 
-    public function getDatecreation(): ?\DateTimeInterface
+    public function getDatecreation(): ?\DateTime
     {
         return $this->datecreation;
     }
 
     public function setDatecreation(\DateTimeInterface $datecreation): self
     {
+        
         $this->datecreation = $datecreation;
 
         return $this;
