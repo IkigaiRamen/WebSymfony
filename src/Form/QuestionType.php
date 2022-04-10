@@ -16,7 +16,7 @@ class QuestionType extends AbstractType
             ->add('enonce')
             //->add('datemodification')
             //->add('datecreation')
-            ->add('test')
+            //->add('test')
         ;
     }
 

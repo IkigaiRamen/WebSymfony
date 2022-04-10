@@ -47,13 +47,13 @@ class Evaluation
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="evaluations")
-     * @ORM\JoinColumn(name="idUser", nullable=false)
+     * @ORM\JoinColumn(name="idUser", nullable=false, referencedColumnName="id")
      */
     private $iduser;
 
     /**
      * @ORM\ManyToOne(targetEntity=Test::class, inversedBy="evaluations")
-     * @ORM\JoinColumn(name="idTest", nullable=false)
+     * @ORM\JoinColumn(name="idTest", nullable=false,referencedColumnName="idTest")
      */
     private $idtest;
 

@@ -24,21 +24,21 @@ class Reponse
     /**
      *
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reponses")
-     * @ORM\JoinColumn(name="idUser", nullable=false)
+     * @ORM\JoinColumn(name="idUser", nullable=false, referencedColumnName="id")
      */
     private $iduser;
 
     /**
      *
      * @ORM\ManyToOne(targetEntity=Test::class, inversedBy="reponses")
-     * @ORM\JoinColumn(name="idTest", nullable=false)
+     * @ORM\JoinColumn(name="idTest", nullable=false, referencedColumnName="idTest")
      */
     private $idtest;
 
     /**
      *
      * @ORM\ManyToOne(targetEntity=Choix::class, inversedBy="reponses")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="idChoix", nullable=false, referencedColumnName="idChoix")
      */
     private $idchoix;
 

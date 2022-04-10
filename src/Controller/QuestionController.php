@@ -39,6 +39,9 @@ class QuestionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $time = new \DateTime('@'.strtotime('now'));
+            $question->setDatecreation($time);
+            $question->setDatemodification($time);
             $entityManager->persist($question);
             $entityManager->flush();
 

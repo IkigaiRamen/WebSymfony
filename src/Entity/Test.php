@@ -70,14 +70,14 @@ class Test
      *
      * @ORM\Column(name="dateCreation", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $datecreation = 'CURRENT_TIMESTAMP';
+    private $datecreation;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateModification", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $datemodification = 'CURRENT_TIMESTAMP';
+    private $datemodification;
 
     /**
      * @ORM\OneToMany(targetEntity=Question::class, mappedBy="Test", orphanRemoval=true)

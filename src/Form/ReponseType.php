@@ -13,9 +13,9 @@ class ReponseType extends AbstractType
     {
         $builder
             ->add('correct')
-            ->add('iduser')
-            ->add('idtest')
-            ->add('idchoix')
+            //->add('iduser')
+            //->add('idtest')
+            //->add('idchoix')
         ;
     }
 

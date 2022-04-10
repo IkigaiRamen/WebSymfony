@@ -39,6 +39,9 @@ class TestController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $time = new \DateTime('@'.strtotime('now'));
+            $test->setDatecreation($time);
+            $test->setDatemodification($time);
             $entityManager->persist($test);
             $entityManager->flush();
 
@@ -70,6 +73,8 @@ class TestController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $time = new \DateTime('@'.strtotime('now'));
+            $test->setDatemodification($time);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_test_index', [], Response::HTTP_SEE_OTHER);
