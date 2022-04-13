@@ -565,11 +565,11 @@
 
                   <h4><a href="{{ path('annonce_show', {id: annoncex.id}) }}">{{annoncex.titre}}</a></h4>
                   <div class="info">
-                  {% if annoncex.user.role == 'ROLE_TRAVAILLEUR' %}
+           {#       {% if annoncex.user.role == 'ROLE_TRAVAILLEUR' %} #}
                     <span class="company"><a href="#"><i data-feather="briefcase"></i>{{annoncex.user.job}}</a></span>
-                    {% else %}
+                  {#   {% else %}
                       <span class="company"><a href="#"><i data-feather="briefcase"></i>{{annoncex.user.societe}}</a></span>
-{% endif %}
+{% endif %}#}
                     <span class="office-location"><a href="#"><i data-feather="map-pin"></i>{{annoncex.city}}</a></span>
                     <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>{{annoncex.type}}</a></span>
                   </div>
