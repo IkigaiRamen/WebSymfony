@@ -47,7 +47,7 @@ class Test
     /**
      * @var int|null
      *
-     * @ORM\Column(name="maxScore", type="integer", nullable=true)
+     * @ORM\Column(name="maxScore", type="integer", nullable=true, options={"default"="100"})
      */
     private $maxscore;
 

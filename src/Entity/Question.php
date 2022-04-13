@@ -33,7 +33,7 @@ class Question
     /**
      * @var int
      *
-     * @ORM\Column(name="score", type="integer", nullable=false)
+     * @ORM\Column(name="score", type="integer", nullable=true, options={"default"="0"})
      */
     private $score;
 

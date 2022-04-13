@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Choix;
+use App\Entity\Question;
 use App\Form\ChoixType;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,5 +94,25 @@ class ChoixController extends AbstractController
         }
 
         return $this->redirectToRoute('app_choix_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    
+    public function newChoixQuestion(EntityManagerInterface $entityManager, array $choices, Question $question): Response
+    {
+        
+        for($i = 0; $i < count($choices); $i++){
+            $choix = new Choix();
+            $choix ->setQuestion($question);
+            $choix ->setContenu($choices[$i]);
+            if($i ==0)
+                $choix ->setCorrect(true);
+            else
+                $choix ->setCorrect(false);
+            $entityManager->persist($choix);
+        }
+        
+            $entityManager->flush();
+
+        return new Response("3 choix Ajoutés");
     }
 }

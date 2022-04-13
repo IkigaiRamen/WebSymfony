@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Entity\Choix;
+use App\Entity\Test;
 use App\Form\QuestionType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/question")
@@ -30,28 +33,38 @@ class QuestionController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_question_new", methods={"GET", "POST"})
+     * @Route("/new/{testId}", name="app_question_new", methods={"GET", "POST"})
+     * @ParamConverter("test", options={"id" = "testId"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Test $test): Response
     {
-        $question = new Question();
-        $form = $this->createForm(QuestionType::class, $question);
-        $form->handleRequest($request);
+        if ($request->isMethod('post')) {
+            ////////////////made it here /////////////////////
+            
+            $question = new Question();
+            $question->setEnonce($request->get('enonce'));
+            $question->setTest($test);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+
             $time = new \DateTime('@'.strtotime('now'));
             $question->setDatecreation($time);
             $question->setDatemodification($time);
             $entityManager->persist($question);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_question_index', [], Response::HTTP_SEE_OTHER);
+/*
+            $this->forward('App\Controller\ChoixController::newChoixQuestion', [
+                'choices'  => [$request->get('choix1'),$request->get('choix2'),$request->get('choix3')],
+                'question' => $question,
+            ]);            
+*/
+            //return new Response(); 
         }
-
+        return $this->render('question/new.html.twig', ['testId'=>$test->getId()]);
+        /*
         return $this->render('question/new.html.twig', [
             'question' => $question,
             'form' => $form->createView(),
-        ]);
+        ]);*/
     }
 
     /**

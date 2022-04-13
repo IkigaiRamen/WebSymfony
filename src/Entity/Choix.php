@@ -33,7 +33,7 @@ class Choix
     /**
      * @var bool
      *
-     * @ORM\Column(name="correct", type="boolean", nullable=false)
+     * @ORM\Column(name="correct", type="boolean", nullable=false, options={"default"=false})
      */
     private $correct;
 

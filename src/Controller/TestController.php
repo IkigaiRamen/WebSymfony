@@ -35,23 +35,26 @@ class TestController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $test = new Test();
-        $form = $this->createForm(TestType::class, $test);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        //$form = $this->createForm(TestType::class, $test);
+        //$form->handleRequest($request);
+            
+ 
+        if ($request->isMethod('POST')) {
             $time = new \DateTime('@'.strtotime('now'));
             $test->setDatecreation($time);
             $test->setDatemodification($time);
+            $test->setDuree($request->get('duree'));
+            $test->setNbrtentative($request->get('nbrTent'));
+            $test->setTitre($request->get('titre'));
             $entityManager->persist($test);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_test_index', [], Response::HTTP_SEE_OTHER);
+            $id = $test->getId();
+            return $this->redirectToRoute('app_question_new', ['test'=>$id], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('test/new.html.twig', [
-            'test' => $test,
-            'form' => $form->createView(),
+            
         ]);
+        
     }
 
     /**
