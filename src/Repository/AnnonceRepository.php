@@ -63,16 +63,14 @@ class AnnonceRepository extends ServiceEntityRepository
     }
 
 
-    public function findExactDemandeDemploi($sex,$exp,$categorie): array
+
+    public function findExactDemandeDemploi($id): array
     {
         //$r = '["ROLE_TRAVAILLEUR"]';
         return $this->createQueryBuilder('a')
-        ->andWhere('a.sex = :s')
-        ->setParameter('s', $sex)
-        ->andWhere('a.exp = :ex')
-        ->setParameter('ex', $exp)
-        ->andWhere('a.categorie = :a')
-        ->setParameter('a', $categorie)
+        ->andWhere('a.id = :s')
+        ->setParameter('s', $id)
+
         ->getQuery()
         ->getResult()
     ;

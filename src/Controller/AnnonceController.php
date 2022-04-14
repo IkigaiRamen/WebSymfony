@@ -113,10 +113,10 @@ class AnnonceController extends AbstractController
         $annonce = $this->getDoctrine()
         ->getRepository(Annonce::class)
         ->find($id);
-        $sex = $annonce->getSex();
+      /*  $sex = $annonce->getSex();
         $exp = $annonce->getExp();
-        $job = $annonce->getCategorie();
-        $annoncex =$ar->findExactDemandeDemploi($sex,$exp,$job);
+        $job = $annonce->getCategorie();*/
+        $annoncex =$ar->findExactDemandeDemploi($id);
     if (!$annonce) {
         throw $this->createNotFoundException(
             'No Annonce found for titre '.$id

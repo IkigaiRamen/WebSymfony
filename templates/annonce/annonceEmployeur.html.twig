@@ -1,0 +1,56 @@
+{% extends 'base2.html.twig' %}
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
+{% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+
+
+
+
+    <div class="apply-popup">
+        <div class="modal fade" id="apply-popup-id" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        {% if annonce.user.roles[0]  == 'ROLE_EMPLOYEUR'%}
+                            <h5 class="modal-title"><i data-feather="edit"></i>Postulez pour cette travail</h5>
+                        {% else %}
+                            <h5 class="modal-title"><i data-feather="edit"></i>Contacter Travailleur</h5>
+                        {% endif %}
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_start(formApply)}}
+                        <div class="form-group">
+                            <h5>{{app.user.firstname}} {{app.user.lastname}}   </h5>
+                        </div>
+                        <div class="form-group">
+                            <h5>{{app.user.email}}    </h5>
+                        </div>
+                        <div class="form-group">
+                            {{ form_widget(formApply.description, {'attr': {'class': 'form-control' , 'placeholder': 'Message'} }) }}
+                        </div>
+                        <div class="more-option">
+                            <input class="custom-radio" type="checkbox" id="radio-4" name="termsandcondition">
+                            <label for="radio-4">
+                                <span class="dot"></span> J'accepte<a href="#"> Les termes et conditions</a>
+                            </label>
+                        </div>
+                        {{ form_widget(formApply.Postulez, {'attr': {'class': 'button primary-bg btn-block' , 'label': 'Postulez'} }) }}
+
+                        {{form_end(formApply)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
+
+
+{% endblock %}
