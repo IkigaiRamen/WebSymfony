@@ -1,0 +1,87 @@
+{% extends 'base2.html.twig' %}
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
+{% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+    <!-- Breadcrumb -->
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Messagerie</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Messagerie</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <div class="alice-bg section-padding-bottom">
+    <div class="container no-gliters">
+        <div class="row no-gliters">
+            <div class="col">
+                <div class="dashboard-container">
+                    <div class="dashboard-content-wrapper">
+                        <div class="manage-job-container">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>De</th>
+                                    <th>Sujet</th>
+                                    <th>Date </th>
+                                    <th class="action">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for message in app.user.received %}
+                                    <tr class="job-items">
+                                        <td class="title">
+
+                                            <h5><a href="{{ path('annonce_show', {id: annonces.id}) }}">{{annonces.titre}}</a></h5>
+                                            <div class="info">
+                                                <span class="office-location"><a href="#"><i data-feather="map-pin"></i>{{annonces.city}}</a></span>
+                                                <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>{{annonces.type}}</a></span>
+                                            </div>
+                                        </td>
+                                        <td class="application"><a href="#">6 Application(s)</a></td>
+                                        <td class="deadline">{{annonces.expire|date('d-m-Y')}}</td>
+                                        <td class="status active">Active</td>
+                                        <td class="action">
+                                            <a href="{{ path('annonce_show', {id: annonces.id}) }}" class="preview" title="Preview"><i data-feather="eye"></i></a>
+                                            <a href="{{ path('Myannonce_showEmployer', {id: annonces.id}) }}" class="edit" title="Edit"><i data-feather="edit"></i></a>
+                                            <a href="#" class="remove" title="Delete"><i data-feather="trash-2"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {%block sidebar%}    {{ parent() }}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
+
+
+{% endblock %}

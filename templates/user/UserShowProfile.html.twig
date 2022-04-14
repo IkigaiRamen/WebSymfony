@@ -269,7 +269,7 @@
                       <h4><i data-feather="book"></i>Education</h4>
                       {% if user.titre1 is null %}
 
-                            <h3>Cette Section est vide <h3>
+                            <h3>Cette Section est vide </h3>
                          {% else %}
                                 <div class="education-label">
                                     <span class="study-year">{{ user.periode1 }}</span>
@@ -293,7 +293,7 @@
                       
                       {% if user.work1 is null %}
 
-                            <h3>Cette Section est vide <h3>
+                            <h3>Cette Section est vide </h3>
                          {% else %}
                                 <div class="experience-section">
                                     <span class="service-year">{{ user.workperiod1 }}</span>
@@ -320,7 +320,7 @@
                       <ul>
                         {% if app.user.qualification1 is null %}
 
-                            <h3>Cette Section est vide <h3>
+                            <h3>Cette Section est vide </h3>
                          {% else %}                           
                              <ul>
                                 <li>{{app.user.qualification1}}</li>

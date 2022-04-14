@@ -23,7 +23,12 @@ class UserCrudController extends AbstractCrudController
             
             TextField::new('email'),
             TextField::new('job'),
-            //TextareaField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
+            TextField::new('firstname'),
+            TextField::new('lastname'),
+            TextField::new('num_tel'),
+          //  TextField::new('exp'),
+            TextField::new('sex'),
+           // TextField::new('roles'),
             TextareaField::new('imageFile')->setFormType(VichImageType::class),
             ImageField::new('image')
             ->setBasePath($this->getParameter("app.path.product_images"))

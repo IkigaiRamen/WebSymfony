@@ -21,9 +21,8 @@ class AnnonceCrudController extends AbstractCrudController
     {
         return [
             AssociationField::new('user'),
-            TextField::new('titre'),
-            AssociationField::new('categorie'),
-            TextEditorField::new('description'),
+            TextField::new('Titre'),
+            TextEditorField::new('Description'),
         ];
     }
     
