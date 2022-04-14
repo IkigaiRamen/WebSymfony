@@ -48,23 +48,27 @@
                                 </thead>
                                 <tbody>
                                 {% for message in app.user.received %}
+                                    {% set bold = "" %}
+                                    {% if message.isRead == 0 %}
+                                        {% set bold = "fw-bold" %}
+                                    {% endif %}
                                     <tr class="job-items">
                                         <td class="title">
 
-                                            <h5><a href="{{ path('annonce_show', {id: annonces.id}) }}">{{annonces.titre}}</a></h5>
+                                            <h5>{{ message.sender.email }}</h5>
                                             <div class="info">
-                                                <span class="office-location"><a href="#"><i data-feather="map-pin"></i>{{annonces.city}}</a></span>
-                                                <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>{{annonces.type}}</a></span>
+                                                <span class="office-location"><a href="#"><i data-feather="map-pin"></i>{{ message.title }}</a></span>
+                                                <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>{{ message.createdAt|date }}</a></span>
                                             </div>
                                         </td>
                                         <td class="application"><a href="#">6 Application(s)</a></td>
                                         <td class="deadline">{{annonces.expire|date('d-m-Y')}}</td>
-                                        <td class="status active">Active</td>
+                                      {#   <td class="status active">Active</td>
                                         <td class="action">
                                             <a href="{{ path('annonce_show', {id: annonces.id}) }}" class="preview" title="Preview"><i data-feather="eye"></i></a>
                                             <a href="{{ path('Myannonce_showEmployer', {id: annonces.id}) }}" class="edit" title="Edit"><i data-feather="edit"></i></a>
                                             <a href="#" class="remove" title="Delete"><i data-feather="trash-2"></i></a>
-                                        </td>
+                                        </td>#}
                                     </tr>
                                 {% endfor %}
                                 </tbody>

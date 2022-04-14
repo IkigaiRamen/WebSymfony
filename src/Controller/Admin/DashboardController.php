@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Entity\Annonce;
 use App\Entity\Apply;
-use App\Entity\Categorie;
 use App\Entity\Messages;
 
 class DashboardController extends AbstractDashboardController

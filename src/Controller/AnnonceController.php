@@ -108,7 +108,7 @@ class AnnonceController extends AbstractController
      * @Route("/annonce/{id}", name="annonce_show")
      */
     
-    public function show(int $id, Request $request ,UserRepository $ur,AnnonceRepository $ar): Response
+        public function show(int $id, Request $request ,UserRepository $ur,AnnonceRepository $ar): Response
     {
         $annonce = $this->getDoctrine()
         ->getRepository(Annonce::class)

@@ -1,9 +1,8 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Messagerie
-{% endblock %}
-
+{% extends 'base2.html.twig' %}
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
+	{% block con %}    {{ parent() }} {% endblock %}
+
 	<section class="container">
 		<div class="row">
 			<div class="col-12">
@@ -59,4 +58,13 @@
 			</div>
 		</div>
 	</div>
+
+
+
+	{% block action %} {{ parent() }} {% endblock %}
+	{% block footer %} {{ parent() }} {% endblock %}
+
+
+
+
 {% endblock %}
