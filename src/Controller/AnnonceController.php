@@ -104,6 +104,24 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/annonce/remove/{id}", name="annonce_remove")
+     */
+
+    public function remove(int $id, Request $request ,UserRepository $ur,AnnonceRepository $ar): Response
+    {
+        $annonce = $this->getDoctrine()
+            ->getRepository(Annonce::class)
+            ->find($id);
+
+        $doctrine = $this->getDoctrine()->getManager();
+        $doctrine->remove($annonce);
+        $doctrine->flush();
+        return $this->redirect($request->getUri());
+    }
+
+
     /**
      * @Route("/annonce/{id}", name="annonce_show")
      */

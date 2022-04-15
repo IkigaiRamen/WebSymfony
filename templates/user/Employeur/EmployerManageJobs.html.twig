@@ -72,7 +72,7 @@
                         <td class="action">
                           <a href="{{ path('annonce_show', {id: annonces.id}) }}" class="preview" title="Preview"><i data-feather="eye"></i></a>
                           <a href="{{ path('Myannonce_showEmployer', {id: annonces.id}) }}" class="edit" title="Edit"><i data-feather="edit"></i></a>
-                          <a href="#" class="remove" title="Delete"><i data-feather="trash-2"></i></a>
+                          <a href="{{ path('annonce_remove', {id: annonces.id}) }}" class="remove" title="Delete"><i data-feather="trash-2"></i></a>
                         </td>
                       </tr>
                        {% endif %}

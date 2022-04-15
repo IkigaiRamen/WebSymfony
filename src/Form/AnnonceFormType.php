@@ -78,7 +78,7 @@ class AnnonceFormType extends AbstractType
             ])
                 ->add('sex',ChoiceType::class,[
                     'choices'=>[
-                        'Non spécifié'=>'Sex',
+                        'Non spécifié'=>'Sexe',
                         'Homme'=>'Homme',
                         'Femme'=>'Femme'
                     ]
