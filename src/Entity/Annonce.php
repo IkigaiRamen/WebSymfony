@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
  */
@@ -21,16 +21,12 @@ class Annonce
     private $id;
 
     /**
-     * @Assert\NotBlank
-     * @Assert\Regex(pattern="/^[a-zA-z]*$/" ,match=true ,message="seuls les alphabets sont autorisés")
      * @ORM\Column(type="string", length=255)
      */
     private $titre;
 
 
     /**
-     * @Assert\Regex(pattern="/^[a-zA-z]*$/" ,match=true ,message="seuls les alphabets sont autorisés")
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255,nullable=true)
      */
     private $location;
@@ -46,13 +42,11 @@ class Annonce
     private $exp;
 
     /**
-     * @Assert\Type(type="integer" , message ="seulement des chiffres")
      * @ORM\Column(type="string", length=255)
      */
     private $salairemin;
 
     /**
-     * @Assert\Type(type="integer" , message ="seulement des chiffres")
      * @ORM\Column(type="string", length=255)
      */
     private $salairemax;
@@ -69,7 +63,6 @@ class Annonce
     private $sex;
 
     /**
-     *
      * @ORM\Column(type="string", length=255)
      */
     private $description;

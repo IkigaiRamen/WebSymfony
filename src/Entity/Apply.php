@@ -146,9 +146,9 @@ class Apply
         return $this->city;
     }
 
-    public function setJob(string $city): self
+    public function setJob(string $job): self
     {
-        $this->jon = $job;
+        $this->job = $job;
 
         return $this;
     }
