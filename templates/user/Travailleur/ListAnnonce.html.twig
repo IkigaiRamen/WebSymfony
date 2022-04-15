@@ -56,9 +56,11 @@
                                             <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>{{app.user.annonces[0].type}}</a></span>
                                         </div>
                                     </td>
-                                    <td class="application"><a href="#">6 Application(s)</a></td>
-                                    <td class="deadline">{{app.user.annonces[0].expire}}</td>
-                                    <td class="status active">Active</td>
+                                    <td class="application"><a href="#">{{ annonces.apply|length }}</a></td>
+                                    <td class="deadline">{{app.user.annonces[0].expire|date('d-m-Y')}}</td>
+                                    {{% if app.user.annonces[0].expire|date('d-m-Y') < 'now'|date('d - m -Y') }}
+                                    <td class="status active">Inactive</td>
+                                    {% endif %}
                                     <td class="action">
                                         <a href="#" class="preview" title="Preview"><i data-feather="eye"></i></a>
                                         <a href="#" class="edit" title="Edit"><i data-feather="edit"></i></a>

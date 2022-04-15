@@ -48,8 +48,11 @@
                       </tr>
                     </thead>
                     <tbody>
+
                    {% for annonces in app.user.annonces %}
-                      <tr class="job-items">
+                       {% if annonces.user.id==app.user.id %}
+
+                           <tr class="job-items">
                         <td class="title">
                         
                           <h5><a href="{{ path('annonce_show', {id: annonces.id}) }}">{{annonces.titre}}</a></h5>
@@ -58,15 +61,21 @@
                             <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>{{annonces.type}}</a></span>
                           </div>
                         </td>
-                        <td class="application"><a href="#">6 Application(s)</a></td>
+                        <td class="application"><a href="#">{{ annonces.apply|length }}</a></td>
                         <td class="deadline">{{annonces.expire|date('d-m-Y')}}</td>
-                        <td class="status active">Active</td>
+                          {% if 'now'|date('d-m-Y') < annonces.expire|date('d-m-Y')  %}
+                          <td class="status active">Active</td>
+                              {% else %}
+                                  <td class="status expired">Inactive</td>
+
+                          {% endif %}
                         <td class="action">
                           <a href="{{ path('annonce_show', {id: annonces.id}) }}" class="preview" title="Preview"><i data-feather="eye"></i></a>
                           <a href="{{ path('Myannonce_showEmployer', {id: annonces.id}) }}" class="edit" title="Edit"><i data-feather="edit"></i></a>
                           <a href="#" class="remove" title="Delete"><i data-feather="trash-2"></i></a>
                         </td>
                       </tr>
+                       {% endif %}
                     {% endfor %}
                     </tbody>
                   </table>

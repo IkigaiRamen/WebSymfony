@@ -150,10 +150,6 @@ class AnnonceController extends AbstractController
         $apply->setJob($userjob);
         $apply->setCity($usercity);
         $apply->setImage($userimage);
-
-
-        
-
         $doctrine = $this->getDoctrine()->getManager();
         $doctrine->persist($apply);
         $doctrine->flush();
