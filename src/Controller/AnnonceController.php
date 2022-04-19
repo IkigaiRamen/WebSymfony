@@ -104,19 +104,37 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/annonce/remove/{id}", name="annonce_remove")
+     */
+
+    public function remove(int $id, Request $request ,UserRepository $ur,AnnonceRepository $ar): Response
+    {
+        $annonce = $this->getDoctrine()
+            ->getRepository(Annonce::class)
+            ->find($id);
+
+        $doctrine = $this->getDoctrine()->getManager();
+        $doctrine->remove($annonce);
+        $doctrine->flush();
+        return $this->redirect($request->getUri());
+    }
+
+
     /**
      * @Route("/annonce/{id}", name="annonce_show")
      */
     
-    public function show(int $id, Request $request ,UserRepository $ur,AnnonceRepository $ar): Response
+        public function show(int $id, Request $request ,UserRepository $ur,AnnonceRepository $ar): Response
     {
         $annonce = $this->getDoctrine()
         ->getRepository(Annonce::class)
         ->find($id);
-        $sex = $annonce->getSex();
+      /*  $sex = $annonce->getSex();
         $exp = $annonce->getExp();
-        $job = $annonce->getCategorie();
-        $annoncex =$ar->findExactDemandeDemploi($sex,$exp,$job);
+        $job = $annonce->getCategorie();*/
+        $annoncex =$ar->findExactDemandeDemploi($id);
     if (!$annonce) {
         throw $this->createNotFoundException(
             'No Annonce found for titre '.$id
@@ -150,10 +168,6 @@ class AnnonceController extends AbstractController
         $apply->setJob($userjob);
         $apply->setCity($usercity);
         $apply->setImage($userimage);
-
-
-        
-
         $doctrine = $this->getDoctrine()->getManager();
         $doctrine->persist($apply);
         $doctrine->flush();

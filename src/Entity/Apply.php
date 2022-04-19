@@ -148,7 +148,7 @@ class Apply
 
     public function setJob(string $job): self
     {
-        $this->jon = $job;
+        $this->job = $job;
 
         return $this;
     }

@@ -11,7 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Entity\Annonce;
 use App\Entity\Apply;
-use App\Entity\Categorie;
 use App\Entity\Messages;
 use App\Entity\Reponse;
 
@@ -36,7 +35,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Admin DASHBOARD');
+            ->setTitle('DASHBOARD Administrateur');
     }
 
     public function configureMenuItems(): iterable
@@ -44,8 +43,7 @@ class DashboardController extends AbstractDashboardController
        // yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Les Utilisateurs', 'fas fa-list', User::class);
         yield MenuItem::linkToCrud('Les Annonces', 'fas fa-list', Annonce::class);
-        yield MenuItem::linkToCrud('Les Categories', 'fas fa-list', Categorie::class);
-        yield MenuItem::linkToCrud('Les Apply', 'fas fa-list', Apply::class);
+        yield MenuItem::linkToCrud('Les Demandes', 'fas fa-list', Apply::class);
         yield MenuItem::linkToCrud('Les Messages', 'fas fa-list', Messages::class);
 
     }

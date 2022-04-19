@@ -19,6 +19,8 @@ class AnnonceRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonce::class);
     }
 
+
+
     public function findOneByCityandExp($city,$exp,$type,$sex,$qualification,$categorie): array
     {
         return $this->createQueryBuilder('a')
@@ -39,11 +41,11 @@ class AnnonceRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findbyTitre($titre): array
+    public function findbyID($id): array
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.titre = :tit')
-            ->setParameter('tit', $titre)
+            ->andWhere('a.user_id = :tit')
+            ->setParameter('tit', $id)
             ->getQuery()
             ->getResult()
         ;
@@ -63,16 +65,14 @@ class AnnonceRepository extends ServiceEntityRepository
     }
 
 
-    public function findExactDemandeDemploi($sex,$exp,$categorie): array
+
+    public function findExactDemandeDemploi($id): array
     {
         //$r = '["ROLE_TRAVAILLEUR"]';
         return $this->createQueryBuilder('a')
-        ->andWhere('a.sex = :s')
-        ->setParameter('s', $sex)
-        ->andWhere('a.exp = :ex')
-        ->setParameter('ex', $exp)
-        ->andWhere('a.categorie = :a')
-        ->setParameter('a', $categorie)
+        ->andWhere('a.id = :s')
+        ->setParameter('s', $id)
+
         ->getQuery()
         ->getResult()
     ;

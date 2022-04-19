@@ -1,19 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 {% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
     {% block con %}    {{ parent() }} {% endblock %}
-
     <!-- Breadcrumb -->
     <div class="alice-bg padding-top-70 padding-bottom-70">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <div class="breadcrumb-area">
-                        <h1>Annonces</h1>
+                        <h1>Messagerie</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Mes annonces</li>
+                                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Messagerie</li>
                             </ol>
                         </nav>
                     </div>
@@ -41,49 +40,41 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>Titre</th>
-                                    <th>Demandes</th>
-                                    <th>Date Limite</th>
-                                    <th>Etat</th>
+                                    <th>De</th>
+                                    <th>Sujet</th>
+                                    <th>Date </th>
                                     <th class="action">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for annonces in app.user.annonces %}
+                                {% for message in app.user.received %}
+                                    {% set bold = "" %}
+                                    {% if message.isRead == 0 %}
+                                        {% set bold = "fw-bold" %}
+                                    {% endif %}
                                     <tr class="job-items">
                                         <td class="title">
-                                            <h5><a href="{{ path('annonce_show', {id: annonces.id}) }}">{{annonces.titre}}</a></h4>
 
-                                                <div class="info">
-                                                    <span class="office-location"><a href="#"><i data-feather="map-pin"></i>{{annonces.city}}</a></span>
-                                                    <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>{{annonces.type}}</a></span>
-                                                </div>
+                                            <h5>{{ message.sender.email }}</h5>
+                                            <div class="info">
+                                                <span class="office-location"><a href="#"><i data-feather="map-pin"></i>{{ message.title }}</a></span>
+                                                <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>{{ message.createdAt|date }}</a></span>
+                                            </div>
                                         </td>
-                                        <td class="application"><a href="#"></a></td>
+                                        <td class="application"><a href="#">6 Application(s)</a></td>
                                         <td class="deadline">{{annonces.expire|date('d-m-Y')}}</td>
-                                        {% if date(annonces.expire) > date() %}
-                                            <td class="status active">Active</td>
-                                        {% else %}
-                                            <td class="status expired">Expiré</td>
-                                        {% endif %}
+                                      {#   <td class="status active">Active</td>
                                         <td class="action">
-
                                             <a href="{{ path('annonce_show', {id: annonces.id}) }}" class="preview" title="Preview"><i data-feather="eye"></i></a>
-                                            <a href="{{ path('Myannonce_show', {id: annonces.id}) }}" class="edit" title="Edit"><i data-feather="edit"></i></a>
-                                            <a href="{{ path('annonce_remove', {id: annonces.id}) }}" class="remove" title="Delete"><i data-feather="trash-2"></i></a>
-
-
-
-
-
-                                        </td>
+                                            <a href="{{ path('Myannonce_showEmployer', {id: annonces.id}) }}" class="edit" title="Edit"><i data-feather="edit"></i></a>
+                                            <a href="#" class="remove" title="Delete"><i data-feather="trash-2"></i></a>
+                                        </td>#}
                                     </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
                     {%block sidebar%}    {{ parent() }}
                     {% endblock %}
                 </div>

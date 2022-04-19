@@ -12,11 +12,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Il y' a un compte crée pour cette email déja")
  * * @Vich\Uploadable
  */
 class User implements UserInterface, \Serializable
@@ -29,11 +30,13 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=30, unique=true)
      */
     private $username;
@@ -77,12 +80,14 @@ class User implements UserInterface, \Serializable
 
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=90, nullable=true)
      */
     private $lastname;
 
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=90, nullable=true)
      */
     private $firstname;
@@ -135,6 +140,7 @@ class User implements UserInterface, \Serializable
     private $etat;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $sex;

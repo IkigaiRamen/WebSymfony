@@ -1,25 +1,56 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Messagerie
-{% endblock %}
-
+{% extends 'base2.html.twig' %}
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
-	<section class="container">
-		<div class="row">
-			<div class="col-12">
-				<h1>Messagerie</h1>
-                <h2>{{ message.title }}</h2>
-                <p>Message de {{ message.sender.email }}</p>
-                <p>Le {{ message.createdAt|date }}</p>
-                <div>{{ message.message }}</div>
-				<a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-					Voir mes dossiers
-				</a>
-                <a href="{{path("received")}}" class="btn btn-primary">Retour à la boite de réception</a>
+	{% block con %}    {{ parent() }} {% endblock %}
+
+
+
+<div class="alice-bg section-padding-bottom">
+	<div class="container no-gliters">
+		<div class="row no-gliters">
+			<div class="col">
+				<div class="dashboard-container">
+					<div class="dashboard-content-wrapper">
+						<div class="manage-job-container">
+							<table class="table">
+								<thead>
+								<tr>
+									<th>Titre</th>
+									<th>Personne</th>
+									<th>recu le :</th>
+									<th>Message</th>
+									<th class="action">Action</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr class="job-items">
+									<td class="title"><h5>{{ message.title }}</h5></td>
+									<td class="title"><h5>Message de {{ message.sender.email }}</h5></td>
+									<td class="title"><h5>Le {{ message.createdAt|date }}</h5></td>
+									<td class="title"><h5>{{ message.message }}</h5></td>
+									<td><a href="{{path("received")}}" class="btn btn-primary">Retour à la boite de réception</a></td>
+
+									{#  	<td class="action">
+											<a href="{{ path('annonce_show', {id: annonces.id}) }}" class="preview" title="Preview"><i data-feather="eye"></i></a>
+											<a href="{{ path('Myannonce_showEmployer', {id: annonces.id}) }}" class="edit" title="Edit"><i data-feather="edit"></i></a>
+											<a href="#" class="remove" title="Delete"><i data-feather="trash-2"></i></a>
+										</td>#}
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					{%block sidebar%}    {{ parent() }}
+					{% endblock %}
+				</div>
 			</div>
 		</div>
-	</section>
-	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+	</div>
+
+
+
+
+{# 	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 		<div class="offcanvas-header">
 			<h2 class="offcanvas-title" id="offcanvasExampleLabel">Mes dossiers</h2>
 			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -36,4 +67,15 @@
             </div>
 		</div>
 	</div>
+#}
+
+
+
+
+	{% block action %} {{ parent() }} {% endblock %}
+	{% block footer %} {{ parent() }} {% endblock %}
+
+
+
+
 {% endblock %}

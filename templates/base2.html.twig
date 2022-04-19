@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +34,6 @@
 <body>
 {% block body %}
 
-
 {% block con %}
     <header class="header-2">
         <div class="container">
@@ -47,11 +48,11 @@
                         </div>
                         <div class="top-nav">
                             <div class="dropdown header-top-account">
-                                <a href="#" class="account-button">My Account</a>
+                                <a href="#" class="account-button">Mon compte</a>
                                 <div class="account-card">
                                     <div class="header-top-account-info">
                                         <a href="#" class="account-thumb">
-                                            <img src="{{ asset("images\photo\04e3d5b4af0a62a7a5e0b5f997db9a84.jpg") }}" class="img-fluid" alt="">
+                                            <img src="  {{ asset("/uploads/images/products/#{app.user.getImage()}#")}}"class="img-fluid" alt="">
                                         </a>
                                         <div class="account-body">
                                             <h5><a href="#">{{ app.user.firstname}} {{ app.user.lastname }}</a></h5>
@@ -60,7 +61,7 @@
                                     </div>
                                     <ul class="account-item-list">
                                         <li><a href="#"><span class="ti-user"></span>Compte</a></li>
-                                        <li><a href="{{ path('app_logout') }}"><span class="ti-power-off"></span>Déconnexion</a></li>
+                                        <li><a href="#"><span class="ti-power-off"></span>Déconnexion</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -76,18 +77,28 @@
                                 <li class="menu-item dropdown">
                                     <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Offres de travail</a>
                                     <ul  class="dropdown-menu">
-                                        <li class="menu-item"><a  href="/annonce">Rechercher Emploi</a></li>
+                                        <li class="menu-item"><a  href="job-listing.html">Recherche annonces</a></li>
+
+                                        <li class="menu-item"><a  href="post-job.html">Publier offre</a></li>
                                     </ul>
                                 </li>
+                                <li class="menu-item dropdown">
+                                    <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Employeur</a>
+                                    <ul  class="dropdown-menu">
+                                        <li class="menu-item"><a  href="/Employeur/ModifierSociete">Modifier Société</a></li>
+                                    </ul>
+                                </li>
+
+
 
                                 <li class="menu-item dropdown">
                                     <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Dashboard</a>
                                     <ul class="dropdown-menu">
-                                        <li class="menu-item"><a  href="/user">Dashboard</a></li>
-                                        <li class="menu-item"><a  href="/travailleur/modifier">Modifier Profile</a></li>
-                                        <li class="menu-item"><a  href="/cv">Modifier CV</a></li>
-                                        <li class="menu-item"><a  href="/cv">Voir CV</a></li>
-                                        <li class="menu-item"><a  href="dashboard-applied.html">Applications postulés</a></li>
+
+                                        <li class="menu-item"><a  href="/Employeur/modifier">Modifier Profile</a></li>
+                                        <li class="menu-item"><a  href="/Employeur/ModifierSociete">Modifier Societe</a></li>
+                                        <li class="menu-item"><a  href="/Employeur/Societe">Societe</a></li>
+                                        <li class="menu-item"><a  href="/Employeur/GererEmploi">Mes annonces</a></li>
                                     </ul>
                                 </li>
 
@@ -98,7 +109,7 @@
                                         <li class="menu-item"><a href="how-it-work.html">Comment ça fonctionne</a></li>
                                     </ul>
                                 </li>
-                                <li class="menu-item post-job"><a href="post-job.html"><i class="fas fa-plus"></i>Rechercher Emploi</a></li>
+                                <li class="menu-item post-job"><a href="/Employeur/PublierOffre"><i class="fas fa-plus"></i>Publiez offre de travail</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -197,13 +208,13 @@
         </div>
         <div class="dashboard-menu">
             <ul>
-                <li class ="active"> <i class="fas fa-user"></i><a href="modifier">Modifier Profile</a></li>
-                <li><i class="fas fa-file-alt"></i><a href="cv">CV</a></li>
-                <li><i class="fas fa-edit"></i><a href="modifierCV">Modifier CV</a></li>
-                <li><i class="fas fa-plus-square"></i><a href="/travailleur/Publier">Publier demande d'emploi</a></li>
-                <li><i class="fas fa-heart"></i><a href="MesAnnonces">Liste des annonces</a></li>
-                <li><i class="fas fa-check-square"></i><a href="/travailleur/GererOffres">Liste de demandes</a></li>
-                <li><i class="fab fa-facebook-messenger"></i><a href="/travailleur/GererOffres">Messages</a></li>
+                <li   class="active"><i class="fas fa-user"></i><a href="modifier">Modifier Profile</a></li>
+                <li><i class="fas fa-file-alt"></i><a href="Societe">Societe</a></li>
+                <li><i class="fas fa-edit"></i><a href="/Employeur/ModifierSociete">Modifier Societe</a></li>
+                <li><i class="fas fa-heart"></i><a href="/Employeur/GererEmploi">Liste des annonces</a></li>
+                <li><i class="fas fa-check-square"></i><a href="/Employeur/GererCandidats">Liste des candidats</a></li>
+                <li><i class="fas fa-check-square"></i><a href="/Employeur/PublierOffre">Publiez offre</a></li>
+                <li><i class="fab fa-facebook-messenger"></i><a href="/message">Messages</a></li>
 
             </ul>
             <ul class="delete">
@@ -236,6 +247,7 @@
             </div>
         </div>
     </div>
+
 {% endblock %}
 
 {% block action %}
@@ -362,9 +374,11 @@
 
 
     </footer>
-{% endblock %}
 
+{% endblock %}
 {% endblock %}
 </body>
 
 </html>
+
+
