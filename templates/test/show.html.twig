@@ -39,6 +39,14 @@
                 <th>Datemodification</th>
                 <td>{{ test.datemodification ? test.datemodification|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
+            <tr>
+                <th>questions</th>
+             
+             {% for question in test.questions %}
+                <td><a href="{{ path('app_question_show', {'id':question.id}) }}"> {{question.enonce}}</a></td>
+            {% endfor %}
+              
+            </tr>
         </tbody>
     </table>
 

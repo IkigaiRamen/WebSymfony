@@ -13,6 +13,7 @@ use App\Entity\Annonce;
 use App\Entity\Apply;
 use App\Entity\Categorie;
 use App\Entity\Messages;
+use App\Entity\Reponse;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -29,6 +30,7 @@ class DashboardController extends AbstractDashboardController
         return $this->redirect($routeBuilder->setController(CategorieCrudController::class)->generateUrl());
         return $this->redirect($routeBuilder->setController(ApplyCrudController::class)->generateUrl());
         return $this->redirect($routeBuilder->setController(MessagesCrudController::class)->generateUrl());
+        return $this->redirect($routeBuilder->setController(ReponseCrudController::class)->generateUrl());
     }
 
     public function configureDashboard(): Dashboard
@@ -45,5 +47,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Les Categories', 'fas fa-list', Categorie::class);
         yield MenuItem::linkToCrud('Les Apply', 'fas fa-list', Apply::class);
         yield MenuItem::linkToCrud('Les Messages', 'fas fa-list', Messages::class);
+
     }
 }

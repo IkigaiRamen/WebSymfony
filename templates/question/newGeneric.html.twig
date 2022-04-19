@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Question{% endblock %}
+
+{% block body %}
+<style> 
+
+        .testContainer {
+            border-radius: 15px;
+            background: #00CED1;
+            padding: 20px;
+            width: 80vw;
+            overflow: auto;
+            display: block;
+            text-align: center;
+        }
+
+        .questionContainer {
+            border-radius: 15px;
+            background: #00CED1;
+            padding: 20px;
+            width: 80vw;
+            overflow: auto;
+            display: block;
+            text-align: center;
+
+        }           
+        .correct {
+            float: right;
+        }     
+    </style>
+    
+    <center>
+        <div class="questionContainer" id="newQuestion">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                <h6 class="section-title bg-white text-center text-primary px-3">Forum</h6>
+                <h1 class="mb-5">Créer Question</h1>
+            </div>
+            <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+  
+                <form method="post" action="{{ path('app_question_newg') }}" 
+                 name="qform" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                {% if certifs is defined and certifs is not null %}
+                                    <select class="form-control" name="certif" id="certif-select">
+                                        <option value="">--Choisir la Certification--</option>
+                                        {% for certif in certifs %}
+                                            <option value={{certif.id}}>{{certif.titre}}</option>
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Enonce..." id="enonce" name="enonce" style="height: 150px" required></textarea>
+                                <label for="enonce">Enoncer</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="choix1" name="choix1" placeholder="premier choix..." required>
+                                <label for="choix1">Choix 1:</label>
+                                <div class="correct">
+                                    <input type="checkbox" name="correct" checked disabled>
+                                    <label for="correct">Correcte</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="choix2" name="choix2" placeholder="deuxieme choix..." required>
+                                <label for="choix2">Choix 2:</label>
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="choix3" name="choix3" placeholder="troisieme choix..." required>
+                                <label for="choix3">Choix 3:</label>
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <input class="btn btn-primary w-100 py-3" type="submit" value="Créer"></input>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </center>
+    
+{% endblock %}

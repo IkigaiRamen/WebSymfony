@@ -82,8 +82,8 @@ class Question
 
     public function setTest(?Test $test): self
     {
+        $test->addQuestion($this);
         $this->test = $test;
-
         return $this;
     }
 

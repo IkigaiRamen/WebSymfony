@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraint as Assert;
 /**
  * Test
  *
@@ -34,6 +34,7 @@ class Test
      * @var string|null
      *
      * @ORM\Column(name="titre", type="string", length=50, nullable=true)
+     * @Assert\NotBlank(message="le titre est requis")
      */
     private $titre;
 
@@ -55,6 +56,8 @@ class Test
      * @var int|null
      *
      * @ORM\Column(name="nbrTentative", type="integer", nullable=true, options={"default"="3"})
+     * @Assert\Regex(pattern="/^[0-9]+$/"))
+     * @Assert\NotBlank(message="la durée est requise")
      */
     private $nbrtentative = 3;
 
@@ -62,6 +65,8 @@ class Test
      * @var int|null
      *
      * @ORM\Column(name="duree", type="integer", nullable=true)
+     * @Assert\Regex(pattern="/^[0-9]+$/"))
+     * @Assert\NotBlank(message="la durée est requise")
      */
     private $duree;
 
@@ -80,7 +85,7 @@ class Test
     private $datemodification;
 
     /**
-     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="Test", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="test", orphanRemoval=true)
      */
     private $questions;
 
@@ -112,9 +117,10 @@ class Test
         return $this->iduser;
     }
 
-    public function setIduser(?User $iduser): self
+    public function setIduser(?User $user): self
     {
-        $this->iduser = $iduser;
+        $user->addTest($this);
+        $this->iduser = $user;
 
         return $this;
     }

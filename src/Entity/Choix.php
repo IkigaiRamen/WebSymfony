@@ -26,7 +26,7 @@ class Choix
     /**
      * 
      * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="choices")
-     * @ORM\JoinColumn(name="question_id", nullable=false, referencedColumnName="idQuestion")
+     * @ORM\JoinColumn(name="question", nullable=false, referencedColumnName="idQuestion")
      */
     private $question;
 
@@ -66,6 +66,8 @@ class Choix
 
     public function setQuestion(?Question $question): self
     {
+        $question->addChoice($this);
+        
         $this->question = $question;
 
         return $this;

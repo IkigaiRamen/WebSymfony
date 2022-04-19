@@ -3,10 +3,10 @@
 {% block title %}Test index{% endblock %}
 
 {% block body %}
-    <h1>Test index</h1>
+    <h1>Liste des certifications</h1>
 
-    <table class="table">
-        <thead>
+    <table class="table table-hover table-bordered table-striped">
+        <thead class="table-header">
             <tr>
                 <th>Id</th>
                 <th>Titre</th>
@@ -43,5 +43,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_test_new') }}">Create new</a>
+    <a href="{{ path('app_test_new', {'userId':7}) }}">Create new</a>
 {% endblock %}

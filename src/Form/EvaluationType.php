@@ -15,8 +15,8 @@ class EvaluationType extends AbstractType
             ->add('score')
             ->add('nbrquestion')
             ->add('success')
-            ->add('iduser')
-            ->add('idtest')
+            //->add('iduser')
+            //->add('idtest')
         ;
     }
 

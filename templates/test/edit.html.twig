@@ -3,8 +3,10 @@
 {% block title %}Edit Test{% endblock %}
 
 {% block body %}
-    <h1>Edit Test</h1>
 
+
+    <h1>Edit Test</h1>
+{{ include('test/_form.html.twig')}} 
     {{ include('test/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_test_index') }}">back to list</a>

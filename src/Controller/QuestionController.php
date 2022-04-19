@@ -36,10 +36,9 @@ class QuestionController extends AbstractController
      * @Route("/new/{testId}", name="app_question_new", methods={"GET", "POST"})
      * @ParamConverter("test", options={"id" = "testId"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, Test $test): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ?Test $test)
     {
         if ($request->isMethod('post')) {
-            ////////////////made it here /////////////////////
             
             $question = new Question();
             $question->setEnonce($request->get('enonce'));
@@ -51,20 +50,47 @@ class QuestionController extends AbstractController
             $question->setDatemodification($time);
             $entityManager->persist($question);
             $entityManager->flush();
-/*
+
             $this->forward('App\Controller\ChoixController::newChoixQuestion', [
                 'choices'  => [$request->get('choix1'),$request->get('choix2'),$request->get('choix3')],
                 'question' => $question,
             ]);            
-*/
-            //return new Response(); 
+         
         }
-        return $this->render('question/new.html.twig', ['testId'=>$test->getId()]);
-        /*
-        return $this->render('question/new.html.twig', [
-            'question' => $question,
-            'form' => $form->createView(),
-        ]);*/
+            return $this->render('question/new.html.twig', ['testId'=>$test->getId()]);
+
+    }
+            
+
+    /**
+     * 
+     * @Route("/newg", name="app_question_newg", methods={"GET", "POST"})
+     */
+    public function newGeneric(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if ($request->isMethod('post')) {
+            
+            $question = new Question();
+            $question->setEnonce($request->get('enonce'));
+            
+            //$question->setTest($request->get('certif'));
+
+            $time = new \DateTime('@'.strtotime('now'));
+            $question->setDatecreation($time);
+            $question->setDatemodification($time);
+            $entityManager->persist($question);
+            $entityManager->flush();
+
+            $this->forward('App\Controller\ChoixController::newChoixQuestion', [
+                'choices'  => [$request->get('choix1'),$request->get('choix2'),$request->get('choix3')],
+                'question' => $question,
+            ]);            
+
+            return $this->redirectToRoute('app_question_index', []); 
+        }
+
+            $certifs = $entityManager->getRepository(Test::class)->findAll();
+            return $this->render('question/newGeneric.html.twig', ["certifs"=>$certifs]);
     }
 
     /**

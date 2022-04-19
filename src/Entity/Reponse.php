@@ -59,9 +59,10 @@ class Reponse
         return $this->iduser;
     }
 
-    public function setIduser(?User $iduser): self
+    public function setIduser(?User $user): self
     {
-        $this->iduser = $iduser;
+        $user->addReponse($this);
+        $this->iduser = $user;
 
         return $this;
     }
@@ -71,9 +72,10 @@ class Reponse
         return $this->idtest;
     }
 
-    public function setIdtest(?Test $idtest): self
+    public function setIdtest(?Test $test): self
     {
-        $this->idtest = $idtest;
+        $test->addReponse($this);
+        $this->idtest = $test;
 
         return $this;
     }
@@ -83,9 +85,10 @@ class Reponse
         return $this->idchoix;
     }
 
-    public function setIdchoix(?Choix $idchoix): self
+    public function setIdchoix(?Choix $choix): self
     {
-        $this->idchoix = $idchoix;
+        $choix->addReponse($this);
+        $this->idchoix = $choix;
 
         return $this;
     }

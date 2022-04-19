@@ -103,9 +103,10 @@ class Evaluation
         return $this->iduser;
     }
 
-    public function setIduser(?User $iduser): self
+    public function setIduser(?User $user): self
     {
-        $this->iduser = $iduser;
+        $user->addEvaluation($this);
+        $this->iduser = $user;
 
         return $this;
     }
@@ -115,9 +116,10 @@ class Evaluation
         return $this->idtest;
     }
 
-    public function setIdtest(?Test $idtest): self
+    public function setIdtest(?Test $test): self
     {
-        $this->idtest = $idtest;
+        $test->addEvaluation($this);
+        $this->idtest = $test;
 
         return $this;
     }

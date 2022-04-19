@@ -30,11 +30,12 @@
             float: right;
         }     
     </style>
-    
-    <h1>Create new Test</h1>
+    <center>
+    <br>
+    <br>
     <div class="testContainer">
         {#{{ include('test/_form.html.twig')}} #}
-        <form id="form" method="post" action="{{ path('app_test_new') }}" enctype="multipart/form-data">
+        <form id="form" method="post" action="{{ path('app_test_new', {'userId':7}) }}" enctype="multipart/form-data">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
                 <h1 class="mb-5">Créer une nouvelle certification</h1>
             </div>
@@ -44,12 +45,12 @@
                 
             </div>
             <div class="form-floating">
-                <input type="number" class="form-control" id="nbrTent" name="nbrTent" min=0 required
+                <input type="number" class="form-control" id="nbrTent" name="nbrTent" min=1 required
                     oninput="validity.valid||(value='');">
                     <label for="nbrTent">Nombre de tentatives</label>     
            </div>
            <div class="form-floating">
-                <input type="number" class="form-control" id="duree" name="duree" min=0 required
+                <input type="number" class="form-control" id="duree" name="duree" min=15 max=240 required
                 oninput="validity.valid||(value='');">
                 <label for="duree">Durée (en minutes)</label>
            </div>
@@ -58,9 +59,10 @@
         </form>
 
     </div>
-    
-
     <a href="{{ path('app_test_index') }}">back to list</a>
+    </center>
+
+    
 
 
 

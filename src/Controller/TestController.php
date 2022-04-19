@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Test;
+use App\Entity\User;
 use App\Form\TestType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/test")
@@ -30,26 +32,33 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_test_new", methods={"GET", "POST"})
+     * @Route("/new/{userId}", name="app_test_new", methods={"GET", "POST"})
+     * @ParamConverter("user", options={"id" = "userId"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ?User $user): Response
     {
-        $test = new Test();
         //$form = $this->createForm(TestType::class, $test);
         //$form->handleRequest($request);
             
  
         if ($request->isMethod('POST')) {
+
+            $test = new Test();
+
+            $test->setIduser($user);
             $time = new \DateTime('@'.strtotime('now'));
             $test->setDatecreation($time);
             $test->setDatemodification($time);
             $test->setDuree($request->get('duree'));
             $test->setNbrtentative($request->get('nbrTent'));
+            $test->settype("Certification");
+            $test->setMaxscore(100);
             $test->setTitre($request->get('titre'));
+            
             $entityManager->persist($test);
             $entityManager->flush();
             $id = $test->getId();
-            return $this->redirectToRoute('app_question_new', ['test'=>$id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_question_new', ['testId'=>$id], Response::HTTP_SEE_OTHER);
         }
         return $this->render('test/new.html.twig', [
             
@@ -62,6 +71,7 @@ class TestController extends AbstractController
      */
     public function show(Test $test): Response
     {
+        
         return $this->render('test/show.html.twig', [
             'test' => $test,
         ]);

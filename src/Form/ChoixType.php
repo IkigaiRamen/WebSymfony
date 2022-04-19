@@ -14,7 +14,7 @@ class ChoixType extends AbstractType
         $builder
             ->add('correct')
             ->add('contenu')
-            ->add('question')
+            //->add('question')
         ;
     }
 

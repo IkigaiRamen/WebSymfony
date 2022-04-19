@@ -5,13 +5,12 @@
 {% block body %}
 <style> 
 
-        .testContainer {
-            border-radius: 15px;
-            background: #00CED1;
-            padding: 20px;
-            width: 80vw;
-            overflow: auto;
-            display: block;
+        .btnTerminer {
+            border-radius: 10px;
+            background: #7BCBDE;
+            padding: 5px;
+            width: 100px;
+            height: 40px;
             text-align: center;
         }
 
@@ -32,18 +31,14 @@
 <script>
     var nbr = 0;
     function addQ(){
-        /* p = document.createElement("p");
-  p.innerHTML = nbr;
-  document.body.appendChild(p);*/
-         
-        
+
         nbr++;
          //window.alert("aaaaaaaaaaa");
         const enonce = document.getElementById("enonce").value;
         const choix1 = document.getElementById("choix1").value;
         const choix2 = document.getElementById("choix2").value;
         const choix3 = document.getElementById("choix3").value;
-
+        
 
         const newQuestion = `<div class="questionContainer">
             <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
@@ -91,15 +86,18 @@
         const questions = document.getElementById('questions').innerHTML;
 
         
-        document.getElementById('questions').innerHTML = questions + newQuestion;
-        document.qform.submit();
+        //document.getElementById('questions').innerHTML = questions + newQuestion;
+        if(document.qform.validity){
+                    document.qform.submit();
+
+        }
 
     }
         
 
     </script>
     <center>
-    <h1>{{ testId}}</h1>
+    
         <div id="questions">
                 
         </div>
@@ -108,22 +106,21 @@
     <center>
         <div class="questionContainer" id="newQuestion">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
-                <h6 class="section-title bg-white text-center text-primary px-3">Forum</h6>
-                <h1 class="mb-5">Create new Project</h1>
+                <h1 class="mb-5">Créer Question</h1>
             </div>
             <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
                 <form method="post" action="{{ path('app_question_new', {'testId':testId})}}" 
-                onsubmit="return false" name="qform" enctype="multipart/form-data">
+                {#onsubmit="return false" name="qform" enctype="multipart/form-data">#}>
                     <div class="row g-3">
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control" placeholder="Enonce..." id="enonce" name="enonce" style="height: 150px"></textarea>
+                                <textarea class="form-control" placeholder="Enonce..." id="enonce" name="enonce" style="height: 150px" required></textarea>
                                 <label for="enonce">Enoncer</label>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="choix1" name="choix1" placeholder="premier choix...">
+                                <input type="text" class="form-control" id="choix1" name="choix1" placeholder="premier choix..." required>
                                 <label for="choix1">Choix 1:</label>
                                 <div class="correct">
                                     <input type="checkbox" name="correct" checked disabled>
@@ -133,29 +130,31 @@
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="choix2" name="choix2" placeholder="deuxieme choix...">
+                                <input type="text" class="form-control" id="choix2" name="choix2" placeholder="deuxieme choix..." required>
                                 <label for="choix2">Choix 2:</label>
 
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="choix3" name="choix3" placeholder="troisieme choix...">
+                                <input type="text" class="form-control" id="choix3" name="choix3" placeholder="troisieme choix..." required>
                                 <label for="choix3">Choix 3:</label>
-
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <button class="btn btn-primary w-100 py-3" type="submit" onclick="addQ()" >Add Question</button>
+                            <button class="btn btn-primary w-100 py-3" type="submit" onclick="addQ()">Add Question</button>
+                            <!-- <button class="btn btn-primary w-100 py-3" type="button" onclick="addQ()">Add Question</button>
+-->
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </center>
-    <button onclick="addQ()"> click me</button>
 
-    <a href="{{ path('app_test_index') }}">Terminer</a>
+    <div class="btnTerminer">
+        <a href="{{ path('app_test_index') }}">Terminer</a>
+    </div>
     
 {% endblock %}
