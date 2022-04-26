@@ -165,5 +165,11 @@ class Question
         return $this;
     }
 
+    
+    public function setChoices(Collection $reorderedChoices): Collection
+    {
+        return $this->choices = $reorderedChoices;
+    }
+
 
 }

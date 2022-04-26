@@ -34,7 +34,6 @@ class Test
      * @var string|null
      *
      * @ORM\Column(name="titre", type="string", length=50, nullable=true)
-     * @Assert\NotBlank(message="le titre est requis")
      */
     private $titre;
 
@@ -56,8 +55,6 @@ class Test
      * @var int|null
      *
      * @ORM\Column(name="nbrTentative", type="integer", nullable=true, options={"default"="3"})
-     * @Assert\Regex(pattern="/^[0-9]+$/"))
-     * @Assert\NotBlank(message="la durée est requise")
      */
     private $nbrtentative = 3;
 
@@ -65,8 +62,6 @@ class Test
      * @var int|null
      *
      * @ORM\Column(name="duree", type="integer", nullable=true)
-     * @Assert\Regex(pattern="/^[0-9]+$/"))
-     * @Assert\NotBlank(message="la durée est requise")
      */
     private $duree;
 

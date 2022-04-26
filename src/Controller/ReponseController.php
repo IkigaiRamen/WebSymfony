@@ -9,6 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Test;
+use App\Entity\Choix;
+use App\Entity\Evaluation;
+use App\Entity\Question;
+use App\Entity\User;
+use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/reponse")
@@ -30,25 +37,48 @@ class ReponseController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_reponse_new", methods={"GET", "POST"})
+     * @Route("/new", name="app_reponse_new", methods={"POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $reponse = new Reponse();
-        $form = $this->createForm(ReponseType::class, $reponse);
-        $form->handleRequest($request);
+        $params = array_values($request->request->all());
+        $values = array_values($params);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($values[0]);
+        $quizz = $entityManager->getRepository(Test::class)->find($values[1]);
+        $nbrQuestion = $values[sizeof($values)-1];
+        $allReponses = array();
+        $score = 0;
+
+        for ($i = 2; $i < sizeof($values)-1; $i++) {
+            $reponse = new Reponse();
+            $reponse->setIduser($user);
+            $reponse->setIdtest($quizz);
+            $choix = $entityManager->getRepository(Choix::class)->find($values[$i]);
+            $reponse->setIdchoix($choix);
+            $reponse->setCorrect($choix->getCorrect());
+            if($choix->getCorrect())
+                $score++;
+
+            array_push($allReponses, $reponse);
             $entityManager->persist($reponse);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_reponse_index', [], Response::HTTP_SEE_OTHER);
         }
+        $evaluation = new Evaluation();
+        $evaluation->setIduser($user);
+        $evaluation->setIdtest($quizz);
+        $evaluation->setNbrquestion($nbrQuestion);
+        $evaluation->setScore($score);
+        $evaluation->setSuccess($score> $nbrQuestion -3);
+        $entityManager->persist($evaluation);
 
-        return $this->render('reponse/new.html.twig', [
-            'reponse' => $reponse,
-            'form' => $form->createView(),
-        ]);
+
+        $entityManager->flush();
+        
+
+        //$entityManager->persist($reponse);
+        //$entityManager->flush();
+
+        return $this->redirectToRoute('app_reponse_index', [], Response::HTTP_SEE_OTHER);
     }
 
     /**

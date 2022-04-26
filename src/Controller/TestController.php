@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use random_int;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Route("/test")
@@ -111,4 +113,22 @@ class TestController extends AbstractController
 
         return $this->redirectToRoute('app_test_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    /**
+     * @Route("/pass/{id}", name="app_test_pass", methods={"GET", "POST"})
+     */
+    public function pass(Request $request, Test $test, EntityManagerInterface $entityManager): Response
+    {      
+        foreach($test->getQuestions() as $q){
+            $list = $q->getChoices()->toArray();
+            shuffle($list);
+            $reordered = new ArrayCollection($list);
+            $q->setChoices($reordered);
+        }  
+
+        return $this->render('test/passTest.html.twig', [
+            'test' => $test,
+        ]);
+    }
+
 }

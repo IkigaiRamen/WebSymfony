@@ -55,7 +55,7 @@ class QuestionController extends AbstractController
                 'choices'  => [$request->get('choix1'),$request->get('choix2'),$request->get('choix3')],
                 'question' => $question,
             ]);            
-         
+        
         }
             return $this->render('question/new.html.twig', ['testId'=>$test->getId()]);
 

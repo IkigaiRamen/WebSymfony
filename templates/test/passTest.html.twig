@@ -1,0 +1,81 @@
+{% extends 'base3.html.twig' %}
+
+{% block title %}Test{% endblock %}
+{% block head %}
+{% endblock %}
+{% block con %}
+{% endblock %}
+{%block header%}
+{% endblock %}
+
+{% block body %}
+    <script>
+    var mins = {{test.duree - 1}};
+    mins = 0;   // to remove
+    var secs = 59;
+    var i = 0;
+    function countdown(){
+        if(secs >0)
+            secs -=1;
+        else{
+            if(mins >0 ){
+                secs = 59;
+                mins -=1;
+            }
+            else{
+                clearInterval(myTimer);
+                document.getElementById("answerForm").submit();
+                //redirect to result
+            }
+                
+
+        }
+        var time = mins + ":" + secs
+        if(secs < 10)
+            time = mins + ":0" + secs
+        if(mins < 10)
+            time = "0" + time;
+        //window.alert(mins);
+        document.getElementById("timer").innerHTML = time;
+        document.getElementById("progressBar").value =  i;
+        
+    }
+        var nbr = 0;
+        var myTimer = setInterval(countdown, 1000);
+    //document.getElementById("progressBar").value = 10 - timeleft;
+    </script>
+    {#<form method="post" action="{{ path('app_test_pass', {'testId':testId})}}" 
+                name="answerForm" enctype="multipart/form-data">#}
+        <h1>{{test.titre}}</h1>
+        <h1 id="timer">{{test.duree -1}}:59</h1>
+        <progress value="0" max="{{test.duree}}" id="progressBar"></progress>
+        <form method="post" action="{{ path('app_reponse_new')}}" name="answerForm" id="answerForm" enctype="multipart/form-data">
+            <input name="userId" type="hidden" value="7"> <!-- change to current user -->
+            <input name="testId" type="hidden" value="{{test.id}}">
+            
+            {% set nbrQ = 0%}
+            {% for question in test.questions %}
+                {%set nbrQ = nbrQ + 1%}
+                <div>
+                        
+                        <h2>Question N°{{nbrQ}}</h2>
+                        <p>{{question.enonce}}</p>
+                        {% set nbrC = 0%}
+                        {% for choix in question.choices %}
+                            {% set nbrC = nbrC + 1%}
+                            <div>
+                                <input type='radio' name="quest{{nbrQ}}" id="choix{{nbrC}}" value="{{choix.id}}"  required>
+                                <label for="c{{nbrC}}">{{choix.contenu}}</label>
+                            </div>
+                        {% endfor %}
+                        
+                </div>
+            {% endfor %}
+            <input name="nbrQuestion" id="nbrQuestion" type="hidden" value="{{nbrQ}}">
+            <button type="submit" onclick="submitReponses()" > Terminer </button>
+        </form>
+        
+    {#</form>#}
+
+
+{% endblock %}

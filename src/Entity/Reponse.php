@@ -38,7 +38,7 @@ class Reponse
     /**
      *
      * @ORM\ManyToOne(targetEntity=Choix::class, inversedBy="reponses")
-     * @ORM\JoinColumn(name="idChoix", nullable=false, referencedColumnName="idChoix")
+     * @ORM\JoinColumn(name="idChoix", nullable=true, referencedColumnName="idChoix")
      */
     private $idchoix;
 
@@ -80,7 +80,7 @@ class Reponse
         return $this;
     }
 
-    public function getIdchoix(): ?int
+    public function getIdchoix(): ?Choix
     {
         return $this->idchoix;
     }

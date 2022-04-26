@@ -45,7 +45,7 @@ class Choix
     private $contenu;
 
     /**
-     * @ORM\OneToMany(targetEntity=Reponse::class, mappedBy="idChoix")
+     * @ORM\OneToMany(targetEntity=Reponse::class, mappedBy="idchoix")
      */
     private $reponses;
 
