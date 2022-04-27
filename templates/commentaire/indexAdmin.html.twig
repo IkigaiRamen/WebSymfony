@@ -1,0 +1,31 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date Creation</th>
+                <th>Post</th>
+                <th>User</th>
+                <th>Contenue</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in commentaires %}
+            <tr>
+                <td>{{ comment.date ? comment.date|date('Y-m-d') : '' }}</td>
+                <td> <img src="{{ asset('Upload/')}}{{ comment.idpost.image }}" width="100" alt=""></td>
+                <td> {{ comment.idUser.userName }} </td>
+                <td>
+                    {{comment.contenu}}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

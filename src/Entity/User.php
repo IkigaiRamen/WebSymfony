@@ -30,13 +30,11 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=30, unique=true)
      */
     private $username;
@@ -51,6 +49,46 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string")
      */
     private $password;
+
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreation", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     */
+    private $datecreation = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="dateModification", type="datetime", nullable=true)
+     */
+    private $datemodification;
+
+    public function getDatecreation(): ?\DateTimeInterface
+    {
+        return $this->datecreation;
+    }
+
+    public function setDatecreation(\DateTimeInterface $datecreation): self
+    {
+        $this->datecreation = $datecreation;
+
+        return $this;
+    }
+
+    public function getDatemodification(): ?\DateTimeInterface
+    {
+        return $this->datemodification;
+    }
+
+    public function setDatemodification(?\DateTimeInterface $datemodification): self
+    {
+        $this->datemodification = $datemodification;
+
+        return $this;
+    }
+
+
 
     /**
      * @ORM\Column(type="string", length=90, nullable=true)
@@ -80,14 +118,12 @@ class User implements UserInterface, \Serializable
 
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=90, nullable=true)
      */
     private $lastname;
 
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=90, nullable=true)
      */
     private $firstname;
@@ -140,7 +176,6 @@ class User implements UserInterface, \Serializable
     private $etat;
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $sex;

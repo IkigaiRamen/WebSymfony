@@ -1,0 +1,42 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>DateP</th>
+                <th>Description</th>
+                <th>User</th>
+                <th>Etat</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.dateP ? post.dateP|date('Y-m-d') : '' }}</td>
+                <td>{{ post.description }}</td>
+                <td> {{ post.idUser.userName }} </td>
+                <td> {{ post.etat }} </td>
+                <td>
+                    <img src="{{ asset('Upload/')}}{{ post.image }}" width="100" alt="">
+
+                </td>
+                <td>
+                
+                                                <a href="{{ path('post_refuser', {'id': post.idPost}) }}" class="button" >Refuser</a><br><br>
+                                                <a href="{{ path('post_accepter', {'id': post.idPost}) }}" class="button">Accepter</a>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        {{ knp_pagination_render(posts) }}
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
+{% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+
+          <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Post</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Ajouter une post</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  <div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+                    <div class="dashboard-container">
+            <h3>Ajouter Post</h3><br><br>
+            {{ form_start(form, { 'attr': {'class': 'contact_form'} })  }}
+            <form action="#" id="contactForm">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            {{ form_widget(form.file, { 'attr': {'class': 'form-control'} }) }}
+                            {{ form_errors(form.file) }}
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            Description :
+                            {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+                            {{ form_errors(form.description) }}
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Enregistrer" class="button" formnovalidate />
+                {{ form_end(form) }}
+        
+                        {%block sidebar%}    {{ parent() }}
+                        {% endblock %}
+                    </div>
+            </div>
+        </div>
+    </div>
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
+
+
+{% endblock %}
+
+
+
