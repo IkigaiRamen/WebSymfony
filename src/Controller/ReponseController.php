@@ -16,6 +16,9 @@ use App\Entity\Question;
 use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @Route("/reponse")
@@ -69,14 +72,50 @@ class ReponseController extends AbstractController
         $evaluation->setNbrquestion($nbrQuestion);
         $evaluation->setScore($score);
         $evaluation->setSuccess($score> $nbrQuestion -3);
-        $entityManager->persist($evaluation);
 
 
-        $entityManager->flush();
-        
-
-        //$entityManager->persist($reponse);
+        //$entityManager->persist($evaluation);
         //$entityManager->flush();
+        
+        if($evaluation->getSuccess())
+        {   
+            $pdfOptions = new Options();
+            $pdfOptions->set('defaultFont', 'Arial');
+            
+            // Instantiate Dompdf with our options
+            $dompdf = new Dompdf($pdfOptions);
+            
+            
+            $month = date("F");
+            $day = date("d");
+            $year = date("Y");
+            // Retrieve the HTML generated in our twig file
+            $html = $this->renderView('pdf/mypdf.html.twig', [
+                'title' => $quizz->getTitre(),
+                'firstname' => $user ->getFirstname(),
+                'lastname' => $user-> getLastname(),
+                'score' => $evaluation->getScore(),
+                'nbrQuestion' => $nbrQuestion,
+                'month' => $month,
+                'day' => $day,
+                'year' => $year,
+            ]);
+            
+            // Load HTML to Dompdf
+            $dompdf->loadHtml($html);
+            
+            //Setup the paper size and orientation 'portrait' or 'portrait'
+            $dompdf->setPaper('A4', 'landscape');
+
+            // Render the HTML as PDF
+            $dompdf->render();
+
+            // Output the generated PDF to Browser (inline view)
+            $dompdf->stream("mypdf.pdf", [
+                "Attachment" => false
+            ]);
+        }
+
 
         return $this->redirectToRoute('app_reponse_index', [], Response::HTTP_SEE_OTHER);
     }
@@ -123,4 +162,32 @@ class ReponseController extends AbstractController
 
         return $this->redirectToRoute('app_reponse_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    public function makePDF(){
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('default/mypdf.html.twig', [
+            'title' => "Welcome to our PDF Test"
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
+    }
 }
+

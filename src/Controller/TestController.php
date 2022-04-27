@@ -32,6 +32,21 @@ class TestController extends AbstractController
             'tests' => $tests,
         ]);
     }
+    /**
+     * @Route("/certifs", name="app_test_certifs", methods={"GET"})
+     */
+    public function allCertifs(EntityManagerInterface $entityManager): Response
+    {
+        $tests = $entityManager
+            ->getRepository(Test::class)
+            ->findBy(array(
+                'type' => 'Certification',
+            ));
+
+        return $this->render('test/listCertifs.html.twig', [
+            'tests' => $tests,
+        ]);
+    }
 
     /**
      * @Route("/new/{userId}", name="app_test_new", methods={"GET", "POST"})
