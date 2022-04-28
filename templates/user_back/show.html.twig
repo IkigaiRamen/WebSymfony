@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}utilisateur{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <h1>utilisateur</h1>
 
     <table class="table">
         <tbody>
@@ -16,7 +16,7 @@
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Username</th>
+                <th>Nom d'utilisateur</th>
                 <td>{{ user.username }}</td>
             </tr>
             <tr>
@@ -24,11 +24,7 @@
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Job</th>
+                <th>Poste</th>
                 <td>{{ user.job }}</td>
             </tr>
             <tr>
@@ -36,19 +32,19 @@
                 <td>{{ user.siteweb }}</td>
             </tr>
             <tr>
-                <th>Lastname</th>
+                <th>Prénom</th>
                 <td>{{ user.lastname }}</td>
             </tr>
             <tr>
-                <th>Firstname</th>
+                <th>Nom</th>
                 <td>{{ user.firstname }}</td>
             </tr>
             <tr>
-                <th>NumTel</th>
+                <th>Numéro </th>
                 <td>{{ user.numTel }}</td>
             </tr>
             <tr>
-                <th>Exp</th>
+                <th>Experience</th>
                 <td>{{ user.exp }}</td>
             </tr>
             <tr>
@@ -56,7 +52,7 @@
                 <td>{{ user.etat }}</td>
             </tr>
             <tr>
-                <th>Sex</th>
+                <th>Sexe</th>
                 <td>{{ user.sex }}</td>
             </tr>
             <tr>
@@ -64,7 +60,7 @@
                 <td>{{ user.qualification }}</td>
             </tr>
             <tr>
-                <th>Titre1</th>
+                <th>Titre 1</th>
                 <td>{{ user.titre1 }}</td>
             </tr>
             <tr>
@@ -96,28 +92,36 @@
                 <td>{{ user.description2 }}</td>
             </tr>
             <tr>
-                <th>Work1</th>
+                <th>Poste de travail 1</th>
                 <td>{{ user.work1 }}</td>
             </tr>
             <tr>
-                <th>Company1</th>
+                <th>Societe de travail 1</th>
                 <td>{{ user.company1 }}</td>
             </tr>
             <tr>
-                <th>Workperiod1</th>
+                <th>Période de travail 1</th>
                 <td>{{ user.workperiod1 }}</td>
             </tr>
             <tr>
-                <th>Workdescription1</th>
+                <th>Description de travail 1</th>
                 <td>{{ user.workdescription1 }}</td>
             </tr>
             <tr>
-                <th>Work2</th>
+                <th>Poste de travail 2</th>
                 <td>{{ user.work2 }}</td>
             </tr>
             <tr>
-                <th>Company2</th>
+                <th>Sociéte de travail 2</th>
                 <td>{{ user.company2 }}</td>
+            </tr>
+              <tr>
+                <th>Période de travail 2</th>
+                <td>{{ user.workperiod2 }}</td>
+            </tr>
+            <tr>
+                <th>Description de travail 2</th>
+                <td>{{ user.workdescription2 }}</td>
             </tr>
             <tr>
                 <th>Qualification1</th>
@@ -140,14 +144,6 @@
                 <td>{{ user.societe }}</td>
             </tr>
             <tr>
-                <th>Workperiod2</th>
-                <td>{{ user.workperiod2 }}</td>
-            </tr>
-            <tr>
-                <th>Workdescription2</th>
-                <td>{{ user.workdescription2 }}</td>
-            </tr>
-            <tr>
                 <th>Video</th>
                 <td>{{ user.video }}</td>
             </tr>
@@ -164,15 +160,15 @@
                 <td>{{ user.image }}</td>
             </tr>
             <tr>
-                <th>Update_at</th>
+                <th>Modifié le</th>
                 <td>{{ user.updateAt ? user.updateAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('user_back_index') }}">back to list</a>
+    <a href="{{ path('user_back_index') }}">retourne au liste des utilisateurs</a>
 
-    <a href="{{ path('user_back_edit', {'id': user.id}) }}">edit</a>
+    <a href="{{ path('user_back_edit', {'id': user.id}) }}">Modifier</a>
 
     {{ include('user_back/_delete_form.html.twig') }}
 {% endblock %}

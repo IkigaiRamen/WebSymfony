@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Annonce index{% endblock %}
 
@@ -10,22 +10,22 @@
             <tr>
                 <th>Id</th>
                 <th>Titre</th>
-                <th>Location</th>
+                <th>Adresse</th>
                 <th>Type</th>
-                <th>Exp</th>
-                <th>Salairemin</th>
-                <th>Salairemax</th>
+                <th>Experience</th>
+                <th>Salaire minimal</th>
+                <th>Salaire maximale</th>
                 <th>Qualification</th>
-                <th>Sex</th>
+                <th>Sexe</th>
                 <th>Description</th>
-                <th>Eduexp</th>
-                <th>Responsibilities</th>
-                <th>Autres</th>
+                <th>Education</th>
+                <th>Responsabilités</th>
                 <th>Country</th>
                 <th>City</th>
-                <th>Expire</th>
-                <th>Created_at</th>
+                <th>Créer le</th>
+                <th>Expire le</th>
                 <th>Categorie</th>
+                <th>Autres</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -44,24 +44,24 @@
                 <td>{{ annonce.description }}</td>
                 <td>{{ annonce.eduexp }}</td>
                 <td>{{ annonce.responsibilities }}</td>
-                <td>{{ annonce.autres }}</td>
                 <td>{{ annonce.country }}</td>
                 <td>{{ annonce.city }}</td>
-                <td>{{ annonce.expire ? annonce.expire|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ annonce.createdAt ? annonce.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ annonce.expire ? annonce.expire|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ annonce.categorie }}</td>
+                <td>{{ annonce.autres }}</td>
                 <td>
-                    <a href="{{ path('annonce_back_show', {'id': annonce.id}) }}">show</a>
-                    <a href="{{ path('annonce_back_edit', {'id': annonce.id}) }}">edit</a>
+                    <a href="{{ path('annonce_back_show', {'id': annonce.id}) }}">Afficher</a>
+                    <a href="{{ path('annonce_back_edit', {'id': annonce.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="19">no records found</td>
+                <td colspan="19">Pas d'annonce</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('annonce_back_new') }}">Create new</a>
+    <a href="{{ path('annonce_back_new') }}">Créer nouvelle annonce</a>
 {% endblock %}

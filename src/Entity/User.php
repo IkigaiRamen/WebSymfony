@@ -780,9 +780,9 @@ class User implements UserInterface, \Serializable
     private $imageFile;
 
 	public function getImageFile()
-                                                 {
-                                                     return $this->imageFile;
-                                                 }
+                                                                {
+                                                                    return $this->imageFile;
+                                                                }
 
     public function setImageFile($image = null): void
     {
@@ -810,6 +810,11 @@ class User implements UserInterface, \Serializable
      */
     private $received;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Discussion::class, mappedBy="User")
+     */
+    private $discussions;
+
     
 
 
@@ -819,6 +824,7 @@ class User implements UserInterface, \Serializable
         $this->update_at = new \DateTime();
         $this->sent = new ArrayCollection();
         $this->received = new ArrayCollection();
+        $this->discussions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -1071,6 +1077,33 @@ class User implements UserInterface, \Serializable
         $this->username,
         $this->password,
         ) = unserialize($serialized);
+        }
+
+        /**
+         * @return Collection|Discussion[]
+         */
+        public function getDiscussions(): Collection
+        {
+            return $this->discussions;
+        }
+
+        public function addDiscussion(Discussion $discussion): self
+        {
+            if (!$this->discussions->contains($discussion)) {
+                $this->discussions[] = $discussion;
+                $discussion->addUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeDiscussion(Discussion $discussion): self
+        {
+            if ($this->discussions->removeElement($discussion)) {
+                $discussion->removeUser($this);
+            }
+
+            return $this;
         }
     
 }

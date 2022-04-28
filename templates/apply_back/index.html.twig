@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apply index{% endblock %}
+
+{% block body %}
+    <h1>Apply index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Job</th>
+                <th>City</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Societe</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>UserId</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for apply in applies %}
+            <tr>
+                <td>{{ apply.id }}</td>
+                <td>{{ apply.email }}</td>
+                <td>{{ apply.job }}</td>
+                <td>{{ apply.city }}</td>
+                <td>{{ apply.firstname }}</td>
+                <td>{{ apply.lastname }}</td>
+                <td>{{ apply.societe }}</td>
+                <td>{{ apply.description }}</td>
+                <td>{{ apply.image }}</td>
+                <td>{{ apply.UserId }}</td>
+                <td>
+                    <a href="{{ path('apply_back_show', {'id': apply.id}) }}">show</a>
+                    <a href="{{ path('apply_back_edit', {'id': apply.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('apply_back_new') }}">Create new</a>
+{% endblock %}

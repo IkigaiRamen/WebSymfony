@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MessagesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,9 +51,21 @@ class Messages
      */
     private $recipient;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="Messages")
+     */
+    private $discussion;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Discussion::class, inversedBy="Messages")
+     */
+    private $Discussion;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
+        $this->discussion = new ArrayCollection();
+        $this->Discussion = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,6 +141,36 @@ class Messages
     public function setRecipient(?User $recipient): self
     {
         $this->recipient = $recipient;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Discussion[]
+     */
+    public function getDiscussion(): Collection
+    {
+        return $this->discussion;
+    }
+
+    public function addDiscussion(Discussion $discussion): self
+    {
+        if (!$this->discussion->contains($discussion)) {
+            $this->discussion[] = $discussion;
+            $discussion->setMessages($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiscussion(Discussion $discussion): self
+    {
+        if ($this->discussion->removeElement($discussion)) {
+            // set the owning side to null (unless already changed)
+            if ($discussion->getMessages() === $this) {
+                $discussion->setMessages(null);
+            }
+        }
 
         return $this;
     }

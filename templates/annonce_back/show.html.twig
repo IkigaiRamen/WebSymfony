@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Annonce{% endblock %}
 
@@ -16,7 +16,7 @@
                 <td>{{ annonce.titre }}</td>
             </tr>
             <tr>
-                <th>Location</th>
+                <th>Adresse</th>
                 <td>{{ annonce.location }}</td>
             </tr>
             <tr>
@@ -24,15 +24,15 @@
                 <td>{{ annonce.type }}</td>
             </tr>
             <tr>
-                <th>Exp</th>
+                <th>Experience</th>
                 <td>{{ annonce.exp }}</td>
             </tr>
             <tr>
-                <th>Salairemin</th>
+                <th>Salaire minimal</th>
                 <td>{{ annonce.salairemin }}</td>
             </tr>
             <tr>
-                <th>Salairemax</th>
+                <th>Salaire maximale</th>
                 <td>{{ annonce.salairemax }}</td>
             </tr>
             <tr>
@@ -40,7 +40,7 @@
                 <td>{{ annonce.qualification }}</td>
             </tr>
             <tr>
-                <th>Sex</th>
+                <th>Sexe:</th>
                 <td>{{ annonce.sex }}</td>
             </tr>
             <tr>
@@ -48,17 +48,14 @@
                 <td>{{ annonce.description }}</td>
             </tr>
             <tr>
-                <th>Eduexp</th>
+                <th>Education</th>
                 <td>{{ annonce.eduexp }}</td>
             </tr>
             <tr>
-                <th>Responsibilities</th>
+                <th>responsibilities</th>
                 <td>{{ annonce.responsibilities }}</td>
             </tr>
-            <tr>
-                <th>Autres</th>
-                <td>{{ annonce.autres }}</td>
-            </tr>
+            
             <tr>
                 <th>Country</th>
                 <td>{{ annonce.country }}</td>
@@ -68,23 +65,27 @@
                 <td>{{ annonce.city }}</td>
             </tr>
             <tr>
-                <th>Expire</th>
+                <th>Expiré le</th>
                 <td>{{ annonce.expire ? annonce.expire|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Created_at</th>
+                <th>Crée le</th>
                 <td>{{ annonce.createdAt ? annonce.createdAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
                 <th>Categorie</th>
                 <td>{{ annonce.categorie }}</td>
             </tr>
+            <tr>
+                <th>Autres</th>
+                <td>{{ annonce.autres }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('annonce_back_index') }}">back to list</a>
+    <a href="{{ path('annonce_back_index') }}">Retourner a liste des annonces</a>
 
-    <a href="{{ path('annonce_back_edit', {'id': annonce.id}) }}">edit</a>
+    <a href="{{ path('annonce_back_edit', {'id': annonce.id}) }}">Modifier</a>
 
     {{ include('annonce_back/_delete_form.html.twig') }}
 {% endblock %}

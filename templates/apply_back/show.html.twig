@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apply{% endblock %}
+
+{% block body %}
+    <h1>Apply</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ apply.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ apply.email }}</td>
+            </tr>
+            <tr>
+                <th>Job</th>
+                <td>{{ apply.job }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ apply.city }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ apply.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ apply.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Societe</th>
+                <td>{{ apply.societe }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ apply.description }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ apply.image }}</td>
+            </tr>
+            <tr>
+                <th>UserId</th>
+                <td>{{ apply.UserId }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('apply_back_index') }}">back to list</a>
+
+    <a href="{{ path('apply_back_edit', {'id': apply.id}) }}">edit</a>
+
+    {{ include('apply_back/_delete_form.html.twig') }}
+{% endblock %}
