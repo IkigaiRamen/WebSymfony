@@ -1,36 +1,79 @@
-{% extends 'base3.html.twig'%}
+{% extends 'base.html.twig'%}
 
 {% block title %}Test index{% endblock %}
 
+
+
+
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
-    <h1>Liste des certifications</h1>
+    {% block con %}    {{ parent() }} {% endblock %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Liste des certifications disponibles</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Certifications</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
 
-    <table class="table table-hover table-bordered table-striped">
-        <thead class="table-header">
-            <tr>
-                <th>Titre</th>
-                <th>Nbrtentative</th>
-                <th>Duree</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for test in tests %}
-            <tr>
-                <td>{{ test.titre }}</td>
-                <td>{{ test.nbrtentative }}</td>
-                <td>{{ test.duree }}</td>
-                <td>
-                    <a href="{{ path('app_test_pass', {'id': test.id}) }}">Passer </a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+                <table class="table table-hover table-bordered table-striped">
+                    <thead class="table-header">
+                        <tr>
+                            <th>Titre</th>
+                            <th>Nbrtentative</th>
+                            <th>Duree</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for test in tests %}
+                        <tr>
+                            <td>{{ test.titre }}</td>
+                            <td>{{ test.nbrtentative }}</td>
+                            <td>{{ test.duree }}</td>
+                            <td>
+                                <a href="{{ path('app_test_pass', {'id': test.id}) }}">Passer </a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-    <a href="{{ path('app_test_new', {'userId':7}) }}">Create new</a>
+
+            </div>
+        </div>
+    </div>
+
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
+
+
 {% endblock %}

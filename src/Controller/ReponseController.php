@@ -115,9 +115,12 @@ class ReponseController extends AbstractController
                 "Attachment" => false
             ]);
         }
+        else{
+            return $this->render('evaluation/failure.html.twig', ['evaluation' => $evaluation]);
+        }
 
 
-        return $this->redirectToRoute('app_reponse_index', [], Response::HTTP_SEE_OTHER);
+        
     }
 
     /**

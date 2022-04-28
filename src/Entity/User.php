@@ -30,13 +30,11 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=30, unique=true)
      */
     private $username;
@@ -80,14 +78,12 @@ class User implements UserInterface, \Serializable
 
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=90, nullable=true)
      */
     private $lastname;
 
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=90, nullable=true)
      */
     private $firstname;
@@ -140,7 +136,6 @@ class User implements UserInterface, \Serializable
     private $etat;
 
     /**
-     * @Assert\NotBlank
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $sex;

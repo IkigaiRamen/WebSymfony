@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use random_int;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/test")
@@ -49,10 +50,9 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/new/{userId}", name="app_test_new", methods={"GET", "POST"})
-     * @ParamConverter("user", options={"id" = "userId"})
+     * @Route("/new", name="app_test_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, ?User $user): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         //$form = $this->createForm(TestType::class, $test);
         //$form->handleRequest($request);
@@ -62,7 +62,7 @@ class TestController extends AbstractController
 
             $test = new Test();
 
-            $test->setIduser($user);
+            $test->setIduser($this->getUser());
             $time = new \DateTime('@'.strtotime('now'));
             $test->setDatecreation($time);
             $test->setDatemodification($time);

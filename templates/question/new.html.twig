@@ -1,105 +1,55 @@
+
 {% extends 'base.html.twig' %}
+{% block head %}   
 
-{% block title %}New Question{% endblock %}
-
-{% block body %}
-<style> 
-
-        .btnTerminer {
-            border-radius: 10px;
-            background: #7BCBDE;
-            padding: 5px;
-            width: 100px;
-            height: 40px;
-            text-align: center;
+     {% block stylesheet %} 
+        {{ parent() }}
+        <style>
+        .float-right{
+            margin-top: 25px;
+            margin-bottom: 10px;
+            margin-right: 100px;
         }
-
-        .questionContainer {
-            border-radius: 15px;
-            background: #00CED1;
-            padding: 20px;
-            width: 80vw;
-            overflow: auto;
-            display: block;
-            text-align: center;
-
-        }           
-        .correct {
-            float: right;
-        }     
-    </style>
-<script>
-    var nbr = 0;
-    function addQ(){
-
-        nbr++;
-         //window.alert("aaaaaaaaaaa");
-        const enonce = document.getElementById("enonce").value;
-        const choix1 = document.getElementById("choix1").value;
-        const choix2 = document.getElementById("choix2").value;
-        const choix3 = document.getElementById("choix3").value;
-        
-
-        const newQuestion = `<div class="questionContainer">
-            <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-                <form method="post" enctype="multipart/form-data">
-                    <div class="row g-3">
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Description..." name="enonce" 
-                                disabled style="height: 150px"> ${enonce}</textarea>
-                                <label for="enonce">Enoncé</label>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" name="choix1" 
-                            placeholder="premier choix..." disabled value="${choix1}">
-                                <label for="choix1">Choix 1:</label>
-                                <div class="correct">
-                                    <input type="checkbox" name="correct" checked disabled>
-                                    <label for="correct">Correcte</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" name="choix2" 
-                                placeholder="deuxieme choix..." disabled value="${choix2}">
-                                <label for="choix2">Choix 2:</label>
-
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" name="choix3" 
-                                placeholder="troisieme choix..." disabled value="${choix3}">
-                                <label for="choix3">Choix 3:</label>
-
-                            </div>
+        .correct{
+            margin-right: 80px;
+        }
+        </style>
+     {% endblock %} 
+{% endblock %}
+{% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+        <div class="alice-bg padding-top-70 padding-bottom-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="breadcrumb-area">
+                            <h1>Créer Quizz</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                                    <li class="breadcrumb-item" aria-current="page">Certification</li>
+                                    <li class="breadcrumb-item" aria-current="page">Créer</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Questions</li>
+                                </ol>
+                            </nav>
                         </div>
                     </div>
-                </form>
+                    <div class="col-md-6">
+                        <div class="breadcrumb-form">
+
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>`;
+        </div>
+    <!-- Breadcrumb End -->
 
-        const questions = document.getElementById('questions').innerHTML;
-
+        <div class="alice-bg section-padding-bottom">
+            <div class="container no-gliters">
+            <center>
         
-        //document.getElementById('questions').innerHTML = questions + newQuestion;
-        if(document.qform.validity){
-                    document.qform.submit();
-
-        }
-
-    }
-        
-
-    </script>
-    <center>
-    
-        <div id="questions">
-                
+            <div id="questions">
+                    
         </div>
     </center>
     
@@ -122,7 +72,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="choix1" name="choix1" placeholder="premier choix..." required>
                                 <label for="choix1">Choix 1:</label>
-                                <div class="correct">
+                                <div class="correct float-right">
                                     <input type="checkbox" name="correct" checked disabled>
                                     <label for="correct">Correcte</label>
                                 </div>
@@ -147,14 +97,30 @@
                             <!-- <button class="btn btn-primary w-100 py-3" type="button" onclick="addQ()">Add Question</button>
 -->
                         </div>
+
+                        
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </center>
+    <div class="float-right">
+        <div class="btnTerminer">
+            <button class="btn btn-warning">
+                 <a href="{{ path('app_test_index') }}">Terminer</a>
+            </button>
+        </div>
 
-    <div class="btnTerminer">
-        <a href="{{ path('app_test_index') }}">Terminer</a>
-    </div>
     
+
+        </div>
+    </div>
+
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
+
+
 {% endblock %}

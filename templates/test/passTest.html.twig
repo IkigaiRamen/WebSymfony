@@ -1,10 +1,8 @@
+
 {% extends 'base.html.twig' %}
-
-
-{% block body %}
-    <script>
+{% block head %}   <script>
     var mins = {{test.duree - 1}};
-    mins = 0;   // to remove
+    mins = 3;   // to remove
     var secs = 59;
     var i = 0;
     function countdown(){
@@ -37,38 +35,59 @@
         var myTimer = setInterval(countdown, 1000);
     //document.getElementById("progressBar").value = 10 - timeleft;
     </script>
-    {#<form method="post" action="{{ path('app_test_pass', {'testId':testId})}}" 
-                name="answerForm" enctype="multipart/form-data">#}
-        <h1>{{test.titre}}</h1>
-        <h1 id="timer">{{test.duree -1}}:59</h1>
-        <progress value="0" max="{{test.duree}}" id="progressBar"></progress>
-        <form method="post" action="{{ path('app_reponse_new')}}" name="answerForm" id="answerForm" enctype="multipart/form-data">
-            <input name="userId" type="hidden" value="7"> <!-- change to current user -->
-            <input name="testId" type="hidden" value="{{test.id}}">
-            
-            {% set nbrQ = 0%}
-            {% for question in test.questions %}
-                {%set nbrQ = nbrQ + 1%}
-                <div>
-                        
-                        <h2>Question N°{{nbrQ}}</h2>
-                        <p>{{question.enonce}}</p>
-                        {% set nbrC = 0%}
-                        {% for choix in question.choices %}
-                            {% set nbrC = nbrC + 1%}
-                            <div>
-                                <input type='radio' name="quest{{nbrQ}}" id="choix{{nbrC}}" value="{{choix.id}}"  required>
-                                <label for="c{{nbrC}}">{{choix.contenu}}</label>
-                            </div>
-                        {% endfor %}
-                        
+     {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
+{% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>{{test.titre}}</h1>
+                    </div>
                 </div>
-            {% endfor %}
-            <input name="nbrQuestion" id="nbrQuestion" type="hidden" value="{{nbrQ}}">
-            <button type="submit" onclick="submitReponses()" > Terminer </button>
-        </form>
-        
-    {#</form>#}
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+           <h1 id="timer" class="float-right">{{test.duree -1}}:59</h1>
+            <div class="row no-gliters">
+                <form method="post" action="{{ path('app_reponse_new')}}" name="answerForm" id="answerForm" enctype="multipart/form-data">
+                    <input name="userId" type="hidden" value="{{app.user.id}}"> <!-- change to current user -->
+                    <input name="testId" type="hidden" value="{{test.id}}">
+            
+                    {% set nbrQ = 0%}
+                    {% for question in test.questions %}
+                        {%set nbrQ = nbrQ + 1%}
+                        <div>
+                                
+                                <h2>Question N°{{nbrQ}}</h2>
+                                <p>{{question.enonce}}</p>
+                                {% set nbrC = 0%}
+                                {% for choix in question.choices %}
+                                    {% set nbrC = nbrC + 1%}
+                                    <div>
+                                        <input type='radio' name="quest{{nbrQ}}" id="choix{{nbrC}}" value="{{choix.id}}"  required>
+                                        <label for="c{{nbrC}}">{{choix.contenu}}</label>
+                                    </div>
+                                {% endfor %}
+                                
+                        </div>
+                    {% endfor %}
+                    <input name="nbrQuestion" id="nbrQuestion" type="hidden" value="{{nbrQ}}">
+                    <button class="btn btn-primary" type="submit" onclick="submitReponses()" > Terminer </button>
+                </form>
+                    </div>
+                </div>
+            </div>
+
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
 
 
 {% endblock %}
