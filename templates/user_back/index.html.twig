@@ -1,0 +1,109 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1>Liste utilisateurs</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Adresse email</th>
+                <th>Nom utilisateur</th>
+                <th>Role</th>
+                <th>Poste</th>
+                <th>Siteweb</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Numéro téléphone</th>
+                <th>Experience</th>
+                <th>Etat</th>
+                <th>Sexe</th>
+                <th>Qualification</th>
+                <th>Titre 1</th>
+                <th>Institut 1</th>
+                <th>Periode 1</th>
+                <th>Description 1</th>
+                <th>Titre 2</th>
+                <th>Institut 2</th>
+                <th>Periode 2</th>
+                <th>Description 2</th>
+                <th>Travail 1</th>
+                <th>Société de travail 1</th>
+                <th>Période de travail 1</th>
+                <th>Description de travail 1</th>
+                <th>Travail 2</th>
+                <th>Sociéte de travail 2</th>
+                <th>Période de travail 2</th>
+                <th>Description de travail 2</th>
+                <th>Qualification1</th>
+                <th>Qualification2</th>
+                <th>Qualification3</th>
+                <th>Qualification4</th>
+                <th>Societe</th>
+                <th>Video</th>
+                <th>Bio</th>
+                <th>City</th>
+                <th>Image</th>
+                <th>Update_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.job }}</td>
+                <td>{{ user.siteweb }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.numTel }}</td>
+                <td>{{ user.exp }}</td>
+                <td>{{ user.etat }}</td>
+                <td>{{ user.sex }}</td>
+                <td>{{ user.qualification }}</td>
+                <td>{{ user.titre1 }}</td>
+                <td>{{ user.institut1 }}</td>
+                <td>{{ user.periode1 }}</td>
+                <td>{{ user.description1 }}</td>
+                <td>{{ user.titre2 }}</td>
+                <td>{{ user.institut2 }}</td>
+                <td>{{ user.periode2 }}</td>
+                <td>{{ user.description2 }}</td>
+                <td>{{ user.work1 }}</td>
+                <td>{{ user.company1 }}</td>
+                <td>{{ user.workperiod1 }}</td>
+                <td>{{ user.workdescription1 }}</td>
+                <td>{{ user.work2 }}</td>
+                <td>{{ user.company2 }}</td>
+                <td>{{ user.workperiod2 }}</td>
+                <td>{{ user.workdescription2 }}</td>
+                <td>{{ user.qualification1 }}</td>
+                <td>{{ user.qualification2 }}</td>
+                <td>{{ user.qualification3 }}</td>
+                <td>{{ user.qualification4 }}</td>
+                <td>{{ user.societe }}</td>
+                <td>{{ user.video }}</td>
+                <td>{{ user.bio }}</td>
+                <td>{{ user.city }}</td>
+                <td>{{ user.image }}</td>
+                <td>{{ user.updateAt ? user.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('user_back_show', {'id': user.id}) }}">Afficher</a>
+                    <a href="{{ path('user_back_edit', {'id': user.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="41">Pas d'utilisateurs</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_back_new') }}">Créer un nouveau utilisateur</a>
+{% endblock %}
