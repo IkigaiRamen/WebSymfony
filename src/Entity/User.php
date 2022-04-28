@@ -50,6 +50,46 @@ class User implements UserInterface, \Serializable
      */
     private $password;
 
+     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateCreation", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
+     */
+    private $datecreation = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="dateModification", type="datetime", nullable=true)
+     */
+    private $datemodification;
+
+    public function getDatecreation(): ?\DateTimeInterface
+    {
+        return $this->datecreation;
+    }
+
+    public function setDatecreation(\DateTimeInterface $datecreation): self
+    {
+        $this->datecreation = $datecreation;
+
+        return $this;
+    }
+
+    public function getDatemodification(): ?\DateTimeInterface
+    {
+        return $this->datemodification;
+    }
+
+    public function setDatemodification(?\DateTimeInterface $datemodification): self
+    {
+        $this->datemodification = $datemodification;
+
+        return $this;
+    }
+
+
+
     /**
      * @ORM\Column(type="string", length=90, nullable=true)
      */

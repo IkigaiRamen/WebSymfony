@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>User</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ user.password }}</td>
+            </tr>
+            <tr>
+                <th>Job</th>
+                <td>{{ user.job }}</td>
+            </tr>
+            <tr>
+                <th>Siteweb</th>
+                <td>{{ user.siteweb }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ user.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ user.firstname }}</td>
+            </tr>
+            <tr>
+                <th>NumTel</th>
+                <td>{{ user.numTel }}</td>
+            </tr>
+            <tr>
+                <th>Exp</th>
+                <td>{{ user.exp }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ user.etat }}</td>
+            </tr>
+            <tr>
+                <th>Sex</th>
+                <td>{{ user.sex }}</td>
+            </tr>
+            <tr>
+                <th>Qualification</th>
+                <td>{{ user.qualification }}</td>
+            </tr>
+            <tr>
+                <th>Titre1</th>
+                <td>{{ user.titre1 }}</td>
+            </tr>
+            <tr>
+                <th>Institut1</th>
+                <td>{{ user.institut1 }}</td>
+            </tr>
+            <tr>
+                <th>Periode1</th>
+                <td>{{ user.periode1 }}</td>
+            </tr>
+            <tr>
+                <th>Description1</th>
+                <td>{{ user.description1 }}</td>
+            </tr>
+            <tr>
+                <th>Titre2</th>
+                <td>{{ user.titre2 }}</td>
+            </tr>
+            <tr>
+                <th>Institut2</th>
+                <td>{{ user.institut2 }}</td>
+            </tr>
+            <tr>
+                <th>Periode2</th>
+                <td>{{ user.periode2 }}</td>
+            </tr>
+            <tr>
+                <th>Description2</th>
+                <td>{{ user.description2 }}</td>
+            </tr>
+            <tr>
+                <th>Work1</th>
+                <td>{{ user.work1 }}</td>
+            </tr>
+            <tr>
+                <th>Company1</th>
+                <td>{{ user.company1 }}</td>
+            </tr>
+            <tr>
+                <th>Workperiod1</th>
+                <td>{{ user.workperiod1 }}</td>
+            </tr>
+            <tr>
+                <th>Workdescription1</th>
+                <td>{{ user.workdescription1 }}</td>
+            </tr>
+            <tr>
+                <th>Work2</th>
+                <td>{{ user.work2 }}</td>
+            </tr>
+            <tr>
+                <th>Company2</th>
+                <td>{{ user.company2 }}</td>
+            </tr>
+            <tr>
+                <th>Qualification1</th>
+                <td>{{ user.qualification1 }}</td>
+            </tr>
+            <tr>
+                <th>Qualification2</th>
+                <td>{{ user.qualification2 }}</td>
+            </tr>
+            <tr>
+                <th>Qualification3</th>
+                <td>{{ user.qualification3 }}</td>
+            </tr>
+            <tr>
+                <th>Qualification4</th>
+                <td>{{ user.qualification4 }}</td>
+            </tr>
+            <tr>
+                <th>Societe</th>
+                <td>{{ user.societe }}</td>
+            </tr>
+            <tr>
+                <th>Workperiod2</th>
+                <td>{{ user.workperiod2 }}</td>
+            </tr>
+            <tr>
+                <th>Workdescription2</th>
+                <td>{{ user.workdescription2 }}</td>
+            </tr>
+            <tr>
+                <th>Video</th>
+                <td>{{ user.video }}</td>
+            </tr>
+            <tr>
+                <th>Bio</th>
+                <td>{{ user.bio }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ user.city }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ user.image }}</td>
+            </tr>
+            <tr>
+                <th>Update_at</th>
+                <td>{{ user.updateAt ? user.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_back_index') }}">back to list</a>
+
+    <a href="{{ path('user_back_edit', {'id': user.id}) }}">edit</a>
+
+    {{ include('user_back/_delete_form.html.twig') }}
+{% endblock %}

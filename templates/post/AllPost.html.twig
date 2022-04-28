@@ -1,0 +1,47 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <div class="alice-bg section-padding-bottom">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col">
+                    <div class="job-listing-container">
+                        <div class="filtered-job-listing-wrapper">
+                            <div class="job-filter-result">
+                                All Post : <HR>
+                                {% for p in posts %}
+
+                                {% if p.etat == "en attent" or p.etat == "refusée" %}
+                                {% else %}
+                                    <div class="job-list">
+                                        <div class="body">
+                                        <a href="#">
+                                            <img src="{{ asset('Upload/')}}{{ p.image }}" width="50%" alt="">
+                                        </a>
+                                            <div class="content">
+                                                <h4><a href="job-details.html" style="text-align: center !important;">{{ p.description}} </a></h4>
+                                                <div class="info">
+                                                </div>
+                                            </div>
+                                            <div class="more">
+
+                                                <a href="{{ path('app_commentaire_new', {'id': p.idPost}) }}" class="button" >Details</a><br><br>
+
+                                                <p class="deadline"> Date: {{ p.dateP ? p.dateP|date('Y-m-d') : '' }}<br>
+                                                                     By : {{ p.idUser.userName }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

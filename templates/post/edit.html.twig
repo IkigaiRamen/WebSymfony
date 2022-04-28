@@ -1,0 +1,32 @@
+{% extends 'front.html.twig' %}
+
+
+{% block body %}
+
+    <div class="col-lg-7 offset-lg-1">
+        <h3>Modifier Post</h3><br><br>
+        {{ form_start(form, { 'attr': {'class': 'contact_form'} })  }}
+        <form action="#" id="contactForm">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        {{ form_widget(form.file, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(form.file) }}
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        Description :
+                        {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Enregistrer" class="button" formnovalidate />
+
+            {{ form_end(form) }}
+    </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <div class="alice-bg section-padding-bottom">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col">
+                    <div class="job-listing-container">
+                        <div class="filtered-job-listing-wrapper">
+                            <div class="job-filter-result">
+                                {% for p in posts %}
+                                <div class="job-list">
+                                        <a href="#">
+                                            <img src="{{ asset('Upload/')}}{{ p.image }}" width="50%" alt="">
+                                        </a>
+                                    <div class="body">
+                                        <div class="content">
+                                            <h4><a href="job-details.html" style="text-align: center !important;">{{ p.description}} </a></h4>
+                                            <div class="info">
+                                            </div>
+                                        </div>
+                                        <div class="more">
+
+                                                <a href="{{ path('post_delete', {'id': p.idPost}) }}" class="button" >Delete</a><br><br>
+                                                <a href="{{ path('app_post_edit', {'idPost': p.idPost}) }}" class="button">Update</a>
+
+                                            <p class="deadline"> Date: {{ p.dateP ? p.dateP|date('Y-m-d') : '' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
