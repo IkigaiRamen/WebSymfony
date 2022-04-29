@@ -50,9 +50,59 @@ class TestController extends AbstractController
     }
 
     /**
+     * @Route("/listquizz", name="app_test_listquizz", methods={"GET"})
+     */
+    public function userQuizz(EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $tests = $entityManager
+            ->getRepository(Test::class)
+            ->findBy(array(
+                'iduser' => $user->getId(),
+            ));
+
+        return $this->render('test/listquizz.html.twig', [
+            'tests' => $tests,
+        ]);
+    }
+    /**
      * @Route("/new", name="app_test_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        //$form = $this->createForm(TestType::class, $test);
+        //$form->handleRequest($request);
+            
+ 
+        if ($request->isMethod('POST')) {
+
+            $test = new Test();
+
+            $test->setIduser($this->getUser());
+            $time = new \DateTime('@'.strtotime('now'));
+            $test->setDatecreation($time);
+            $test->setDatemodification($time);
+            $test->setDuree($request->get('duree'));
+            $test->setNbrtentative($request->get('nbrTent'));
+            $test->settype("Quizz");
+            $test->setMaxscore(100);
+            $test->setTitre($request->get('titre'));
+            
+            $entityManager->persist($test);
+            $entityManager->flush();
+            $id = $test->getId();
+            return $this->redirectToRoute('app_question_new', ['testId'=>$id], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('test/new.html.twig', [
+            
+        ]);
+        
+    }
+
+    /**
+     * @Route("/newcertif", name="app_test_newcertif", methods={"GET", "POST"})
+     */
+    public function newCertif(Request $request, EntityManagerInterface $entityManager): Response
     {
         //$form = $this->createForm(TestType::class, $test);
         //$form->handleRequest($request);
@@ -75,12 +125,11 @@ class TestController extends AbstractController
             $entityManager->persist($test);
             $entityManager->flush();
             $id = $test->getId();
-            return $this->redirectToRoute('app_question_new', ['testId'=>$id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_question_newCertif', ['testId'=>$id], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('test/new.html.twig', [
+        return $this->render('test/newCertif.html.twig', [
             
         ]);
-        
     }
 
     /**

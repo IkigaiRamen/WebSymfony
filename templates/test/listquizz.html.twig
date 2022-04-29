@@ -1,22 +1,11 @@
-{% extends 'base.html.twig'%}
+{% extends 'base2.html.twig'%}
 
 {% block title %}Test index{% endblock %}
 
 
 
 
-{% block head %} 
-    {% block stylesheet %} {{ parent() }}
-        <style>
-            td{
-                font-size: 18px
-            }
-            th{
-                font-size: 20px
-            }
-        </style>
-    {% endblock %} 
-{% endblock %}
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
     {% block con %}    {{ parent() }} {% endblock %}
     <div class="alice-bg padding-top-70 padding-bottom-70">
@@ -24,11 +13,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="breadcrumb-area">
-                        <h1>Liste des certifications disponibles</h1>
+                        <h1>Mes Quizz</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Certifications</li>
+                                <li class="breadcrumb-item">Employeur</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Mes Quizz</li>
                             </ol>
                         </nav>
                     </div>
@@ -49,9 +38,7 @@
     <div class="alice-bg section-padding-bottom">
         <div class="container no-gliters">
             <div class="row no-gliters">
-            <div class="col">
-                    <div class="dashboard-container">
-                <table class="table ">
+                <table class="table table-hover table-bordered table-striped">
                     <thead class="table-header">
                         <tr>
                             <th>Titre</th>
@@ -79,9 +66,7 @@
                 </table>
 
                         {%block sidebar%}    {{ parent() }}
-                        {%endblock%}
-                    </div>
-        </div>
+
             </div>
         </div>
     </div>
