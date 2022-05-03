@@ -7,6 +7,7 @@ use App\Entity\Choix;
 use App\Entity\Test;
 use App\Form\QuestionType;
 use Doctrine\ORM\EntityManagerInterface;
+use Proxies\__CG__\App\Entity\Test as EntityTest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -60,6 +61,34 @@ class QuestionController extends AbstractController
             return $this->render('question/new.html.twig', ['testId'=>$test->getId()]);
 
     }
+    /**
+     * @Route("/newcertif/{testId}", name="app_question_newcertif", methods={"GET", "POST"})
+     * @ParamConverter("test", options={"id" = "testId"})
+     */
+    public function newCertif(Request $request, EntityManagerInterface $entityManager, ?Test $test)
+    {
+        if ($request->isMethod('post')) {
+            
+            $question = new Question();
+            $question->setEnonce($request->get('enonce'));
+            $question->setTest($test);
+
+
+            $time = new \DateTime('@'.strtotime('now'));
+            $question->setDatecreation($time);
+            $question->setDatemodification($time);
+            $entityManager->persist($question);
+            $entityManager->flush();
+
+            $this->forward('App\Controller\ChoixController::newChoixQuestion', [
+                'choices'  => [$request->get('choix1'),$request->get('choix2'),$request->get('choix3')],
+                'question' => $question,
+            ]);            
+        
+        }
+            return $this->render('question/newQuesCertif.html.twig', ['testId'=>$test->getId()]);
+
+    }
             
 
     /**
@@ -72,8 +101,8 @@ class QuestionController extends AbstractController
             
             $question = new Question();
             $question->setEnonce($request->get('enonce'));
-            
-            //$question->setTest($request->get('certif'));
+            $certif = $this->getDoctrine()->getRepository(Test::class)->find($request->get('certif'));
+            $question->setTest($certif);
 
             $time = new \DateTime('@'.strtotime('now'));
             $question->setDatecreation($time);

@@ -39,6 +39,10 @@
             margin-top: 20px;
             margin-bottom: 20px;
         }
+        input{
+            font-size: 30px;
+        }
+
     </style> 
 {% endblock %}
 {% block body %}
@@ -91,7 +95,7 @@
                     <label for="nbrTent">Nombre de tentatives</label>     
            </div>
            <div class="form-floating">
-                <input type="number" class="form-control" id="duree" name="duree" min=15 max=240 required
+                <input type="number" class="form-control" id="duree" name="duree" min=3 max=240 required
                 oninput="validity.valid||(value='');">
                 <label for="duree">Durée (en minutes)</label>
            </div>

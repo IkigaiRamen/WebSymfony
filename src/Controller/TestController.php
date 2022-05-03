@@ -125,7 +125,7 @@ class TestController extends AbstractController
             $entityManager->persist($test);
             $entityManager->flush();
             $id = $test->getId();
-            return $this->redirectToRoute('app_question_newCertif', ['testId'=>$id], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_question_newcertif', ['testId'=>$id], Response::HTTP_SEE_OTHER);
         }
         return $this->render('test/newCertif.html.twig', [
             

@@ -51,37 +51,37 @@
             <div class="row no-gliters">
             <div class="col">
                     <div class="dashboard-container">
-                <table class="table ">
-                    <thead class="table-header">
-                        <tr>
-                            <th>Titre</th>
-                            <th>Nbrtentative</th>
-                            <th>Duree</th>
-                            <th>actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for test in tests %}
-                        <tr>
-                            <td>{{ test.titre }}</td>
-                            <td>{{ test.nbrtentative }}</td>
-                            <td>{{ test.duree }}</td>
-                            <td>
-                                <a href="{{ path('app_test_pass', {'id': test.id}) }}">Passer </a>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="9">no records found</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                        <table class="table ">
+                            <thead class="table-header">
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Nbrtentative</th>
+                                    <th>Duree</th>
+                                    <th>actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for test in tests %}
+                                <tr>
+                                    <td>{{ test.titre }}</td>
+                                    <td>{{ test.nbrtentative }}</td>
+                                    <td>{{ test.duree }}</td>
+                                    <td>
+                                        <a href="{{ path('app_test_pass', {'id': test.id}) }}">Passer </a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">no records found</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
 
                         {%block sidebar%}    {{ parent() }}
                         {%endblock%}
                     </div>
-        </div>
+                </div>
             </div>
         </div>
     </div>

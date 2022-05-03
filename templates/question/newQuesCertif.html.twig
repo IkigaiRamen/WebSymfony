@@ -1,9 +1,7 @@
 
-{% extends 'base2.html.twig' %}
-{% block head %}   
+{% extends 'back.html.twig' %}
 
-     {% block stylesheet %} 
-        {{ parent() }}
+{% block body %}
         <style>
         .float-right{
             margin-top: 25px;
@@ -17,7 +15,7 @@
             border-radius: 15px;
             background: #3D27A7;
             padding: 20px;
-            width: 80vw;
+            width: 70vw;
             overflow: auto;
             display: block;
             text-align: center;
@@ -26,44 +24,18 @@
             color:white;
         }
         </style>
-     {% endblock %} 
-{% endblock %}
-{% block body %}
-    {% block con %}    {{ parent() }} {% endblock %}
-        <div class="alice-bg padding-top-70 padding-bottom-70">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="breadcrumb-area">
-                            <h1>Créer Quizz</h1>
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
-                                    <li class="breadcrumb-item" aria-current="page">Certification</li>
-                                    <li class="breadcrumb-item" aria-current="page">Créer</li>
-                                    <li class="breadcrumb-item active" aria-current="page">Questions</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="breadcrumb-form">
+     
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <!-- Breadcrumb End -->
 
-        <div class="alice-bg section-padding-bottom">
-            <div class="container no-gliters">
+
+
+
             <center>
         
             <div id="questions">
                     
-        </div>
-    </center>
+            </div>
+            </center>
     
     <center>
         <div class="questionContainer" id="newQuestion">
@@ -71,7 +43,7 @@
                 <h1 class="mb-5 color">Créer Question</h1>
             </div>
             <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-                <form method="post" action="{{ path('app_question_new', {'testId':testId})}}" 
+                <form method="post" action="{{ path('app_question_newcertif', {'testId':testId})}}" 
                 {#onsubmit="return false" name="qform" enctype="multipart/form-data">#}>
                     <div class="row g-3">
                         <div class="col-12">
@@ -120,7 +92,7 @@
     <div class="float-right">
         <div class="btnTerminer">
             <button class="btn btn-warning">
-                 <a href="{{ path('app_test_listquizz') }}">Terminer</a>
+                 <a href="{{ path('app_test_index') }}">Terminer</a>
             </button>
         </div>
 
@@ -128,9 +100,6 @@
 
         </div>
     </div>
-
-    {% block action %} {{ parent() }} {% endblock %}
-    {% block footer %} {{ parent() }} {% endblock %}
 
 
 
