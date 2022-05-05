@@ -61,7 +61,7 @@ public function getCity(): ?string
 		return $this->categorie;
 	}
 
-	public function setCategorie(string $city): self
+	public function setCategorie(string $categorie): self
      {
 		$this->categoire = $categorie;
 	 }

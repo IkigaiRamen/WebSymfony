@@ -14,6 +14,7 @@ use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @Route("/post")
+ * @IsGranted("ROLE_ADMIN")
  */
 class PostController extends AbstractController
 {

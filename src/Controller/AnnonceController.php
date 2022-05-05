@@ -17,13 +17,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\EqualTo;
+use Twilio\Rest\Client;
+use Symfony\Component\Validator\ Constraints\EqualTo;
+
 
 
 
 
 class AnnonceController extends AbstractController
 {
+
+    private $twilio;
+
+
     /**
      * @Route("/annonce", name="annonce")
      */
@@ -122,12 +128,15 @@ class AnnonceController extends AbstractController
     }
 
 
+   
+
     /**
      * @Route("/annonce/{id}", name="annonce_show")
      */
     
         public function show(int $id, Request $request ,UserRepository $ur,AnnonceRepository $ar): Response
     {
+        $twilio;
         $annonce = $this->getDoctrine()
         ->getRepository(Annonce::class)
         ->find($id);
@@ -171,6 +180,16 @@ class AnnonceController extends AbstractController
         $doctrine = $this->getDoctrine()->getManager();
         $doctrine->persist($apply);
         $doctrine->flush();
+       
+        /*$message = $this->twilio->messages->create(
+            $user->getNumTel(), // Send text to this number
+            array(
+              'from' => $sender, // My Twilio phone number
+              'body' => 'Hello from Awesome Massages. A reminder that your massage appointment is for today at ' . $appoint->getDate()->format('H:i') . '. Call ' . $sender . ' for any questions.'
+            )
+          );
+   
+          $output->writeln('SMS #' . $message->sid . ' sent to: ' . $user->getNumTel());*/
     }
 
     

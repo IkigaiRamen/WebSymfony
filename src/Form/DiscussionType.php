@@ -13,7 +13,6 @@ class DiscussionType extends AbstractType
     {
         $builder
             ->add('User')
-            ->add('Messages')
         ;
     }
 

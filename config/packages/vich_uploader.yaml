@@ -9,4 +9,7 @@ vich_uploader:
              delete_on_remove: true
              delete_on_update: true
 
+        messages_contracts:
+             uri_prefix: '%app.path.messages_contracts%'
+             upload_destination: '%kernel.project_dir%/public%app.path.messages_contracts%'
 

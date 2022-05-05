@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Messages;
 use App\Entity\User;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -34,6 +35,16 @@ class MessageType extends AbstractType
                 "class" => "form-control"
             ]
         ])
+
+        ->add('contractFile', VichFileType::class, [
+            'required' => false,
+            'allow_delete' => true,
+            'delete_label' => '...',
+            'download_uri' => '...',
+            'download_label' => '...',
+            'asset_helper' => true,
+        ])
+
         ->add('envoyer', SubmitType::class, [
             "attr" => [
                 "class" => "btn btn-primary"

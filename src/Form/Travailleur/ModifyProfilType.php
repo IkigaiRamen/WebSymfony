@@ -307,6 +307,8 @@ class ModifyProfilType extends AbstractType
 'Western Sahara'=>'Western Sahara' ,
 'Yemen'=>'Yemen' ,
 'Zambia'=>'Zambia' ,
+'Troy'=>'Troy',
+'Sayeda'=>'Sayeda',
 'Zimbabwe'=>'Zimbabwe' ,
 
                 ]

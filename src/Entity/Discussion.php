@@ -26,6 +26,7 @@ class Discussion
 
     /**
      * @ORM\ManyToMany(targetEntity=Messages::class, mappedBy="Discussion")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $Messages;
 

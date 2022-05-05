@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
+{% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>CV</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Curriculum Vitae</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+                <div class="col">
+                    <div class="dashboard-container">
+                        <div class="dashboard-content-wrapper">
+
+              
+                     
+     <table class="table">
+        <tbody>
+            <tr>
+                <th>IdPost</th>
+                <td>{{ post.idPost }}</td>
+            </tr>
+            <tr>
+                <th>DateP</th>
+                <td>{{ post.dateP ? post.dateP|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ post.description }}</td>
+            </tr>
+            <tr>
+                <th>Reaction</th>
+                <td>{{ post.reaction ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>                    <img src="{{ asset('Upload/')}}{{ post.image }}" width="100" alt=""></td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ post.etat }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_post_front_index') }}">back to list</a>
+
+    <a href="{{ path('app_post_front_edit', {'idPost': post.idPost}) }}">edit</a>
+
+    {{ include('post_front/_delete_form.html.twig') }}
+
+   
+                        </div>
+                        {% block sidebar %}    {{ parent() }}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    
+{% endblock %}

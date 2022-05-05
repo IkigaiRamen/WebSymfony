@@ -1,14 +1,17 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\HttpFoundation\File\File;
 use App\Repository\MessagesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 /**
  * @ORM\Entity(repositoryClass=MessagesRepository::class)
+ * * @Vich\Uploadable
  */
 class Messages
 {
@@ -60,6 +63,48 @@ class Messages
      * @ORM\ManyToMany(targetEntity=Discussion::class, inversedBy="Messages")
      */
     private $Discussion;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $contract;
+
+    /**
+     * @Vich\UploadableField(mapping="messages_contracts", fileNameProperty="contract")
+     * @var File
+     */
+    private $contractFile;
+
+
+
+
+    public function getContractFile()
+                                                                {
+    return $this->contractFile;
+                                                                }
+
+    public function setContractFile(?File $contractFile): self
+    {
+        $this->contractFile = $contractFile;
+        
+        return $this;
+
+    }
+
+    public function getContract(): ?string
+    {
+        return $this->contract;
+    }
+
+    public function setContract(string $Contract): self
+    {
+        $this->Contract = $Contract;
+
+        return $this;
+    }
+ 
 
     public function __construct()
     {
@@ -173,5 +218,8 @@ class Messages
         }
 
         return $this;
+    }
+    public function __toString() {
+        return $this->message;
     }
 }

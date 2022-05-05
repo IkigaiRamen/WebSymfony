@@ -1,9 +1,43 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Discussion{% endblock %}
-
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
-    <h1>Discussion</h1>
+    {% block con %}    {{ parent() }} {% endblock %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>CV</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Curriculum Vitae</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+                <div class="col">
+                    <div class="dashboard-container">
+                        <div class="dashboard-content-wrapper">
+
+  <h1>Discussion</h1>
 
     <table class="table">
         <tbody>
@@ -19,4 +53,17 @@
     <a href="{{ path('discussion_edit', {'id': discussion.id}) }}">edit</a>
 
     {{ include('discussion/_delete_form.html.twig') }}
+
+   
+                        </div>
+                        {% block sidebar %}    {{ parent() }}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
 {% endblock %}
+
+

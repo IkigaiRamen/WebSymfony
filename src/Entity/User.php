@@ -55,7 +55,7 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(name="dateCreation", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $datecreation = 'CURRENT_TIMESTAMP';
+    private $datecreation ;
 
     /**
      * @var \DateTime|null
@@ -781,7 +781,7 @@ class User implements UserInterface, \Serializable
 
 	public function getImageFile()
                                                                 {
-                                                                    return $this->imageFile;
+    return $this->imageFile;
                                                                 }
 
     public function setImageFile($image = null): void

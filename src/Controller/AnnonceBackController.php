@@ -12,11 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/annonce/back")
+ * @IsGranted("ROLE_ADMIN")
  */
 class AnnonceBackController extends AbstractController
 {
     /**
      * @Route("/", name="annonce_back_index", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index(AnnonceRepository $annonceRepository): Response
     {

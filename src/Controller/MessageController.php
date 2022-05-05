@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Message;
+use Symfony\Component\Mime\Discussion;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\MessageType;
 
@@ -28,6 +29,7 @@ class MessageController extends AbstractController
     public function send(Request $request):Response
     {
         $message = new Messages;
+      /*  $discussion = new Discussion;*/
         $form = $this->createForm(MessageType::class, $message);
         
         $form->handleRequest($request);

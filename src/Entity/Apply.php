@@ -67,6 +67,11 @@ class Apply
      */
     private $UserId;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Entretien::class, mappedBy="Apply", cascade={"persist", "remove"})
+     */
+    private $entretien;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -197,6 +202,23 @@ class Apply
     public function setSociete(?string $societe): self
     {
         $this->societe = $societe;
+
+        return $this;
+    }
+
+    public function getEntretien(): ?Entretien
+    {
+        return $this->entretien;
+    }
+
+    public function setEntretien(Entretien $entretien): self
+    {
+        // set the owning side of the relation if necessary
+        if ($entretien->getApply() !== $this) {
+            $entretien->setApply($this);
+        }
+
+        $this->entretien = $entretien;
 
         return $this;
     }

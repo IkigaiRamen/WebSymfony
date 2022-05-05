@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
+{% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>CV</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Curriculum Vitae</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+                <div class="col">
+                    <div class="dashboard-container">
+                        <div class="dashboard-content-wrapper">
+
+              
+                     
+  <table class="table">
+        <thead>
+            <tr>
+                <th>IdPost</th>
+                <th>DateP</th>
+                <th>Description</th>
+                <th>Reaction</th>
+                <th>Image</th>
+                <th>Etat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.idPost }}</td>
+                <td>{{ post.dateP ? post.dateP|date('Y-m-d') : '' }}</td>
+                <td>{{ post.description }}</td>
+                <td>{{ post.reaction ? 'Yes' : 'No' }}</td>
+                <td>{{ post.image }}</td>
+                <td>{{ post.etat }}</td>
+                <td>
+                    <a href="{{ path('app_post_front_show', {'idPost': post.idPost}) }}">show</a>
+                    <a href="{{ path('app_post_front_edit', {'idPost': post.idPost}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_post_front_new') }}">Create new</a>
+
+   
+                        </div>
+                        {% block sidebar %}    {{ parent() }}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock %}
