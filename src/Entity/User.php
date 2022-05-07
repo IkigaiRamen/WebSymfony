@@ -780,9 +780,9 @@ class User implements UserInterface, \Serializable
     private $imageFile;
 
 	public function getImageFile()
-                                                                {
-    return $this->imageFile;
-                                                                }
+                                                                                                                                                                                  {
+                                                                                                                      return $this->imageFile;
+                                                                                                                                                                                  }
 
     public function setImageFile($image = null): void
     {
@@ -810,10 +810,37 @@ class User implements UserInterface, \Serializable
      */
     private $received;
 
+
     /**
-     * @ORM\ManyToMany(targetEntity=Discussion::class, mappedBy="User")
+     * @ORM\OneToMany(targetEntity=Demande::class, mappedBy="User", orphanRemoval=true)
      */
-    private $discussions;
+    private $demandes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Offre::class, mappedBy="User", orphanRemoval=true)
+     */
+    private $offres;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Postule::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $postule;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PostuleDemande::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $postuleDemandes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Conversation::class, mappedBy="User")
+     */
+    private $Conversations;
+
+   
+
+
+
+
 
     
 
@@ -824,7 +851,12 @@ class User implements UserInterface, \Serializable
         $this->update_at = new \DateTime();
         $this->sent = new ArrayCollection();
         $this->received = new ArrayCollection();
-        $this->discussions = new ArrayCollection();
+        $this->demandes = new ArrayCollection();
+        $this->offres = new ArrayCollection();
+        $this->postuleDemandes = new ArrayCollection();
+        $this->friends = new ArrayCollection();
+        $this->Conversations = new ArrayCollection();
+      
     }
 
     public function getId(): ?int
@@ -1079,31 +1111,184 @@ class User implements UserInterface, \Serializable
         ) = unserialize($serialized);
         }
 
+       
+
         /**
-         * @return Collection|Discussion[]
+         * @return Collection<int, Demande>
          */
-        public function getDiscussions(): Collection
+        public function getDemandes(): Collection
         {
-            return $this->discussions;
+            return $this->demandes;
         }
 
-        public function addDiscussion(Discussion $discussion): self
+        public function addDemande(Demande $demande): self
         {
-            if (!$this->discussions->contains($discussion)) {
-                $this->discussions[] = $discussion;
-                $discussion->addUser($this);
+            if (!$this->demandes->contains($demande)) {
+                $this->demandes[] = $demande;
+                $demande->setUser($this);
             }
 
             return $this;
         }
 
-        public function removeDiscussion(Discussion $discussion): self
+        public function removeDemande(Demande $demande): self
         {
-            if ($this->discussions->removeElement($discussion)) {
-                $discussion->removeUser($this);
+            if ($this->demandes->removeElement($demande)) {
+                // set the owning side to null (unless already changed)
+                if ($demande->getUser() === $this) {
+                    $demande->setUser(null);
+                }
             }
 
             return $this;
         }
+
+        /**
+         * @return Collection<int, Offre>
+         */
+        public function getOffres(): Collection
+        {
+            return $this->offres;
+        }
+
+        public function addOffre(Offre $offre): self
+        {
+            if (!$this->offres->contains($offre)) {
+                $this->offres[] = $offre;
+                $offre->setUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeOffre(Offre $offre): self
+        {
+            if ($this->offres->removeElement($offre)) {
+                // set the owning side to null (unless already changed)
+                if ($offre->getUser() === $this) {
+                    $offre->setUser(null);
+                }
+            }
+
+            return $this;
+        }
+
+        public function getPostule(): ?Postule
+        {
+            return $this->postule;
+        }
+
+        public function setPostule(Postule $postule): self
+        {
+            // set the owning side of the relation if necessary
+            if ($postule->getUser() !== $this) {
+                $postule->setUser($this);
+            }
+
+            $this->postule = $postule;
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, PostuleDemande>
+         */
+        public function getPostuleDemandes(): Collection
+        {
+            return $this->postuleDemandes;
+        }
+
+        public function addPostuleDemande(PostuleDemande $postuleDemande): self
+        {
+            if (!$this->postuleDemandes->contains($postuleDemande)) {
+                $this->postuleDemandes[] = $postuleDemande;
+                $postuleDemande->setUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removePostuleDemande(PostuleDemande $postuleDemande): self
+        {
+            if ($this->postuleDemandes->removeElement($postuleDemande)) {
+                // set the owning side to null (unless already changed)
+                if ($postuleDemande->getUser() === $this) {
+                    $postuleDemande->setUser(null);
+                }
+            }
+
+            return $this;
+        }
+
+        public function getUser(): ?self
+        {
+            return $this->user;
+        }
+
+        public function setUser(?self $user): self
+        {
+            $this->user = $user;
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, self>
+         */
+        public function getFriends(): Collection
+        {
+            return $this->friends;
+        }
+
+        public function addFriend(self $friend): self
+        {
+            if (!$this->friends->contains($friend)) {
+                $this->friends[] = $friend;
+                $friend->setUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeFriend(self $friend): self
+        {
+            if ($this->friends->removeElement($friend)) {
+                // set the owning side to null (unless already changed)
+                if ($friend->getUser() === $this) {
+                    $friend->setUser(null);
+                }
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, Conversation>
+         */
+        public function getConversations(): Collection
+        {
+            return $this->Conversations;
+        }
+
+        public function addConversation(Conversation $conversation): self
+        {
+            if (!$this->Conversations->contains($conversation)) {
+                $this->Conversations[] = $conversation;
+                $conversation->addUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeConversation(Conversation $conversation): self
+        {
+            if ($this->Conversations->removeElement($conversation)) {
+                $conversation->removeUser($this);
+            }
+
+            return $this;
+        }
+
+       
     
 }

@@ -22,10 +22,7 @@ class Messages
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
+   
 
     /**
      * @ORM\Column(type="text")
@@ -54,16 +51,6 @@ class Messages
      */
     private $recipient;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Discussion::class, mappedBy="Messages")
-     */
-    private $discussion;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Discussion::class, inversedBy="Messages")
-     */
-    private $Discussion;
-
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -76,6 +63,12 @@ class Messages
      * @var File
      */
     private $contractFile;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Conversation::class, inversedBy="messages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $conversation;
 
 
 
@@ -118,17 +111,7 @@ class Messages
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
 
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
 
     public function getMessage(): ?string
     {
@@ -221,5 +204,17 @@ class Messages
     }
     public function __toString() {
         return $this->message;
+    }
+
+    public function getConversation(): ?Conversation
+    {
+        return $this->conversation;
+    }
+
+    public function setConversation(?Conversation $conversation): self
+    {
+        $this->conversation = $conversation;
+
+        return $this;
     }
 }

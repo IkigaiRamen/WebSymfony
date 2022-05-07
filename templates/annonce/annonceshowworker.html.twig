@@ -1,10 +1,9 @@
-{% extends 'base2.html.twig' %}
+{% extends 'base.html.twig' %}
 {% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
 {% block con %}    {{ parent() }} {% endblock %}
-    
-    <!-- Candidates Details -->
-    <div class="alice-bg padding-top-60 section-padding-bottom">
+
+ <div class="alice-bg padding-top-60 section-padding-bottom">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -12,18 +11,17 @@
               <div class="job-title-and-info">
                 <div class="title">
                   <div class="thumb">
+                  <a href ="{{ path('user_show', {id: annonce.user.id}) }}">
                     <img src="  {{ asset("/uploads/images/products/#{annonce.user.getImage()}#")}}"class="img-fluid" alt="">
+                    </a>
                   </div>
                   <div class="title-body">
                     <h4>{{annonce.titre}}</h4>
                     <div class="info">
-                    
-                      <span class="company"><a href="#"><i data-feather="briefcase"></i>{{annonce.categorie}}</a></span>
+                      <span class="company"><a href="#"><i data-feather="briefcase"></i>{{annonce.user.job}}</a></span>
                       <span class="office-location"><a href="#"><i data-feather="map-pin"></i>{{annonce.city}}</a></span>
-
-
-
-                        {% if annonce.type == 'À plein temps' %}  
+                      
+                      {% if annonce.type == 'À plein temps' %}  
                       <span class="job-type full-time"><a href="#"><i data-feather="clock"></i>{{annonce.type}}</a></span>
                       {% endif %}
 
@@ -40,63 +38,58 @@
 
                       {% if annonce.type == 'Temporaire' %}  
                       <span class="job-type temporary"><a href="#"><i data-feather="clock"></i>{{annonce.type}}</a></span>
-                      {% endif %}                
+                      {% endif %}
 
 
 
-                         </div>
+                    </div>
                   </div>
                 </div>
-                                {% if (app.user.roles == annonce.user.roles) %}
-
+                {% if (app.user.roles != annonce.user.roles) %}
                 <div class="buttons">
                 {{form_start(formApply , {'attr' : {'class' :'dashboard-form job-post-form'}})}}
-                                             {{ form_widget(formApply.Postulez, {'attr': {'class': 'apply'} }) }}
-                {{form_end(formApply)}}                </div>
+                                             {{ form_widget(formApply.Appliquez, {'attr': {'class': 'apply'} }) }}
+                {{form_end(formApply)}}
+                </div>
+                {% else %}
+                <div></div>
+                {% endif %}
+
+
+
               </div>
-              {% endif %}
               <div class="details-information section-padding-60">
                 <div class="row">
                   <div class="col-xl-7 col-lg-8">
                     <div class="description details-section">
-                      <h4><i data-feather="align-left"></i>A propos de travail: </h4>
+                      <h4><i data-feather="align-left"></i>A propos de moi: </h4>
                       {{annonce.description}}
-                    </div>
-
-                    <div class="responsibilities details-section">
-                      <h4><i data-feather="zap"></i>Responsibilities</h4>
-                      
-                        {{annonce.responsibilities}}
-                      
                     </div>
                     <div class="edication-and-experience details-section">
                       <h4><i data-feather="book"></i>Education + Experience</h4>
-                      
-                        {{annonce.eduexp}}
-
-                      
+                      <ul>
+                        <li>{{annonce.user.titre1}} / {{annonce.user.institut1}}</li>
+                        <li>{{annonce.user.titre2}} / {{annonce.user.institut2}}</li>
+                        <li>{{annonce.user.work1}} / {{annonce.user.company1}}</li>
+                        <li>{{annonce.user.work1}} / {{annonce.user.company2}}</li>
+                        <li>{{annonce.user.exp}} Années d'experience</li>
+        
+                      </ul>
                     </div>
-
-                    <div class="other-benifit details-section">
-                      <h4><i data-feather="gift"></i>Autres bénéfices</h4>
-                      
-                        {{annonce.autres}}
-                      
-                    </div>
-               
+                
                   </div>
                   <div class="col-xl-4 offset-xl-1 col-lg-4">
                     <div class="information-and-share">
                       <div class="job-summary">
                         <h4>Description</h4>
                         <ul>
-                          <li><span>Publié le: </span> {{annonce.createdAt|date('Y-m-d H:i:s')}}</li>
+                          <li><span>Publié le: </span> {{annonce.createdAt|date('d-m-Y')}}</li>
                           
                           <li><span>Statut d'emploi</span> {{annonce.type}}</li>
-                          <li><span>Experience:</span> {{annonce.exp}}</li>
+                          <li><span>Experience:</span> {{annonce.user.exp}}</li>
                           <li><span>Qualification:</span> {{annonce.qualification}}</li>
                           <li><span>Emplacement de travail:</span>{{annonce.city}}</li>
-                          <li><span>Salaire:</span> {{annonce.salairemin}} - {{annonce.salairemax}} $</li>
+                          <li><span>Salaire:</span> {{annonce.salairemin}} - {{annonce.salairemax}}</li>
                           <li><span>Sex:</span> {{annonce.sex}}</li>
                           <li><span>Date limite d'application</span> {{annonce.expire|date('d-m-y')}}</li>
                         </ul>
@@ -116,39 +109,17 @@
               </div>
               <div class="row">
                 <div class="col-xl-7 col-lg-8">
-                  <div class="company-information details-section">
-                    <h4><i data-feather="briefcase"></i>A propos de societe</h4>
-                    <ul>
-                      <li><span>Nom société:</span> {{annonce.user.societe}}</li>
-                      <li><span>Addresse:</span> {{annonce.city}}</li>
-                      <li><span>Siteweb:</span> <a href="#">{{annonce.user.siteweb}}</a></li>
-                      <li><span>Profile société:</span></li>
-                      <li>{{annonce.user.bio}}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
               </div>
             </div>
           </div>
         </div>
-        
       </div>
-      
     </div>
 
-    
-    <!-- Candidates Details End -->
+
+    </div> 
 
 
-
-
-   {% block action %} {{ parent() }} {% endblock %}
-    {% block footer %} {{ parent() }} {% endblock %}
-
-
-
-
+{% block action %} {{ parent() }} {% endblock %}
+{% block footer %} {{ parent() }} {% endblock %}
 {% endblock %}
-
-    
