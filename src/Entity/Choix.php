@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Choix
@@ -20,6 +21,7 @@ class Choix
      * @ORM\Column(name="idChoix", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("choix")
      */
     private $id;
 
@@ -34,6 +36,7 @@ class Choix
      * @var bool
      *
      * @ORM\Column(name="correct", type="boolean", nullable=false, options={"default"=false})
+     * @Groups("choix")
      */
     private $correct;
 
@@ -41,6 +44,7 @@ class Choix
      * @var string
      *
      * @ORM\Column(name="contenu", type="string", length=200, nullable=false)
+     * @Groups("choix")
      */
     private $contenu;
 

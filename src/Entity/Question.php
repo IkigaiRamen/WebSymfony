@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * Question
@@ -20,6 +22,7 @@ class Question
      * @ORM\Column(name="idQuestion", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups("question")
      */
     private $id;
 
@@ -41,6 +44,7 @@ class Question
      * @var string
      *
      * @ORM\Column(name="enonce", type="string", length=500, nullable=false)
+     * @Groups("question")
      */
     private $enonce;
 
@@ -60,6 +64,7 @@ class Question
 
     /**
      * @ORM\OneToMany(targetEntity=Choix::class, mappedBy="question", orphanRemoval=true)
+     * @Groups("choix")
      */
     private $choices;
 
