@@ -11,13 +11,13 @@ use App\Repository\DemandeRepository;
 use App\Entity\Annonce;
 use App\Entity\Apply;
 use App\Entity\Education;
+use App\Entity\Conversation;
 use App\Form\Travailleur\CvWorkFormType;
 use App\Form\Travailleur\ModifierCvType;
 use App\Form\Travailleur\CvEducationFormType;
 use App\Form\DemandeType;
 use App\Form\OffreType;
 use App\Form\FriendsType;
-
 use App\Form\EditAnnonceType;
 use App\Form\AnnonceFormType;
 use App\Form\Employeur\AnnonceEmployerType;
@@ -279,6 +279,7 @@ class UserController extends AbstractController
          ->getRepository(User::class)
          ->find($id);
          $friend = new Friends();
+         $conversation = new Conversation();
 
 
 
@@ -297,8 +298,11 @@ class UserController extends AbstractController
          
          $friend->setUserOne($this->getUser());
          $friend->setUserTwo($user);
+         $conversation->addUser($this->getUser());
+         $doctrine->persist($conversation);
+         $conversation->addUser($user);
          $doctrine->persist($friend);
-         $doctrine->persist($Discussions);
+         $doctrine->persist($conversation);
          $doctrine->flush();
      }
      return $this->render('user/UserShowProfile.html.twig', ['user' => $user,'formApply'=>$form->createView()]);

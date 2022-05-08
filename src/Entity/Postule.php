@@ -41,6 +41,14 @@ class Postule
      */
     private $created_at;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Entretien::class, mappedBy="Postule", cascade={"persist", "remove"})
+     */
+    private $entretien;
+
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,4 +94,23 @@ class Postule
     public function __toString() {
         return $this->getOffre();
       }
+
+    public function getEntretien(): ?Entretien
+    {
+        return $this->entretien;
+    }
+
+    public function setEntretien(Entretien $entretien): self
+    {
+        // set the owning side of the relation if necessary
+        if ($entretien->getPostule() !== $this) {
+            $entretien->setPostule($this);
+        }
+
+        $this->entretien = $entretien;
+
+        return $this;
+    }
+
+   
 }
