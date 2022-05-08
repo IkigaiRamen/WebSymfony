@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Entity\User;
 use App\Form\PostType;
 use Doctrine\ORM\EntityManagerInterface;

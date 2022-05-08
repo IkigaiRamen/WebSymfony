@@ -6,8 +6,7 @@ use App\Entity\Messages;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Message;
-use Symfony\Component\Mime\Discussion;
+
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\MessageType;
 
@@ -79,6 +78,23 @@ class MessageController extends AbstractController
 
         return $this->render('message/read.html.twig', compact("message"));
     }
+    
 
+    /**
+     * @Route("/message/{id}/delete",name="message_delete")
+     * @param Message $message
+     */
+    public function delete(Messages $message): Response
+    {
+
+      $em = $this->getDoctrine()->getManager();
+      $em->remove($message);
+      $em->flush();
+
+      return $this->render('message/received.html.twig');
+
+    }
+
+    
     
 }

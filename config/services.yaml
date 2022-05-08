@@ -6,7 +6,6 @@
 parameters:
     app.path.product_images: /uploads/images/products
     app.path.messages_contracts: /uploads/files/user/contracts
-    twilio_number: '%env(TWILIO_NUMBER)%'
 
 services:
     # default configuration for services in *this* file
@@ -32,12 +31,7 @@ services:
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
-    # config/services.yaml
-    twilio.client:
-            class: Twilio\Rest\Client
-            arguments: ['%env(TWILIO_ACCOUNT_SID)%', '%env(TWILIO_AUTH_TOKEN)%']
-
-    Twilio\Rest\Client: '@twilio.client'
+   
 
    
 

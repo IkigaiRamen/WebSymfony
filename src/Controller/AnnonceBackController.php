@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -17,6 +17,7 @@
 									<th>Récus</th>
 									<th>Envoyés</th>
 									<th class="action">Action</th>
+									<th class="action">Action</th>
 								</tr>
 								</thead>
 								<tbody>
@@ -24,6 +25,7 @@
 										<td class="title"><h5>{{ app.user.received|length }}</h5></td>
 										<td class="title"><h5>{{ app.user.sent|length }}</h5></td>
 										<td><a href="{{path("send")}}" class="btn btn-primary">Envoyer un message</a></td>
+										<td><a href="{{ path("received") }}" class="btn btn-primary">Boîte de réception</a></td>
 
 									{#  	<td class="action">
 											<a href="{{ path('annonce_show', {id: annonces.id}) }}" class="preview" title="Preview"><i data-feather="eye"></i></a>
