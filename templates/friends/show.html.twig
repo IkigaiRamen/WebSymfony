@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Friends{% endblock %}
+
+{% block body %}
+    <h1>Friends</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ friend.id }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ friend.createdAt ? friend.createdAt|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_friends_index') }}">back to list</a>
+
+    <a href="{{ path('app_friends_edit', {'id': friend.id}) }}">edit</a>
+
+    {{ include('friends/_delete_form.html.twig') }}
+{% endblock %}

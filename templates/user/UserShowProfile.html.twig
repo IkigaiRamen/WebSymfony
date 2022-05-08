@@ -242,22 +242,11 @@
                   </div>
                 </div>
               </div>
-              <div class="skill-and-profile">
-                <div class="skill">
-              
-                </div>
-                <div class="social-profile">
-                  <label>Social:</label>
-                  <a href="#"><i class="fab fa-facebook-f"></i></a>
-                  <a href="#"><i class="fab fa-twitter"></i></a>
-                  <a href="#"><i class="fab fa-google-plus"></i></a>
-                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                  <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                  <a href="#"><i class="fab fa-behance"></i></a>
-                  <a href="#"><i class="fab fa-dribbble"></i></a>
-                  <a href="#"><i class="fab fa-github"></i></a>
-                </div>
-              </div>
+            <div class="buttons">
+                          {{form_start(formApply , {'attr' : {'class' :'dashboard-form job-post-form'}})}}
+                                             {{ form_widget(formApply.AddFriend, {'attr': {'class': 'apply'} }) }}
+                {{form_end(formApply)}}
+                      </div>
               <div class="details-information section-padding-60">
                 <div class="row">
                   <div class="col-xl-7 col-lg-8">

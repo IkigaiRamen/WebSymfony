@@ -2,33 +2,27 @@
 
 namespace App\Form;
 
-use App\Entity\Entretien;
-use App\Entity\Postule;
-
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\PostuleDemande;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class EntretienType extends AbstractType
+
+class PostuleDemnadeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('beginAt')
-            ->add('endAt')
-            ->add('titre')
-            ->add('Postule', EntityType::class,[
-                'class'=>Postule::class,
-                'choice_label' => 'user',
-            ])
+        ->add('Appliquez' , SubmitType::class)
+
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Entretien::class,
+            'data_class' => PostuleDemande::class,
         ]);
     }
 }

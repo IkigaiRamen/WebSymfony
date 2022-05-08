@@ -4,7 +4,8 @@ namespace App\Form;
 
 use App\Entity\Messages;
 use App\Entity\User;
-use Vich\UploaderBundle\Form\Type\VichFileType;
+use App\Entity\Friends;
+use Vich\UploaderBundle\Form\Type\VichFileType; 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -18,18 +19,14 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('title', TextType::class, [
-            "attr" => [
-                "class" => "form-control"
-            ]
-        ])
+
         ->add('message', TextareaType::class, [
             "attr" => [
                 "class" => "form-control"
             ]
         ])
         ->add('recipient', EntityType::class, [
-            "class" => User::class,
+            "class" => Friends::class,
             "choice_label" => "email",
             "attr" => [
                 "class" => "form-control"

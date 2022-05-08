@@ -2,14 +2,23 @@
 
 namespace App\Controller;
 use App\Entity\Annonce;
+use App\Entity\Demande;
+use App\Entity\Postule;
+use App\Form\OffrePostuleType;
+use App\Entity\Offre;
+use App\Form\OffreType;
 use App\Entity\Apply;
 use App\Entity\User;
+use App\Entity\PostuleDemande;
 use App\Entity\Search;
 use App\Form\Employeur\AnnonceEmployerType;
 use App\Form\AnnonceFormType;
 use App\Form\ApplyFormType;
+use App\Form\PostuleDemnadeType;
 use App\Form\SearchType;
 use App\Repository\AnnonceRepository;
+use App\Repository\DemandeRepository;
+use App\Repository\OffreRepository;
 use App\Repository\UserRepository;
 use PhpParser\Node\Expr\BinaryOp\Equal;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -19,6 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Twilio\Rest\Client;
 use Symfony\Component\Validator\ Constraints\EqualTo;
+
 
 
 
@@ -67,35 +77,37 @@ class AnnonceController extends AbstractController
         ]);*/
     }
 
+
     /**
      * @IsGranted("ROLE_TRAVAILLEUR")
      * @Route("/travailleur/Publier", name="add_annoncetravailleur")
      */
-    public function ajoutAnnonce(Request $request){
-    $annonce = new Annonce();
-    $form = $this->createForm(AnnonceFormType::class,$annonce);
+    public function ajoutAnnonce(Request $request): Response{
+    $demande = new demande();
+    $form = $this->createForm(DemandeType::class,$demande);
     $form->handleRequest($request);
 
     if($form->isSubmitted() && $form->isValid()){
-        $annonce->setUser($this->getUser());    
+            $demande->setUser($this->getUser());    
         
         $doctrine = $this->getDoctrine()->getManager();
-        $doctrine->persist($annonce);
+        $doctrine->persist($demande);
         $doctrine->flush();
+        return $this->redirectToRoute('annonce_show', ['id' => $demande->getId()], Response::HTTP_SEE_OTHER);
+
     }
 
     return $this->render('annonce/AddAnnonceWorker.twig', [
         'annonceForm' => $form->createView()
     ]);
 }
-
-/**
+    /**
      * @IsGranted("ROLE_EMPLOYEUR")
      * @Route("/Employeur/PublierOffre", name="add_annonce")
      */
     public function ajoutAnnonceEmployeur(Request $request){
-        $annonce = new Annonce();
-        $form = $this->createForm(AnnonceEmployerType::class,$annonce);
+        $annonce = new Offre();
+        $form = $this->createForm(OffreType::class,$annonce);
         $form->handleRequest($request);
     
         if($form->isSubmitted() && $form->isValid()){
@@ -105,82 +117,71 @@ class AnnonceController extends AbstractController
             $doctrine->flush();
         }
     
-        return $this->render('annonce/AddAnnonceEmployer.html.twig', [
-            'annonceForm' => $form->createView()
-        ]);
+           /** @var \App\Entity\User $user */
+           return $this->render('annonce/AddAnnonceEmployer.html.twig',['annonce' => $annonce ,'annonceForm'=>$form->createView()]);
     }
-
 
     /**
      * @Route("/annonce/remove/{id}", name="annonce_remove")
      */
 
-    public function remove(int $id, Request $request ,UserRepository $ur,AnnonceRepository $ar): Response
+    public function remove(int $id, Request $request ,UserRepository $ur,demandeRepository $ar): Response
     {
+        
         $annonce = $this->getDoctrine()
-            ->getRepository(Annonce::class)
-            ->find($id);
+        ->getRepository(demande::class)
+        ->findOneById($id);
 
-        $doctrine = $this->getDoctrine()->getManager();
-        $doctrine->remove($annonce);
-        $doctrine->flush();
+        if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($annonce);
+            $entityManager->flush();
+        }
+    return $this->redirect($request->getUri());
+    }
+
+    /**
+     * @Route("/annonces/remove/{id}", name="annonce_remove_employer")
+     */
+
+    public function remove2(int $id, Request $request ,UserRepository $ur,demandeRepository $ar)
+    {
+        
+        $annonce = $this->getDoctrine()
+            ->getRepository(offre::class)
+            ->findOneById($id);
+
+            if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($user);
+                $entityManager->flush();
+            }
         return $this->redirect($request->getUri());
     }
 
-
-   
 
     /**
      * @Route("/annonce/{id}", name="annonce_show")
      */
     
-        public function show(int $id, Request $request ,UserRepository $ur,AnnonceRepository $ar): Response
+        public function show(int $id, Request $request ,UserRepository $ur,demandeRepository $ar, offreRepository $or): Response
     {
-        $twilio;
         $annonce = $this->getDoctrine()
-        ->getRepository(Annonce::class)
-        ->find($id);
-      /*  $sex = $annonce->getSex();
-        $exp = $annonce->getExp();
-        $job = $annonce->getCategorie();*/
-        $annoncex =$ar->findExactDemandeDemploi($id);
-    if (!$annonce) {
-        throw $this->createNotFoundException(
-            'No Annonce found for titre '.$id
-        );  
-    }
+        ->getRepository(demande::class)
+        ->findOneById($id);
+        $postule = new PostuleDemande();
 
-
-    //instance l'entité apply
-    $apply = new Apply();
-    //creation de lobjet formulaire
-    $form = $this->createForm(ApplyFormType::class,$apply);
-    //on recupere les données saisies
-    $form->handleRequest($request);
-    //on verifie si la form est valide;
-    if($form->isSubmitted() && $form->isValid()){
-        $apply->setAnnonce($annonce);
-        $user = $this->getUser();
-        $usermail = $user->getEmail();
-        $userId = $user->getId();
-        $userfirstname = $user->getFirstname();
-        $userlastname = $user->getLastname();
-        $userjob = $user->getJob();
-        $usercity= $user->getCity();
-        $userimage=$user->getImage();
-        $usersociete=$user->getsociete();
-        $apply->setsociete($usersociete);
-        $apply->setEmail($usermail);
-        $apply->setUserId($userId);
-        $apply->setFirstname($userfirstname);
-        $apply->setLastname($userlastname);
-        $apply->setJob($userjob);
-        $apply->setCity($usercity);
-        $apply->setImage($userimage);
+        $form = $this->createForm(PostuleDemnadeType::class,$postule);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+        $postule->setDemande($annonce);
+        $postule->setUser($this->getUser());
         $doctrine = $this->getDoctrine()->getManager();
-        $doctrine->persist($apply);
+        $doctrine->persist($postule);
         $doctrine->flush();
-       
+        }
+        
+    
         /*$message = $this->twilio->messages->create(
             $user->getNumTel(), // Send text to this number
             array(
@@ -190,13 +191,34 @@ class AnnonceController extends AbstractController
           );
    
           $output->writeln('SMS #' . $message->sid . ' sent to: ' . $user->getNumTel());*/
-    }
+    
 
     
 
-    return $this->render('annonce/annonceshow.html.twig', ['annonce' => $annonce,'annoncex' => $annoncex,'formApply'=>$form->createView()]);
+    return $this->render('annonce/annonceshowworker.html.twig', ['annonce' => $annonce ,'formApply'=>$form->createView()]);
     }
 
+     /**
+     * @Route("/annonces/{id}", name="annonce_show_employer")
+     */
+    
+    public function show2(int $id, Request $request ,UserRepository $ur,demandeRepository $ar, offreRepository $or): Response
+    {
+        $annonce = $this->getDoctrine()
+        ->getRepository(offre::class)
+        ->findOneById($id);
+        $postule = new Postule();
 
+        $form = $this->createForm(OffrePostuleType::class,$postule);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+        $postule->setOffre($annonce);
+        $postule->setUser($this->getUser());
+        $doctrine = $this->getDoctrine()->getManager();
+        $doctrine->persist($postule);
+        $doctrine->flush();
+        }
+        return $this->render('annonce/annonceshow.html.twig', ['annonce' => $annonce ,'formApply'=>$form->createView()]);
+    }
 
 }

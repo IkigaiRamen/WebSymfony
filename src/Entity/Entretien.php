@@ -33,10 +33,12 @@ class Entretien
     private $titre;
 
     /**
-     * @ORM\OneToOne(targetEntity=Apply::class, inversedBy="entretien", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToOne(targetEntity=Postule::class, inversedBy="entretien", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $Apply;
+    private $Postule;
+
+ 
 
     public function getId(): ?int
     {
@@ -79,15 +81,17 @@ class Entretien
         return $this;
     }
 
-    public function getApply(): ?Apply
+    public function getPostule(): ?Postule
     {
-        return $this->Apply;
+        return $this->Postule;
     }
 
-    public function setApply(Apply $Apply): self
+    public function setPostule(Postule $Postule): self
     {
-        $this->Apply = $Apply;
+        $this->Postule = $Postule;
 
         return $this;
     }
+     
+
 }

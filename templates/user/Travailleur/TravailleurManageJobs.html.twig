@@ -49,7 +49,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for annonces in app.user.annonces %}
+                                {% for annonces in app.user.demandes %}
                                     <tr class="job-items">
                                         <td class="title">
                                             <h5><a href="{{ path('annonce_show', {id: annonces.id}) }}">{{annonces.titre}}</a></h4>

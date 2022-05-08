@@ -48,26 +48,28 @@
                       </tr>
                     </thead>
                     <tbody>
-                     {% for annonces in app.user.annonces %}
-                            {% for apply in annonces.apply %}
+                     {% for annonces in app.user.offres %}
+                            {% for apply in annonces.postules %}
                       <tr class="candidates-list">
                         <td class="title">
                           <div class="thumb">
 
-                        <img src="  {{ asset("/uploads/images/products/#{apply.image()}#")}}"class="img-fluid" alt="">
+                        <img src="  {{ asset("/uploads/images/products/#{apply.user.image()}#")}}"class="img-fluid" alt="">
                           </div>
 
                           <div class="body">
-                            <h5><a href="{{ path('user_show', {id: apply.UserId}) }}">{{apply.firstname}} {{apply.lastname}} </a></h5>
+                            <h5><a href="{{ path('user_show', {id: apply.id}) }}">{{apply.offre.user.firstname}} {{apply.user.lastname}} </a></h5>
                             <div class="info">
-                              <span class="designation"><a href="#"><i data-feather="check-square"></i>{{apply.job}}</a></span>
-                              <span class="location"><a href="#"><i data-feather="map-pin"></i>{{apply.city}}</a></span>
+                              <span class="designation"><a href="#"><i data-feather="check-square"></i>{{apply.user.job}}</a></span>
+                              <span class="location"><a href="#"><i data-feather="map-pin"></i>{{apply.user.city}}</a></span>
                             </div>
                           </div>
                         </td>
-                        <td class="status"><i data-feather="check-circle"></i>Agent infirmier</td>
+                        <td class="status"><i data-feather="check-circle"></i>{{apply.offre.titre}}</td>
                         <td class="action">
                         <a class="download" href="#" data-toggle="modal" data-target="#apply-popup-id">Demande</a>
+                        <a class="download" href="#" data-toggle="modal" data-target="#apply-popup-id">Entretien</a>
+
                           <a href="#" class="inbox"><i data-feather="mail"></i></a>
                           <a href="#" class="remove"><i data-feather="trash-2"></i></a>
                         </td>
@@ -84,13 +86,12 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-              <h5>{{apply.firstname}} {{apply.lastname}}    </h5>
+              <h5>{{apply.user.firstname}} {{apply.user.lastname}}    </h5>
                 </div>
                 <div class="form-group">
-                <h5>{{apply.email}}    </h5>
+                <h5>{{apply.user.email}}    </h5>
             </div>
              <div class="form-group">
-                <h6>{{apply.description}}    </h6>
             </div>
                 
             </div>
