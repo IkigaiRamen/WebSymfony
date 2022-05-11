@@ -759,11 +759,7 @@ class User implements UserInterface, \Serializable
      */
     private $city;
 
-        
-    /**
-     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="user", orphanRemoval=true)
-     */
-    private $annonces;
+    
 
 
 
@@ -830,7 +826,6 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
-        $this->annonces = new ArrayCollection();
         $this->update_at = new \DateTime();
         $this->sent = new ArrayCollection();
         $this->received = new ArrayCollection();
@@ -965,35 +960,6 @@ class User implements UserInterface, \Serializable
     }
 
 
-    /**
-     * @return Collection|Annonce[]
-     */
-    public function getAnnonces(): Collection
-    {
-        return $this->annonces;
-    }
-
-    public function addAnnonce(Annonce $annonce): self
-    {
-        if (!$this->annonces->contains($annonce)) {
-            $this->annonces[] = $annonce;
-            $annonce->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAnnonce(Annonce $annonce): self
-    {
-        if ($this->annonces->removeElement($annonce)) {
-            // set the owning side to null (unless already changed)
-            if ($annonce->getUser() === $this) {
-                $annonce->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function __toString()
     {

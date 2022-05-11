@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Entity\Question;
@@ -42,15 +41,48 @@ class MobileController extends AbstractController
     }
 
     /**
-     * @Route("/certifs", name="mobile_test_certifs", methods={"GET"})
+     * @Route("/certifs", name="mobile_test_certifss", methods={"GET"})
      */
     public function allCertifs(NormalizerInterface $normalizable,EntityManagerInterface $entityManager): Response
     {
+        $user = 7;
+        
         $tests = $entityManager
             ->getRepository(Test::class)
             ->findBy(array(
                 'type' => 'Certification',
             ));
+            for ($i = 0; $i < sizeof($tests); $i++) {
+                $evaluations = $entityManager
+                ->getRepository(Evaluation::class)
+                ->findBy(array(
+                    'idtest' => $tests[$i]->getId(),
+                    'iduser' => $user
+                ));
+                if(sizeof($evaluations)<$tests[$i]->getNbrtentative()){
+                    $tests[$i]->setNbrtentative($tests[$i]->getNbrtentative() - sizeof($evaluations));
+                }else{
+                    array_splice($tests, $i, 1); 
+                }
+            }
+
+            $jsonContent=$normalizable->normalize($tests,'json',['groups'=>['quizz', 'question', 'choix']]);
+            return new Response(json_encode($jsonContent));
+    }
+
+    /**
+     * @Route("/quizz/{id}", name="mobile_test_certifs", methods={"GET"})
+     */
+    public function allQuizz(NormalizerInterface $normalizable,EntityManagerInterface $entityManager, String $id): Response
+    {
+        
+        $tests = $entityManager
+            ->getRepository(Test::class)
+            ->findBy(array(
+                'iduser' => $id,
+                'type' => 'Quizz',
+            ));
+
 
             $jsonContent=$normalizable->normalize($tests,'json',['groups'=>['quizz', 'question', 'choix']]);
             return new Response(json_encode($jsonContent));
@@ -59,7 +91,7 @@ class MobileController extends AbstractController
     /**
      * @Route("/newreponse", name="mobile_reponse_new", methods={"POST"})
      */
-    public function new(Request $request, NormalizerInterface $normalizable, EntityManagerInterface $entityManager): Response
+    public function newReponse(Request $request, NormalizerInterface $normalizable, EntityManagerInterface $entityManager): Response
     {
         $params = array_values($request->request->all());
         $values = array_values($params);
@@ -91,11 +123,11 @@ class MobileController extends AbstractController
         $evaluation->setSuccess($score> $nbrQuestion -3);
 
 
-        //$entityManager->persist($evaluation);
-        //$entityManager->flush();
+        $entityManager->persist($evaluation);
+        $entityManager->flush();
         
         if($evaluation->getSuccess())
-        {   
+        { /*  
             $pdfOptions = new Options();
             $pdfOptions->set('defaultFont', 'Arial');
             
@@ -128,12 +160,14 @@ class MobileController extends AbstractController
             $dompdf->render();
 
             // Output the generated PDF to Browser (inline view)
+            */
             return new JsonResponse([
                 'success' => true, 
                 'score' => $score, 
                 'nbrQuestion' => $nbrQuestion, 
-                'data' => base64_encode($dompdf->Output())]);
-        }
+                //'data' => base64_encode($dompdf->Output())]);
+                'data' => null]);
+        }   
         else{
             return new JsonResponse(['success' => false, 'score' => $score, 'nbrQuestion' => $nbrQuestion]);
         }
@@ -143,22 +177,17 @@ class MobileController extends AbstractController
     /**
      * @Route("/newtest", name="mobile_test_new", methods={"POST"})
      */
-    public function newCertif(Request $request, EntityManagerInterface $entityManager): Response
+    public function newCertif(Request $request, NormalizerInterface $normalizable, EntityManagerInterface $entityManager): Response
     {
-        //$form = $this->createForm(TestType::class, $test);
-        //$form->handleRequest($request);
-            
- 
-
             $test = new Test();
-
-            $test->setIduser($request->get('userId'));
-            $time = new \DateTime('@'.strtotime('now'));
-            $test->setDatecreation($time);
-            $test->setDatemodification($time);
+            $user = $entityManager->getRepository(User::class)->find($request->get('userId'));
+            $test->setIduser($user);
+            //$time = new \DateTime('@'.strtotime('now'));
+            //$test->setDatecreation($time);
+            //$test->setDatemodification($time);
             $test->setDuree($request->get('duree'));
             $test->setNbrtentative($request->get('nbrTent'));
-            $test->settype('Certification');
+            $test->settype('Quizz');
             $test->setMaxscore(100);
             $test->setTitre($request->get('titre'));
             
@@ -166,8 +195,41 @@ class MobileController extends AbstractController
             $entityManager->flush();
             //$id = $test->getId();
         
-            return new JsonResponse($test);
+            $jsonContent=$normalizable->normalize($test,'json',['groups'=>['quizz','question','choix']]);
+            return new JsonResponse([$jsonContent]);
                     
+    }
+
+    /**
+     * @Route("/edittest/{id}", name="mobile_test_edit", methods={"GET", "POST"})
+     */
+    public function edit(Request $request, NormalizerInterface $normalizable, EntityManagerInterface $entityManager, Test $test): Response
+    {
+
+       // $time = new \DateTime('@'.strtotime('now'));
+        //$test->setDatemodification($time);
+        $test->setDuree(30);
+        $test->setNbrtentative(3);
+        $test->setTitre("test de connaissance");
+        
+        
+        $entityManager->flush();
+
+        
+
+        $jsonContent=$normalizable->normalize($test,'json',['groups'=>['quizz','questions','choix']]);
+            return new JsonResponse([$jsonContent]);
+    }
+
+    /**
+     * @Route("/suppquizz/{id}", name="mobile_test_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Test $test, EntityManagerInterface $entityManager): Response
+    {
+            $entityManager->remove($test);
+            $entityManager->flush();
+
+        return new Response();
     }
 
     /**
@@ -181,6 +243,7 @@ class MobileController extends AbstractController
             $question = new Question();
             $question->setEnonce($request->get('enonce'));
             $question->setTest($test);
+            $question->setScore(1);
 
 
             $time = new \DateTime('@'.strtotime('now'));
