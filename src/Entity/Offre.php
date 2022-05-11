@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 
 /**
@@ -17,7 +19,8 @@ class Offre
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer")     
+     * @Groups("offre")
      */
     private $id;
 
@@ -29,11 +32,13 @@ class Offre
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("offre")
      */
     private $titre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("offre")
      */
     private $description;
 
@@ -44,11 +49,13 @@ class Offre
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("offre")
      */
     private $responsibilities;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("offre")
      */
     private $eduexp;
 
@@ -64,6 +71,7 @@ class Offre
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("offre")
      */
     private $type;
 
@@ -79,11 +87,13 @@ class Offre
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("offre")
      */
     private $exp;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("offre")
      */
     private $qualification;
 
@@ -94,6 +104,7 @@ class Offre
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("offre")
      */
     private $city;
 
