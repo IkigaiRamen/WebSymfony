@@ -1,0 +1,71 @@
+{# ./templates/default/mypdf.html.twig #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title of the PDF</title>
+        <style>
+        .outer-border {
+            width: 970px;
+            height: 625px;
+            padding: 20px;
+            text-align: center;
+            border: 10px solid #4651E3;
+            
+        }
+
+        .inner-dotted-border {
+            width: 920px;
+            height: 575px;
+            padding: 20px;
+            text-align: center;
+            border: 5px solid #5C67EE;
+            border-style: dotted
+        }
+
+        .certification {
+            font-size: 50px;
+            font-weight: bold;
+            color: #000000
+        }
+
+        .certify {
+            font-size: 25px
+        }
+
+        .name {
+            font-size: 45px;
+            color: blue
+        }
+
+        .fs-45 {
+            font-size: 45px;
+            color: #10198D;
+        }
+
+        .fs-35 {
+            font-size: 35px
+        }
+        </style>
+    </head>
+    <body>
+        <center>
+        <div class="outer-border">
+            <div class="inner-dotted-border"> 
+                <span class="certification">Certificate of Completion</span> 
+                <br><br> 
+                <span class="certify">
+                <i>This is to certify that</i>
+                </span> <br><br> <span class="name">
+                <b>{{firstname}} {{lastname}}</b></span><br /><br /> <span class="certify">
+                <i>has successfully completed the certification</i></span>
+                <br /><br/>
+                <span class="fs-45">{{title}}</span> 
+                <br /><br /> 
+                <span class="fs-35">with score of <b>{{score}} / {{nbrQuestion}}</b></span> <br /><br /><br /><br /> 
+                <span class="certify"><i>dated</i></span><br> <span class="fs-35">{{day}} {{month}}, {{year}}</span>
+            </div>
+        </div>
+        </center>
+    </body>
+</html>

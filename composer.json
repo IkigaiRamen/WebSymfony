@@ -10,6 +10,7 @@
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^2.2",
         "doctrine/orm": "^2.7",
+        "dompdf/dompdf": "^1.2",
         "easycorp/easyadmin-bundle": "^3.2",
         "endroid/qr-code-bundle": "^4.0",
         "friendsofsymfony/ckeditor-bundle": "^2.3",
