@@ -33,21 +33,25 @@ class OffreMobileController extends AbstractController
     /**
      * @Route("/new", name="app_offre_mobile_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, OffreRepository $offreRepository): Response
+    public function new(NormalizerInterface $normalizable,Request $request, OffreRepository $offreRepository): Response
     {
-        $offre = new Offre();
-        $form = $this->createForm(Offre1Type::class, $offre);
-        $form->handleRequest($request);
+        
+        $offre = new offre();
+        $offre->setID($request->get('id'));
+        $offre->setTitre($request->get('titre'));
+        $offre->setDescription($request->get('description'));
+        $offre->setResponsibilities($request->get('responsibilities'));
+        $offre->setType($request->get('type'));
+        $offre->setExp($request->get('exp'));
+        $offre->setQualification($request->get('qualification'));
+        $offre->setCity($request->get('city'));
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $offreRepository->add($offre);
-            return $this->redirectToRoute('app_offre_mobile_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('offre_mobile/new.html.twig', [
-            'offre' => $offre,
-            'form' => $form->createView(),
-        ]);
+        $entityManager->persist($offre);
+        $entityManager->flush();
+        //$id = $test->getId();
+    
+        $jsonContent=$normalizable->normalize($offre,'json',['groups'=>['offre']]);
+        return new Response(json_encode($jsonContent));
     }
 
     /**
