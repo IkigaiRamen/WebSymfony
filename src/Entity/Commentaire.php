@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -19,6 +20,7 @@ class Commentaire
      *
      * @ORM\Column(name="id_commentaire", type="integer", nullable=false)
      * @ORM\Id
+     *  @Groups("post:comment")
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idCommentaire;
@@ -26,20 +28,21 @@ class Commentaire
     /**
      * @var string
      * @Assert\NotBlank
+     *  @Groups("post:comment")
      * @ORM\Column(name="contenu", type="string", length=50, nullable=false)
      */
     private $contenu;
 
     /**
      * @var \DateTime
-     *
+     *  @Groups("post:comment")
      * @ORM\Column(name="date", type="date", nullable=false)
      */
     private $date;
 
     /**
      * @var \Post
-     *
+     *  @Groups("post:comment")
      * @ORM\ManyToOne(targetEntity="Post")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idpost", referencedColumnName="id_post")
@@ -49,7 +52,7 @@ class Commentaire
 
     /**
      * @var \User
-     *
+     *  @Groups("post:comment")
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")

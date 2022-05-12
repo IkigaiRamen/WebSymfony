@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -25,6 +26,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
+     * @Groups("post:post", "post:comment")
      * @ORM\Column(type="integer")
      */
     private $id;

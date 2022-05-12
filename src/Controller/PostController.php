@@ -48,7 +48,7 @@ class PostController extends AbstractController
                 $donnees, // Requête contenant les données à paginer (ici nos articles)
                 $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
                  // Nombre de résultats par page
-                 1
+                 2
             );
         return $this->render('post/index.html.twig', [
             'posts' => $articles,
@@ -62,7 +62,7 @@ class PostController extends AbstractController
     {
         $user = $entityManager
             ->getRepository(User::class)
-            ->find(2);
+            ->find($this->getUser());
         $posts = $entityManager
             ->getRepository(Post::class)
             ->findBy(array('idUser'=>$user));
@@ -82,7 +82,7 @@ class PostController extends AbstractController
         $form->handleRequest($request);
         $user = $entityManager
             ->getRepository(User::class)
-            ->find(2);
+            ->find($this->getUser());
         if ($form->isSubmitted() && $form->isValid()) {
             $post->getUploadFile();
             $post->setDateP(new \DateTime());

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commentaire;
 use App\Entity\Post;
 use App\Entity\User;
+use App\Entity\Vote;
 use App\Form\CommentaireType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,19 +19,32 @@ use Symfony\Component\Routing\Annotation\Route;
 class CommentaireController extends AbstractController
 {
     /**
-     * @Route("/", name="app_commentaire_index", methods={"GET"})
+     * @Route("/{id}", name="app_commentaire_index", methods={"GET"})
      */
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager,$id): Response
     {
+
+        $post = $entityManager
+        ->getRepository(Post::class)
+        ->find($id);
+
         $commentaires = $entityManager
             ->getRepository(Commentaire::class)
-            ->findAll();
+            ->findBy(array('idpost'=>$post));
 
         return $this->render('commentaire/indexAdmin.html.twig', [
             'commentaires' => $commentaires,
         ]);
     }
 
+      function filterwords($text){
+        $filterWords = array('fuck', 'merde', 'pute','bitch');
+        $filterCount = sizeof($filterWords);
+        for ($i = 0; $i < $filterCount; $i++) {
+            $text = preg_replace_callback('/\b' . $filterWords[$i] . '\b/i', function($matches){return str_repeat('*', strlen($matches[0]));}, $text);
+        }
+        return $text;
+    }
     /**
      * @Route("/details/{id}", name="app_commentaire_new")
      */
@@ -47,11 +61,15 @@ class CommentaireController extends AbstractController
             ->findBy(array('idpost'=>$post));
         $user = $entityManager
             ->getRepository(User::class)
-            ->find(2);
+            ->find($this->getUser());
+         $vote = $entityManager
+            ->getRepository(Vote::class)
+            ->findAll();
         if ($form->isSubmitted() && $form->isValid()) {
 
             $commentaire->setIdUser($user);
             $commentaire->setIdpost($post);
+            $commentaire->setContenu($this->filterwords($commentaire->getContenu()));
             $commentaire->setDate(new \DateTime());
             $entityManager->persist($commentaire);
             $entityManager->flush();
@@ -64,7 +82,9 @@ class CommentaireController extends AbstractController
             'commentaire' => $commentaire,
             'form' => $form->createView(),
             'post'=>$post,
-            'comment'=>$comment
+            'comment'=>$comment,
+            'vote'=>$vote,
+            'user'=>$user
         ]);
     }
 
@@ -88,6 +108,12 @@ class CommentaireController extends AbstractController
         $post = $entityManager
             ->getRepository(Post::class)
             ->find($idp);
+        $user = $entityManager
+            ->getRepository(User::class)
+            ->find($this->getUser());
+        $vote = $entityManager
+            ->getRepository(Vote::class)
+            ->findAll();
         $comment = $entityManager
             ->getRepository(Commentaire::class)
             ->findBy(array('idpost'=>$post));
@@ -101,7 +127,9 @@ class CommentaireController extends AbstractController
             'commentaire' => $commentaire,
             'form' => $form->createView(),
             'post'=>$post,
-            'comment'=>$comment
+            'comment'=>$comment,
+            'vote'=>$vote,
+            'user'=>$user
         ]);
     }
 

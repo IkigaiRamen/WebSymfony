@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Post
@@ -18,6 +19,7 @@ class Post
      * @var int
      *
      * @ORM\Column(name="id_post", type="integer", nullable=false)
+     * @Groups("post:post", "post:comment")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
@@ -25,7 +27,7 @@ class Post
 
     /**
      * @var \DateTime
-     *
+     * @Groups("post:post")
      * @ORM\Column(name="date_p", type="date", nullable=false)
      */
     private $dateP;
@@ -33,34 +35,35 @@ class Post
     /**
      * @var string
      * @Assert\NotBlank
-     * @ORM\Column(name="description", type="string", length=50, nullable=false)
+     * @Groups("post:post")
+     * @ORM\Column(name="description", type="string", length=7000, nullable=false)
      */
     private $description;
 
     /**
      * @var bool
-     *
+     * @Groups("post:post")
      * @ORM\Column(name="reaction", type="boolean", nullable=false)
      */
     private $reaction;
 
     /**
      * @var string
-     *
+     * @Groups("post:post")
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
      */
     private $image;
 
        /**
      * @var string
-     *
+     * @Groups("post:post")
      * @ORM\Column(name="etat", type="string", length=255, nullable=false)
      */
     private $etat;
 
     /**
      * @var \User
-     *
+     * @Groups("post:post")
      * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")

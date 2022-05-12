@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Post;
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -21,17 +22,24 @@ class Vote
      */
     private $id;
 
+    
     /**
-     * @var int
+     * @var \Commetaire
      *
-     * @ORM\Column(name="id_post", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Commentaire")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_commentaire", referencedColumnName="id_commentaire")
+     * })
      */
     private $idPost;
 
     /**
-     * @var int
+     * @var \User
      *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     * })
      */
     private $idUser;
 
@@ -47,24 +55,24 @@ class Vote
         return $this->id;
     }
 
-    public function getIdPost(): ?int
+    public function getIdPost(): ?Commentaire
     {
         return $this->idPost;
     }
 
-    public function setIdPost(int $idPost): self
+    public function setIdPost(?Commentaire $idPost): self
     {
         $this->idPost = $idPost;
 
         return $this;
     }
 
-    public function getIdUser(): ?int
+    public function getIdUser(): ?User
     {
         return $this->idUser;
     }
 
-    public function setIdUser(int $idUser): self
+    public function setIdUser( ?User $idUser): self
     {
         $this->idUser = $idUser;
 
