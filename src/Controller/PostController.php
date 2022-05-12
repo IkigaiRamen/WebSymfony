@@ -16,7 +16,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/post")
- * @IsGranted("ROLE_ADMIN")
  */
 class PostController extends AbstractController
 {

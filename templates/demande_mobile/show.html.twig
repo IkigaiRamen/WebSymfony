@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande{% endblock %}
+
+{% block body %}
+    <h1>Demande</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ demande.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ demande.titre }}</td>
+            </tr>
+            <tr>
+                <th>Exp</th>
+                <td>{{ demande.exp }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ demande.description }}</td>
+            </tr>
+            <tr>
+                <th>Expire</th>
+                <td>{{ demande.expire ? demande.expire|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ demande.type }}</td>
+            </tr>
+            <tr>
+                <th>Salairemin</th>
+                <td>{{ demande.salairemin }}</td>
+            </tr>
+            <tr>
+                <th>Salairemax</th>
+                <td>{{ demande.salairemax }}</td>
+            </tr>
+            <tr>
+                <th>Qualification</th>
+                <td>{{ demande.qualification }}</td>
+            </tr>
+            <tr>
+                <th>Sex</th>
+                <td>{{ demande.sex }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ demande.city }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ demande.categorie }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ demande.createdAt ? demande.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_demande_mobile_index') }}">back to list</a>
+
+    <a href="{{ path('app_demande_mobile_edit', {'id': demande.id}) }}">edit</a>
+
+    {{ include('demande_mobile/_delete_form.html.twig') }}
+{% endblock %}

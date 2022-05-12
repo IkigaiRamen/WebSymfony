@@ -1,0 +1,39 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Evaluation index{% endblock %}
+
+{% block body %}
+    <h1>Evaluation index</h1>
+
+    <table class="table table-hover table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Score</th>
+                <th>Nbrquestion</th>
+                <th>Success</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evaluation in evaluations %}
+            <tr>
+                <td>{{ evaluation.id }}</td>
+                <td>{{ evaluation.score }}</td>
+                <td>{{ evaluation.nbrquestion }}</td>
+                <td>{{ evaluation.success ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_evaluation_show', {'id': evaluation.id}) }}">show</a>
+                    <a href="{{ path('app_evaluation_edit', {'id': evaluation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_evaluation_new') }}">Create new</a>
+{% endblock %}

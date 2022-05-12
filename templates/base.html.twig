@@ -200,13 +200,43 @@
         </div>
         <div class="dashboard-menu">
             <ul>
+
+
+                {% if (app.request.pathInfo) == ("/travailleur/modifier") %}
                 <li class ="active"> <i class="fas fa-user"></i><a href="modifier">Modifier Profile</a></li>
-                <li><i class="fas fa-file-alt"></i><a href="cv">CV</a></li>
+                {% else %}
+                <li > <i class="fas fa-user"></i><a href="modifier">Modifier Profile</a></li>
+                {% endif %}
+
+                {% if (app.request.pathInfo) == ("/travailleur/cv") %}
+                <li class="active"><i class="fas fa-file-alt"></i><a href="cv">CV</a></li>
+                {% else %}
+                <li ><i class="fas fa-file-alt"></i><a href="cv">CV</a></li>
+                {% endif %}
+
+                {% if (app.request.pathInfo) == ("/travailleur/modifierCV") %}
+                <li class="active"><i class="fas fa-edit"></i><a href="modifierCV">Modifier CV</a></li>
+                {% else %}
                 <li><i class="fas fa-edit"></i><a href="modifierCV">Modifier CV</a></li>
+                {% endif %}
+
+
+                {% if (app.request.pathInfo) == ("/travailleur/Publier") %}
+                <li class="active"><i class="fas fa-plus-square"></i><a href="/travailleur/Publier">Publier demande d'emploi</a></li>
+                {% else %}
                 <li><i class="fas fa-plus-square"></i><a href="/travailleur/Publier">Publier demande d'emploi</a></li>
+                {% endif %}
+
+
+                {% if (app.request.pathInfo) == ("travailleur/MesAnnonces") %}
+                <li class="active"><i class="fas fa-heart"></i><a href="MesAnnonces">Liste des annonces</a></li>
+                {% else %}
                 <li><i class="fas fa-heart"></i><a href="MesAnnonces">Liste des annonces</a></li>
+                {% endif %}
+
+
                 <li><i class="fas fa-check-square"></i><a href="/travailleur/GererOffres">Liste de demandes</a></li>
-                <li><i class="fab fa-facebook-messenger"></i><a href="/travailleur/GererOffres">Messages</a></li>
+                <li><i class="fab fa-facebook-messenger"></i><a href="/message">Messages</a></li>
 
             </ul>
             <ul class="delete">

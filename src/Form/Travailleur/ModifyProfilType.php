@@ -314,8 +314,14 @@ class ModifyProfilType extends AbstractType
                 ]
             ])
             
-                        ->add('imageFile',VichImageType::class )
-
+                        ->add('imageFile',VichImageType::class, [
+                            'required' => false,
+                            'allow_delete' => true,
+                            'delete_label' => '...',
+                            'download_label' => 'Changer Photo',
+                            'download_uri' => true,
+                            'image_uri' => true,
+                        ])
             ->add('Modifier',SubmitType::class)
         ;
     }

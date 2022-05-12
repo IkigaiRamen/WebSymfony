@@ -30,10 +30,12 @@
     </div>
 
 
-  <div class="alice-bg section-padding-bottom">
-        <div class="container no-gliters">
-            <div class="row no-gliters">
-                    <div class="dashboard-container">
+<div class="alice-bg section-padding-bottom">
+      <div class="container no-gliters">
+        <div class="row no-gliters">
+          <div class="col">
+            <div class="dashboard-container">
+              <div class="dashboard-content-wrapper">
             <h3>Ajouter Post</h3><br><br>
             {{ form_start(form, { 'attr': {'class': 'contact_form'} })  }}
             <form action="#" id="contactForm">
@@ -57,16 +59,13 @@
         
                         {%block sidebar%}    {{ parent() }}
                         {% endblock %}
-                    </div>
+                </div>
+                </div>
             </div>
         </div>
     </div>
     {% block action %} {{ parent() }} {% endblock %}
     {% block footer %} {{ parent() }} {% endblock %}
-
-
-
-
 {% endblock %}
 
 

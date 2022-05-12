@@ -31,27 +31,23 @@ class OffreMobileController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_offre_mobile_new", methods={"GET", "POST"})
+     * @Route("/new/offre", name="app_offre_mobile_new", methods={"GET", "POST"})
      */
-    public function new(NormalizerInterface $normalizable,Request $request, OffreRepository $offreRepository): Response
+    public function new(NormalizerInterface $normalizable,Request $request, OffreRepository $offreRepository)
     {
         
         $offre = new offre();
-        $offre->setID($request->get('id'));
         $offre->setTitre($request->get('titre'));
+        $offre->setEduexp($request->get('eduexp'));
         $offre->setDescription($request->get('description'));
         $offre->setResponsibilities($request->get('responsibilities'));
         $offre->setType($request->get('type'));
         $offre->setExp($request->get('exp'));
         $offre->setQualification($request->get('qualification'));
         $offre->setCity($request->get('city'));
-
         $entityManager->persist($offre);
-        $entityManager->flush();
-        //$id = $test->getId();
+        $entityManager->flush();    
     
-        $jsonContent=$normalizable->normalize($offre,'json',['groups'=>['offre']]);
-        return new Response(json_encode($jsonContent));
     }
 
     /**
@@ -65,32 +61,34 @@ class OffreMobileController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_offre_mobile_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit/{titre}/{description}/", name="app_offre_mobile_edit",)
      */
-    public function edit(Request $request, Offre $offre, OffreRepository $offreRepository): Response
+    public function edit(Request $request, OffreRepository $offreRepository,$id,$titre,$description ): Response
     {
-        $form = $this->createForm(Offre1Type::class, $offre);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $offreRepository->add($offre);
-            return $this->redirectToRoute('app_offre_mobile_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('offre_mobile/edit.html.twig', [
-            'offre' => $offre,
-            'form' => $form->createView(),
-        ]);
+        $offre =new offre();
+        $offre =$offreRepository->findOneById($id);
+        $offre->setTitre($titre);
+        $offre->setDescription($description);
+        $entityManager->persist($offre);
+        $entityManager->flush();
+        $jsonContent=$normalizable->normalize($offre,'json',['groups'=>['offre']]);
+        return new Response(json_encode($jsonContent));
     }
 
     /**
      * @Route("/{id}", name="app_offre_mobile_delete", methods={"POST"})
      */
-    public function delete(Request $request, Offre $offre, OffreRepository $offreRepository): Response
-    {
-            $offreRepository->remove($offre);
-        
+    public function delete(Request $request, int $id, OffreRepository $offreRepository)
+    {       
 
-        return $this->redirectToRoute('app_offre_mobile_index', [], Response::HTTP_SEE_OTHER);
+        $repository_m=$this->getdoctrine()->getrepository(offre::class);
+
+        $offre=$repository_m->findOneById($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($offre);
+        $em->flush();
+    
+
+        
     }
 }

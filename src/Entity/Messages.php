@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 /**
@@ -19,6 +20,7 @@ class Messages
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"messages"})
      */
     private $id;
 
@@ -26,11 +28,13 @@ class Messages
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"messages"})
      */
     private $message;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"messages"})
      */
     private $created_at;
 
@@ -52,58 +56,15 @@ class Messages
     private $recipient;
 
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $contract;
-
-    /**
-     * @Vich\UploadableField(mapping="messages_contracts", fileNameProperty="contract")
-     * @var File
-     */
-    private $contractFile;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Conversation::class, inversedBy="messages")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $conversation;
 
 
 
-
-    public function getContractFile()
-                                                                {
-    return $this->contractFile;
-                                                                }
-
-    public function setContractFile(?File $contractFile): self
-    {
-        $this->contractFile = $contractFile;
-        
-        return $this;
-
-    }
-
-    public function getContract(): ?string
-    {
-        return $this->contract;
-    }
-
-    public function setContract(string $Contract): self
-    {
-        $this->Contract = $Contract;
-
-        return $this;
-    }
- 
+   
 
     public function __construct()
     {
         $this->created_at = new \DateTime();
-        $this->discussion = new ArrayCollection();
-        $this->Discussion = new ArrayCollection();
+      
     }
 
     public function getId(): ?int
@@ -173,48 +134,12 @@ class Messages
         return $this;
     }
 
-    /**
-     * @return Collection|Discussion[]
-     */
-    public function getDiscussion(): Collection
-    {
-        return $this->discussion;
-    }
+  
 
-    public function addDiscussion(Discussion $discussion): self
-    {
-        if (!$this->discussion->contains($discussion)) {
-            $this->discussion[] = $discussion;
-            $discussion->setMessages($this);
-        }
 
-        return $this;
-    }
-
-    public function removeDiscussion(Discussion $discussion): self
-    {
-        if ($this->discussion->removeElement($discussion)) {
-            // set the owning side to null (unless already changed)
-            if ($discussion->getMessages() === $this) {
-                $discussion->setMessages(null);
-            }
-        }
-
-        return $this;
-    }
     public function __toString() {
         return $this->message;
     }
 
-    public function getConversation(): ?Conversation
-    {
-        return $this->conversation;
-    }
-
-    public function setConversation(?Conversation $conversation): self
-    {
-        $this->conversation = $conversation;
-
-        return $this;
-    }
+ 
 }

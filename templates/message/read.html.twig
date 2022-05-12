@@ -20,23 +20,23 @@
 									<th>recu le :</th>
 									<th>Message</th>
 									<th class="action">Action</th>
+									<th class="action">Action</th>
 								</tr>
 								</thead>
 								<tbody>
 								<tr class="job-items">
-									<td class="title"><h5>{{ message.title|trans }}</h5></td>
+								
+									<td class="title"><h5>{{ message.message|trans }}</h5></td>
 									<td class="title"><h5>Message de {{ message.sender.email }}</h5></td>
 									<td class="title"><h5>Le {{ message.createdAt|date }}</h5></td>
 									<td class="title"><h5>{{ message.message|trans }}</h5></td>
-									<td><a href="{{path("received")}}" class="btn btn-primary">Retour à la boite de réception</a></td>
-
-									{#  	<td class="action">
-											<a href="{{ path('annonce_show', {id: annonces.id}) }}" class="preview" title="Preview"><i data-feather="eye"></i></a>
-											<a href="{{ path('Myannonce_showEmployer', {id: annonces.id}) }}" class="edit" title="Edit"><i data-feather="edit"></i></a>
-											<a href="#" class="remove" title="Delete"><i data-feather="trash-2"></i></a>
-										</td>#}
+                                    <td><a href="{{path("send")}}" class="btn btn-primary">repondre</a></td>
+									<td><a href="{{path('message_delete',{"id":message.id})}}" class="btn btn-primary" >Supprimer</a></td>
+									
 								</tr>
-								</tbody>
+								    <br></br>
+									<th class="action">Action</th>						
+							</tbody>
 							</table>
 						</div>
 					</div>

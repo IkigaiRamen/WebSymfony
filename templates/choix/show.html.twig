@@ -1,0 +1,28 @@
+{% extends 'back.html.twig' %}
+
+{% block body %}
+    <h1>Choix</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ choix.id }}</td>
+            </tr>
+            <tr>
+                <th>Correct</th>
+                <td>{{ choix.correct ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Contenu</th>
+                <td>{{ choix.contenu }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_choix_index') }}">back to list</a>
+
+    <a href="{{ path('app_choix_edit', {'id': choix.id}) }}">edit</a>
+
+    {{ include('choix/_delete_form.html.twig') }}
+{% endblock %}

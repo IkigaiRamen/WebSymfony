@@ -1,0 +1,37 @@
+{% extends 'back.html.twig' %}
+
+
+{% block body %}
+    <h1>Question</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ question.id }}</td>
+            </tr>
+            <tr>
+                <th>Score</th>
+                <td>{{ question.score }}</td>
+            </tr>
+            <tr>
+                <th>Enonce</th>
+                <td>{{ question.enonce }}</td>
+            </tr>
+            <tr>
+                <th>Datemodification</th>
+                <td>{{ question.datemodification ? question.datemodification|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Datecreation</th>
+                <td>{{ question.datecreation ? question.datecreation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_question_index') }}">back to list</a>
+
+    <a href="{{ path('app_question_edit', {'id': question.id}) }}">edit</a>
+
+    {{ include('question/_delete_form.html.twig') }}
+{% endblock %}

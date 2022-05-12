@@ -1,0 +1,108 @@
+{% extends 'base2.html.twig'%}
+
+{% block title %}Test index{% endblock %}
+
+
+
+
+{% block head %} 
+    {% block stylesheet %} {{ parent() }}
+        <style>
+            td{
+                font-size: 18px
+            }
+            th{
+                font-size: 20px
+            }
+            .font14{
+                font-size: 15px
+            }
+            a:link {
+                color: white;
+                background-color: transparent;
+                text-decoration: none;
+            }
+            a:visited {
+                color: white;
+                background-color: transparent;
+                text-decoration: none;
+                }
+        </style>
+    {% endblock %} 
+{% endblock %}
+{% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Mes Quizz</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">Employeur</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Mes Quizz</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+        <button class="btn float-right btn-success font14"> <a href="{{path("app_test_new")}}">Créer</a></button>
+            <div class="row no-gliters">
+            
+                <div class="col">
+                    <div class="dashboard-container">
+                        <table class="table table-bordered">
+                            <thead class="table-header">
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Nbrtentative</th>
+                                    <th>Duree</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for test in tests %}
+                                <tr>
+                                    <td>{{ test.titre }}</td>
+                                    <td>{{ test.nbrtentative }}</td>
+                                    <td>{{ test.duree }}</td>
+
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">pas des quizz à afficher</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                        
+                        {%block sidebar%}    {{ parent() }}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
+
+{% endblock %}
+{% endblock %}

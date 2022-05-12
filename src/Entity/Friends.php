@@ -39,6 +39,8 @@ class Friends
      */
     private $created_at;
 
+    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,4 +81,6 @@ class Friends
 
         return $this;
     }
+
+   
 }

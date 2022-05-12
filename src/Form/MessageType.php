@@ -26,20 +26,11 @@ class MessageType extends AbstractType
             ]
         ])
         ->add('recipient', EntityType::class, [
-            "class" => Friends::class,
+            "class" => User::class,
             "choice_label" => "email",
             "attr" => [
                 "class" => "form-control"
             ]
-        ])
-
-        ->add('contractFile', VichFileType::class, [
-            'required' => false,
-            'allow_delete' => true,
-            'delete_label' => '...',
-            'download_uri' => '...',
-            'download_label' => '...',
-            'asset_helper' => true,
         ])
 
         ->add('envoyer', SubmitType::class, [

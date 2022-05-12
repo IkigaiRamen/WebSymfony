@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 
 /**
@@ -18,6 +20,7 @@ class Demande
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("demande")
      */
     private $id;
 
@@ -29,16 +32,19 @@ class Demande
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("demande")
      */
     private $titre;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("demande")
      */
     private $exp;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("demande")
      */
     private $description;
 
@@ -49,6 +55,7 @@ class Demande
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("demande")
      */
     private $type;
 
@@ -64,6 +71,7 @@ class Demande
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("demande")
      */
     private $qualification;
 
@@ -74,12 +82,14 @@ class Demande
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("demande")
      */
     private $city;
 
     
     /**
      * @ORM\Column(type="string", length=255 )
+     * @Groups("demande")
      */
     private $categorie;
 

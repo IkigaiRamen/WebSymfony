@@ -40,7 +40,7 @@
                                     <img class="image" src="dashboard/images/user-1.jpg" alt="">
                                 </div>
                                 <div class="file-upload">
-                                    <input type="file" class="file-input">Change Avatar
+                                            {{ form_widget(modifierProfilForm.imageFile, {'attr': {'class': 'file-input' , 'placeholder': "Changer photo"} }) }}
                                 </div>
                             </div>
                             <div class="dashboard-section basic-info-input">
@@ -128,7 +128,7 @@
                             </div>
                             {{form_end(modifierProfilForm) }}
                         </div>
-                        {%block sidebar%}    {{ parent() }}
+                        {% block sidebar %}    {{ parent() }}
                         {% endblock %}
                     </div>
                 </div>

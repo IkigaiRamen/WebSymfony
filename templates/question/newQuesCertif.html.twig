@@ -1,0 +1,107 @@
+
+{% extends 'back.html.twig' %}
+
+{% block body %}
+        <style>
+        .float-right{
+            margin-top: 25px;
+            margin-bottom: 10px;
+            margin-right: 100px;
+        }
+        .correct{
+            margin-right: 80px;
+        }
+        .questionContainer {
+            border-radius: 15px;
+            background: #3D27A7;
+            padding: 20px;
+            width: 70vw;
+            overflow: auto;
+            display: block;
+            text-align: center;
+        }
+        .color{
+            color:white;
+        }
+        </style>
+     
+
+
+
+
+
+            <center>
+        
+            <div id="questions">
+                    
+            </div>
+            </center>
+    
+    <center>
+        <div class="questionContainer" id="newQuestion">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">
+                <h1 class="mb-5 color">Créer Question</h1>
+            </div>
+            <div class="col-lg-12 col-md-12 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
+                <form method="post" action="{{ path('app_question_newcertif', {'testId':testId})}}" 
+                {#onsubmit="return false" name="qform" enctype="multipart/form-data">#}>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Enonce..." id="enonce" name="enonce" style="height: 150px" required></textarea>
+                                <label for="enonce">Enoncer</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="choix1" name="choix1" placeholder="premier choix..." required>
+                                <label for="choix1">Choix 1:</label>
+                                <div class="correct float-right">
+                                    <input type="checkbox" name="correct" checked disabled>
+                                    <label for="correct" class="color">Correcte</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="choix2" name="choix2" placeholder="deuxieme choix..." required>
+                                <label for="choix2">Choix 2:</label>
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="choix3" name="choix3" placeholder="troisieme choix..." required>
+                                <label for="choix3">Choix 3:</label>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit" onclick="addQ()">Add Question</button>
+                            <!-- <button class="btn btn-primary w-100 py-3" type="button" onclick="addQ()">Add Question</button>
+-->
+                        </div>
+
+                        
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </center>
+    <div class="float-right">
+        <div class="btnTerminer">
+            <button class="btn btn-warning">
+                 <a href="{{ path('app_test_index') }}">Terminer</a>
+            </button>
+        </div>
+
+    
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

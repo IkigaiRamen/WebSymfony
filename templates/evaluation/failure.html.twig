@@ -1,0 +1,75 @@
+{% extends 'base.html.twig'%}
+
+{% block title %}Test index{% endblock %}
+
+
+
+
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %}
+<style> 
+
+        .Container {
+            border-radius: 15px;
+            background: #7B1541;
+            padding: 20px;
+            width: 80vw;
+            overflow: auto;
+            display: block;
+            text-align: center;
+        }
+        .fail {
+            color:white;
+        }
+            
+    </style> 
+{% endblock %}
+{% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Resultat d'évaluation</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                                <li class="breadcrumb-item">Certification</li>
+                                <li class="breadcrumb-item active" aria-current="page">évaluation</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+            <center>
+    <br>
+    <br>
+    <div class="Container">
+        <h2 class="fail" >Malheuresement votre tentative n'est pas passée avec succès </h2>
+        <h2 class="fail" >Votre score est <b>{{evaluation.score}} / {{evaluation.nbrQuestion}}</b></h2>
+
+    </div>
+    <a href="{{ path('app_test_certifs') }}">back to list</a>
+    </center>
+
+            </div>
+        </div>
+    </div>
+
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
+
+
+{% endblock %}

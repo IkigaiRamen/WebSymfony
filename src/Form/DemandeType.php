@@ -19,14 +19,17 @@ class DemandeType extends AbstractType
         $builder
             ->add('titre')
             ->add('description',TextAreaType::class)  
-            ->add('expire',DateType::Class ,) 
+            ->add('expire',DateType::Class ,[
+                'attr' => ['class' => 'form-control'],
+            ]) 
             ->add('categorie' ,ChoiceType::class ,[
                 'choices'=>[
                     'Domaine'=>null,
                     'Administrateur/Administratrice de base de données' =>'Administrateur/Administratrice de base de données',
                     'Administrateur/Administratrice de réseau'=>'Administrateur/Administratrice de réseau',
                     'Architecte des systèmes d\'information'=>'Architecte des systèmes d\'information',
-                    'Architecte réseau', 'Chef/Cheffe de projet informatique'=>'Architecte réseau', 'Chef/Cheffe de projet informatique',
+                    'Architecte réseau'=>'Architecte réseau', 
+                    'Chef/Cheffe de projet informatique'=>'Chef/Cheffe de projet informatique',
                     'Consultant/Consultante en système d\'information'=>'Consultant/Consultante en système d\'information',
                     'Développeur/Développeuse informatique'=>'Développeur/Développeuse informatique',
                     'Expert/Experte en sécurité informatique'=>'Expert/Experte en sécurité informatique',

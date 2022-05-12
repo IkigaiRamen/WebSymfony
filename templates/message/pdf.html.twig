@@ -1,0 +1,61 @@
+
+
+    <h1 style="text-align: center"> Liste des messages </h1>
+    <br>
+
+
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            #customers {
+                font-family: Arial, Helvetica, sans-serif;
+                border-collapse: collapse;
+                width: 50%;
+            }
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 2px;
+            }
+            #customers tr:nth-child(even){background-color: #FFC0CB	;}
+            #customers tr:hover {background-color: #ddd;}
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: center;
+                background-color: #87CEEB;
+                color: white;
+            }
+        </style>
+    </head>
+
+
+
+<table border ="1" id="customers" width="60%" height="120" >
+    <tr>
+
+     <th>Message</th>
+									<th>Sender</th>
+                                    <th>Reciver</th>
+									<th>recu le :</th>
+									
+
+
+
+
+    </tr>
+    <tbody id="all">
+    {% for message in messages %}
+        <tr>
+         <td class="title"><h5>{{ message.message|trans }}</h5></td>
+									<td class="title"><h5>Message de {{ message.sender.email }}</h5></td>
+                                    <td class="title"><h5>Message a {{ message.recipient.email }}</h5></td>
+									<td class="title"><h5>Le {{ message.createdAt|date }}</h5></td>
+
+        </tr>
+
+
+    {%endfor%}
+
+

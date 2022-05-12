@@ -32,7 +32,7 @@
 
 									<div class="col-3 {{bold}}">{{ message.sender.email }}</div>
 									<div class="col-3 {{bold}}">
-										<a href="{{ path("read", {id: message.id}) }}">{{ message.title }}</a>
+										<a href="{{ path("read", {id: message.id}) }}">{{ message.message }}</a>
 									</div>
 									<div class="col-3 {{bold}}">{{ message.createdAt|date }}</div>
 									<div class="col-3">
@@ -42,13 +42,18 @@
 
 
 								<div class="col">
+								<br>
 									<a href="{{path("send")}}" class="btn btn-primary">Envoyer un message</a>
 								</div>
-								<a href="{{ path("message") }}" class="button">Accueil</a>
-								<a href="{{ path("received") }}" class="button">Boîte de réception</a>
-								<a href="{{ path("message") }}" class="button">Eléments envoyés</a>
-
+								<br>
+								
 							</div>
+							<br>
+							<br>
+							    <div class="col">
+								   <a href="{{ path("message") }}" class="btn btn-primary">Accueil</a>
+								   <a href="{{ path("sent") }}" class="btn btn-primary">Eléments envoyés</a>
+                                </div>
 					</div>
 					{%block sidebar%}    {{ parent() }}
 					{% endblock %}

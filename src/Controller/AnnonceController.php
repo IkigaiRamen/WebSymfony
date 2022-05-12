@@ -13,6 +13,7 @@ use App\Entity\PostuleDemande;
 use App\Entity\Search;
 use App\Form\Employeur\AnnonceEmployerType;
 use App\Form\AnnonceFormType;
+use App\Form\DemandeType;
 use App\Form\ApplyFormType;
 use App\Form\PostuleDemnadeType;
 use App\Form\SearchType;
