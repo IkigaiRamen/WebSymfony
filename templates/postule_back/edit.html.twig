@@ -1,0 +1,13 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Edit Postule{% endblock %}
+
+{% block body %}
+    <h1>Edit Postule</h1>
+
+    {{ include('postule_back/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_postule_back_index') }}">back to list</a>
+
+    {{ include('postule_back/_delete_form.html.twig') }}
+{% endblock %}

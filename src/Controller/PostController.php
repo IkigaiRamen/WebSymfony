@@ -14,31 +14,38 @@ use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
-/**
- * @Route("/post")
- */
+
 class PostController extends AbstractController
 {
 
 
     /**
-     * @Route("/allPost", name="all_post_index", methods={"GET"})
+     * @Route("post/allPost", name="all_post_index", methods={"GET"})
      */
     public function AllPost(EntityManagerInterface $entityManager): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
+
         $posts = $entityManager
             ->getRepository(Post::class)
             ->findAll();
 
         return $this->render('post/AllPost.html.twig', [
             'posts' => $posts,
+            'template'=>$template,
         ]);
     }
 
 
 
     /**
-     * @Route("/", name="app_post_index", methods={"GET"})
+     * @Route("/post", name="app_post_index", methods={"GET"})
      */
     public function index(EntityManagerInterface $entityManager,Request $request, PaginatorInterface $paginator): Response
     {
@@ -58,10 +65,18 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/mesPost", name="mes_post", methods={"GET"})
+     * @Route("post/mesPost", name="mes_post", methods={"GET"})
      */
     public function indexfront(EntityManagerInterface $entityManager): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
+
         $user = $entityManager
             ->getRepository(User::class)
             ->find(2);
@@ -71,14 +86,24 @@ class PostController extends AbstractController
 
         return $this->render('post/indexFront.html.twig', [
             'posts' => $posts,
+            'template'=>$template,
         ]);
     }
 
     /**
-     * @Route("/new", name="app_post_new", methods={"GET", "POST"})
+     * @Route("post/new", name="app_post_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
+
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -99,16 +124,25 @@ class PostController extends AbstractController
 
         return $this->render('post/new.html.twig', [
             'post' => $post,
+            'template'=>$template,
             'form' => $form->createView(),
         ]);
     }
 
 
     /**
-     * @Route("/{idPost}/edit", name="app_post_edit", methods={"GET", "POST"})
+     * @Route("post/{idPost}/edit", name="app_post_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
+
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
@@ -127,12 +161,13 @@ class PostController extends AbstractController
 
         return $this->render('post/edit.html.twig', [
             'post' => $post,
+            'template'=>$template,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/delete/{id}", name="post_delete")
+     * @Route("post/delete/{id}", name="post_delete")
      */
     public function delete($id): Response
     {
@@ -145,7 +180,7 @@ class PostController extends AbstractController
 
 
     /**
-     * @Route("/accepter/{id}", name="post_accepter")
+     * @Route("post/accepter/{id}", name="post_accepter")
      */
     public function accepter($id , \Swift_Mailer $mailer, EntityManagerInterface $entityManager): Response
     {

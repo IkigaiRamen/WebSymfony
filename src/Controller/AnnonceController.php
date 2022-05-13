@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Twilio\Rest\Client;
-use Symfony\Component\Validator\ Constraints\EqualTo;
+use Symfony\Component\Validator\Constraints\EqualTo;
 
 
 
@@ -39,7 +39,6 @@ class AnnonceController extends AbstractController
 {
 
     private $twilio;
-
 
     /**
      * @Route("/annonce", name="annonce")
@@ -52,8 +51,12 @@ class AnnonceController extends AbstractController
    // $annonce= [];
 
         //appelle la liste des annonces;
-        
-        $annonce = $this->getDoctrine()->getRepository(Annonce::class)->findAll();
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+        $annonce = $this->getDoctrine()->getRepository(Offre::class)->findAll(); }
+        else {
+            $annonce = $this->getDoctrine()->getRepository(Demande::class)->findAll();
+        }
         if($form->isSubmitted() && $form->isValid()) {
             //on récupère le nom d'article tapé dans le formulaire
             $city = $search->getCity();  
@@ -61,11 +64,10 @@ class AnnonceController extends AbstractController
             $type = $search->getType();
             $categorie = $search->getCategorie();
             $qualification = $search->getQualification();
-            $sex = $search->getSex();
            // $titre= $search->getTitre();
             
             
-               $annonce =$ar->findOneByCityandExp($city,$exp,$type,$sex,$qualification,$categorie);
+               $annonce =$ar->findOneByCityandExp($city,$exp,$type,$qualification,$categorie);
               
              
               
@@ -78,6 +80,8 @@ class AnnonceController extends AbstractController
         ]);*/
     }
 
+    
+
 
     /**
      * @IsGranted("ROLE_TRAVAILLEUR")
@@ -89,8 +93,7 @@ class AnnonceController extends AbstractController
     $form->handleRequest($request);
 
     if($form->isSubmitted() && $form->isValid()){
-            $demande->setUser($this->getUser());    
-        
+        $demande->setUser($this->getUser());    
         $doctrine = $this->getDoctrine()->getManager();
         $doctrine->persist($demande);
         $doctrine->flush();
@@ -119,7 +122,8 @@ class AnnonceController extends AbstractController
         }
     
            /** @var \App\Entity\User $user */
-           return $this->render('annonce/AddAnnonceEmployer.html.twig',['annonce' => $annonce ,'annonceForm'=>$form->createView()]);
+           return $this->redirectToRoute('annonce_show_employer', ['id' => $annonce->getId()], Response::HTTP_SEE_OTHER);
+
     }
 
     /**
@@ -154,7 +158,7 @@ class AnnonceController extends AbstractController
 
             if ($this->isCsrfTokenValid('delete'.$annonce->getId(), $request->request->get('_token'))) {
                 $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->remove($user);
+                $entityManager->remove($annonce);
                 $entityManager->flush();
             }
         return $this->redirect($request->getUri());
@@ -167,6 +171,13 @@ class AnnonceController extends AbstractController
     
         public function show(int $id, Request $request ,UserRepository $ur,demandeRepository $ar, offreRepository $or): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template ='base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
         $annonce = $this->getDoctrine()
         ->getRepository(demande::class)
         ->findOneById($id);
@@ -196,7 +207,10 @@ class AnnonceController extends AbstractController
 
     
 
-    return $this->render('annonce/annonceshowworker.html.twig', ['annonce' => $annonce ,'formApply'=>$form->createView()]);
+    return $this->render('annonce/annonceshowworker.html.twig', ['annonce' => $annonce , 'template'=>$template,
+    'formApply'=>$form->createView(),
+    'test'=>$test,
+]);
     }
 
      /**
@@ -205,6 +219,13 @@ class AnnonceController extends AbstractController
     
     public function show2(int $id, Request $request ,UserRepository $ur,demandeRepository $ar, offreRepository $or): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template ='base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
         $annonce = $this->getDoctrine()
         ->getRepository(offre::class)
         ->findOneById($id);
@@ -219,7 +240,7 @@ class AnnonceController extends AbstractController
         $doctrine->persist($postule);
         $doctrine->flush();
         }
-        return $this->render('annonce/annonceshow.html.twig', ['annonce' => $annonce ,'formApply'=>$form->createView()]);
+        return $this->render('annonce/annonceshow.html.twig', ['annonce' => $annonce ,'formApply'=>$form->createView(),'template'=>$template]);
     }
 
 }

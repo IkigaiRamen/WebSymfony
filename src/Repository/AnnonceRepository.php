@@ -21,7 +21,7 @@ class AnnonceRepository extends ServiceEntityRepository
 
 
 
-    public function findOneByCityandExp($city,$exp,$type,$sex,$qualification,$categorie): array
+    public function findOneByCityandExp($city,$exp,$type,$qualification,$categorie): array
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.city = :cit')
@@ -30,8 +30,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->setParameter('ex', $exp)
             ->andWhere('a.type = :t')
             ->setParameter('t', $type)
-            ->andWhere('a.sex = :s')
-            ->setParameter('s', $sex)
+        
             ->andWhere('a.qualification = :q')
             ->setParameter('q', $qualification)
             ->andWhere('a.categorie = :c')

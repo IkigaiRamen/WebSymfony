@@ -49,6 +49,11 @@ class Demande
     private $description;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $location;
+
+    /**
      * @ORM\Column(type="date")
      */
     private $expire;
@@ -137,6 +142,18 @@ class Demande
     public function setTitre(string $titre): self
     {
         $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }

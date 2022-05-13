@@ -1,0 +1,26 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Postule Demande{% endblock %}
+
+{% block body %}
+    <h1>Postule Demande</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ postule_demande.id }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ postule_demande.createdAt ? postule_demande.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_postule_demande_back_index') }}">back to list</a>
+
+    <a href="{{ path('app_postule_demande_back_edit', {'id': postule_demande.id}) }}">edit</a>
+
+    {{ include('postule_demande_back/_delete_form.html.twig') }}
+{% endblock %}

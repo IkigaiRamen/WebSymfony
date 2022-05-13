@@ -1,9 +1,40 @@
-{% extends 'front.html.twig' %}
-
-
+{% extends 'base.html.twig' %}
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Mes postes</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Post</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Modifier Post</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="col-lg-7 offset-lg-1">
+
+    <div class="alice-bg section-padding-bottom">
+    <div class="container no-gliters">
+        <div class="row no-gliters">
+            <div class="col">
+                <div class="dashboard-container">
+                    <div class="dashboard-content-wrapper">
         <h3>Modifier Post</h3><br><br>
         {{ form_start(form, { 'attr': {'class': 'contact_form'} })  }}
         <form action="#" id="contactForm">
@@ -25,8 +56,18 @@
             <input type="submit" value="Enregistrer" class="button" formnovalidate />
 
             {{ form_end(form) }}
+     </div>
+                    {% block sidebar %}    {{ parent() }}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
+
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
 
 
 {% endblock %}

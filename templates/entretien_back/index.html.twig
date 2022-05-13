@@ -1,0 +1,39 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Entretien index{% endblock %}
+
+{% block body %}
+    <h1>Entretien index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>BeginAt</th>
+                <th>EndAt</th>
+                <th>Titre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entretien in entretiens %}
+            <tr>
+                <td>{{ entretien.id }}</td>
+                <td>{{ entretien.beginAt ? entretien.beginAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ entretien.endAt ? entretien.endAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ entretien.titre }}</td>
+                <td>
+                    <a href="{{ path('app_entretien_back_show', {'id': entretien.id}) }}">show</a>
+                    <a href="{{ path('app_entretien_back_edit', {'id': entretien.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_entretien_back_new') }}">Create new</a>
+{% endblock %}

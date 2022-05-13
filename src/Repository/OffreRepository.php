@@ -23,6 +23,24 @@ class OffreRepository extends ServiceEntityRepository
         parent::__construct($registry, Offre::class);
     }
 
+    public function findOneByCityandExp($city,$exp,$type,$qualification,$categorie): array
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.city = :cit')
+            ->setParameter('cit', $city)
+            ->andWhere('a.exp = :ex')
+            ->setParameter('ex', $exp)
+            ->andWhere('a.type = :t')
+            ->setParameter('t', $type)
+            ->andWhere('a.qualification = :q')
+            ->setParameter('q', $qualification)
+            ->andWhere('a.categorie = :c')
+            ->setParameter('c', $categorie)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     /**
      * @throws ORMException
      * @throws OptimisticLockException

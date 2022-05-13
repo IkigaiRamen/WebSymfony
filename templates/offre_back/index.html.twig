@@ -1,0 +1,63 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Offre index{% endblock %}
+
+{% block body %}
+    <h1>Offre index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Autres</th>
+                <th>Responsibilities</th>
+                <th>Eduexp</th>
+                <th>Expire</th>
+                <th>Categorie</th>
+                <th>Type</th>
+                <th>Salairemin</th>
+                <th>Salairemax</th>
+                <th>Exp</th>
+                <th>Qualification</th>
+                <th>Sex</th>
+                <th>City</th>
+                <th>Created_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offre in offres %}
+            <tr>
+                <td>{{ offre.id }}</td>
+                <td>{{ offre.titre }}</td>
+                <td>{{ offre.description }}</td>
+                <td>{{ offre.autres }}</td>
+                <td>{{ offre.responsibilities }}</td>
+                <td>{{ offre.eduexp }}</td>
+                <td>{{ offre.expire ? offre.expire|date('Y-m-d') : '' }}</td>
+                <td>{{ offre.categorie }}</td>
+                <td>{{ offre.type }}</td>
+                <td>{{ offre.salairemin }}</td>
+                <td>{{ offre.salairemax }}</td>
+                <td>{{ offre.exp }}</td>
+                <td>{{ offre.qualification }}</td>
+                <td>{{ offre.sex }}</td>
+                <td>{{ offre.city }}</td>
+                <td>{{ offre.createdAt ? offre.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_offre_back_show', {'id': offre.id}) }}">show</a>
+                    <a href="{{ path('app_offre_back_edit', {'id': offre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_offre_back_new') }}">Create new</a>
+{% endblock %}

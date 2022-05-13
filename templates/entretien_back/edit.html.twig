@@ -1,0 +1,13 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Edit Entretien{% endblock %}
+
+{% block body %}
+    <h1>Edit Entretien</h1>
+
+    {{ include('entretien_back/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_entretien_back_index') }}">back to list</a>
+
+    {{ include('entretien_back/_delete_form.html.twig') }}
+{% endblock %}

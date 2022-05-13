@@ -36,6 +36,14 @@ class CommentaireController extends AbstractController
      */
     public function new(Request $request,$id, EntityManagerInterface $entityManager): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
+
         $commentaire = new Commentaire();
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
@@ -64,6 +72,7 @@ class CommentaireController extends AbstractController
             'commentaire' => $commentaire,
             'form' => $form->createView(),
             'post'=>$post,
+            'template'=>$template,
             'comment'=>$comment
         ]);
     }
@@ -73,8 +82,17 @@ class CommentaireController extends AbstractController
      */
     public function show(Commentaire $commentaire): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
+
         return $this->render('commentaire/show.html.twig', [
             'commentaire' => $commentaire,
+            'template'=>$template,
         ]);
     }
 
@@ -83,6 +101,14 @@ class CommentaireController extends AbstractController
      */
     public function edit(Request $request,$idp, Commentaire $commentaire, EntityManagerInterface $entityManager): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
+
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
         $post = $entityManager
@@ -101,6 +127,7 @@ class CommentaireController extends AbstractController
             'commentaire' => $commentaire,
             'form' => $form->createView(),
             'post'=>$post,
+            'template'=>$template,
             'comment'=>$comment
         ]);
     }

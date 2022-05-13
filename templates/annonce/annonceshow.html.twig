@@ -1,9 +1,10 @@
-{% extends 'base2.html.twig' %}
+{% extends template %}
 {% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
 {% block con %}    {{ parent() }} {% endblock %}
     
     <!-- Candidates Details -->
+    {{app.user.roles}}
     <div class="alice-bg padding-top-60 section-padding-bottom">
       <div class="container">
         <div class="row">

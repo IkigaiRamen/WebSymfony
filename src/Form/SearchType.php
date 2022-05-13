@@ -322,15 +322,7 @@ class SearchType extends AbstractType
             ]
         ])
 
-        ->add('sex',ChoiceType::class,[
-            'choices'=>[
-                'non spécifié'=>'',
-                'Homme'=>'Homme',
-                'Femme'=>'Femme'
-            ]
-            ])
-        ->add('salairemin')
-        ->add('salairemax')
+
         ->add('Rechercher' ,SubmitType::class)
         // ->add('titre')
         

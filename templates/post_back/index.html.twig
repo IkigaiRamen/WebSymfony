@@ -1,0 +1,43 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdPost</th>
+                <th>DateP</th>
+                <th>Description</th>
+                <th>Reaction</th>
+                <th>Image</th>
+                <th>Etat</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.idPost }}</td>
+                <td>{{ post.dateP ? post.dateP|date('Y-m-d') : '' }}</td>
+                <td>{{ post.description }}</td>
+                <td>{{ post.reaction ? 'Yes' : 'No' }}</td>
+                <td>{{ post.image }}</td>
+                <td>{{ post.etat }}</td>
+                <td>
+                    <a href="{{ path('app_post_back_show', {'idPost': post.idPost}) }}">show</a>
+                    <a href="{{ path('app_post_back_edit', {'idPost': post.idPost}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_post_back_new') }}">Create new</a>
+{% endblock %}

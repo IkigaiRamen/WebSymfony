@@ -23,4 +23,5 @@ return [
     Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle::class => ['all' => true],
     Endroid\QrCodeBundle\EndroidQrCodeBundle::class => ['all' => true],
     CalendarBundle\CalendarBundle::class => ['all' => true],
+    Algolia\SearchBundle\AlgoliaSearchBundle::class => ['all' => true],
 ];

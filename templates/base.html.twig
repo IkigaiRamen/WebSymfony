@@ -63,7 +63,7 @@
                                     </div>
                                     <ul class="account-item-list">
                                         <li><a href="#"><span class="ti-user"></span>Compte</a></li>
-                                        <li><a href="{{ path('app_logout') }}"><span class="ti-power-off"></span>Déconnexion</a></li>
+                                        <li><a href="/logout"><span class="ti-power-off"></span>Déconnexion</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -203,21 +203,21 @@
 
 
                 {% if (app.request.pathInfo) == ("/travailleur/modifier") %}
-                <li class ="active"> <i class="fas fa-user"></i><a href="modifier">Modifier Profile</a></li>
+                <li class ="active"> <i class="fas fa-user"></i><a href="/travailleur/modifier">Modifier Profile</a></li>
                 {% else %}
-                <li > <i class="fas fa-user"></i><a href="modifier">Modifier Profile</a></li>
+                <li > <i class="fas fa-user"></i><a href="/travailleur/modifier">Modifier Profile</a></li>
                 {% endif %}
 
                 {% if (app.request.pathInfo) == ("/travailleur/cv") %}
-                <li class="active"><i class="fas fa-file-alt"></i><a href="cv">CV</a></li>
+                <li class="active"><i class="fas fa-file-alt"></i><a href="/travailleur/cv">CV</a></li>
                 {% else %}
-                <li ><i class="fas fa-file-alt"></i><a href="cv">CV</a></li>
+                <li ><i class="fas fa-file-alt"></i><a href="/travailleur/cv">CV</a></li>
                 {% endif %}
 
-                {% if (app.request.pathInfo) == ("/travailleur/modifierCV") %}
-                <li class="active"><i class="fas fa-edit"></i><a href="modifierCV">Modifier CV</a></li>
+                {% if (app.request.pathInfo) == ("/travailleur/CVModifier") %}
+                <li class="active"><i class="fas fa-edit"></i><a href="/travailleur/CVModifier">Modifier CV</a></li>
                 {% else %}
-                <li><i class="fas fa-edit"></i><a href="modifierCV">Modifier CV</a></li>
+                <li><i class="fas fa-edit"></i><a href="/travailleur/CVModifier">Modifier CV</a></li>
                 {% endif %}
 
 
@@ -234,9 +234,18 @@
                 <li><i class="fas fa-heart"></i><a href="MesAnnonces">Liste des annonces</a></li>
                 {% endif %}
 
+                <li><i class="fab fa-facebook-messenger"></i><a href="/test/certifs">Les certifications</a></li>
 
                 <li><i class="fas fa-check-square"></i><a href="/travailleur/GererOffres">Liste de demandes</a></li>
                 <li><i class="fab fa-facebook-messenger"></i><a href="/message">Messages</a></li>
+                <li><i class="fab fa-facebook-messenger"></i><a href="/post/mesPost">Mes posts</a></li>
+                <li><i class="fab fa-facebook-messenger"></i><a href="/post/allPost">Acceuil de post</a></li>
+                <li><i class="fab fa-facebook-messenger"></i><a href="/entretien/calendar">Entretien</a></li>
+                <li><i class="fab fa-facebook-messenger"></i><a href="/test/certifs">Certifications</a></li>
+                <li><i class="fab fa-facebook-messenger"></i><a href="/test/quizz/dispo">Quizz</a></li>
+
+
+
 
             </ul>
             <ul class="delete">

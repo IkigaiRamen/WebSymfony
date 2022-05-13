@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends template %}
 {% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
 {% block con %}    {{ parent() }} {% endblock %}
@@ -30,109 +30,117 @@
     </div>
 </div>
 <!-- Breadcrumb End -->
-<div class="alice-bg section-padding-bottom">
-      <div class="container no-gliters">
-        <div class="row no-gliters">
-          <div class="col">
-            <div class="dashboard-container">
-              <div class="dashboard-content-wrapper">
-              {% if app.user.firstname is null %} 
-                    <h5>Votre profile n'est pas complet , veuillez le remplir pour Créer un annonce</h4>
-                    <div class="call-to-action-button">
-                    {% else %}
-                {{form_start(annonceForm , {'attr' : {'class' :'dashboard-form job-post-form'}})}}
-                  <div class="dashboard-section basic-info-input">
-                    <h4><i data-feather="user-check"></i>Rechercher emploi</h4>
-                    <div class="form-group row">
-                      <label class="col-md-3 col-form-label">Titre d'annonce</label>
-                      <div class="col-md-9">
-                        {{ form_widget(annonceForm.titre, {'attr': {'class': 'form-control' , } }) }}
-                      </div>
-                    </div>
-                    <div class="row">
-                      <label class="col-md-3 col-form-label">Résume d'emploi</label>
-                      <div class="col-md-9">
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                            {% set placeholder ='app.user.etat' %}
-                             {{ form_widget(annonceForm.categorie, {'attr': {'class': 'form-control' ,'placeholder': placeholder } }) }}
-                              <i class="fa fa-caret-down"></i>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                             {{ form_widget(annonceForm.city, {'attr': {'class': 'form-control' } }) }}
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                            {{ form_widget(annonceForm.type, {'attr': {'class': 'form-control' } }) }}
-
-                              <i class="fa fa-caret-down"></i>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                             {{ form_widget(annonceForm.exp, {'attr': {'class': 'form-control' } }) }}
-
-                              <i class="fa fa-caret-down"></i>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                             {{ form_widget(annonceForm.salairemin, {'attr': {'class': 'form-control' ,'Placeholder':'Salaire desiré minimum' } }) }}
-                             {{ form_widget(annonceForm.salairemax, {'attr': {'class': 'form-control' ,'Placeholder':'Salaire desiré maximum' } }) }}
-
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                             {{ form_widget(annonceForm.qualification, {'attr': {'class': 'form-control' } }) }}
-
-                              <i class="fa fa-caret-down"></i>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                            {{ form_widget(annonceForm.sex, {'attr': {'class': 'form-control' } }) }}
-                              </select>
-                              <i class="fa fa-caret-down"></i>
-                            </div>
-                          </div>
-                    <div class="col-md-6">
-                            <div class="form-group datepicker">
-                            {{ form_widget(annonceForm.expire) }}
-                            </div>
-                          </div>
-                    
+    <div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+            <div class="col">
+                <div class="dashboard-container">
+                <div class="dashboard-content-wrapper">
+                {% if app.user.firstname is null %} 
+                        <h5>Votre profile n'est pas complet , veuillez le remplir pour Créer un annonce</h4>
+                        <div class="call-to-action-button">
+                        {% else %}
+                    {{form_start(annonceForm , {'attr' : {'class' :'dashboard-form job-post-form'}})}}
+                    <div class="dashboard-section basic-info-input">
+                        <h4><i data-feather="user-check"></i>Rechercher emploi</h4>
+                        <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Titre d'annonce</label>
+                        <div class="col-md-9">
+                                {{ form_widget(annonceForm.titre, {'attr': {'class': 'form-control'} }) }}
                         </div>
-                      </div>
+                        </div>
+                        <div class="row">
+                        <label class="col-md-3 col-form-label">Résume d'emploi</label>
+                        <div class="col-md-9">
+                            <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                {% set placeholder ='app.user.etat' %}
+                                {{ form_widget(annonceForm.categorie, {'attr': {'class': 'form-control' ,'placeholder': placeholder } }) }}
+                                <i class="fa fa-caret-down"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                {{ form_widget(annonceForm.city, {'attr': {'class': 'form-control' } }) }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                {{ form_widget(annonceForm.type, {'attr': {'class': 'form-control' } }) }}
+
+                                <i class="fa fa-caret-down"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                {{ form_widget(annonceForm.exp, {'attr': {'class': 'form-control' } }) }}
+
+                                <i class="fa fa-caret-down"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                {{ form_widget(annonceForm.salairemin, {'attr': {'class': 'form-control' ,'Placeholder':'Salaire desiré minimum' } }) }}
+                                {{ form_widget(annonceForm.salairemax, {'attr': {'class': 'form-control' ,'Placeholder':'Salaire desiré maximum' } }) }}
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                {{ form_widget(annonceForm.qualification, {'attr': {'class': 'form-control' } }) }}
+
+                                <i class="fa fa-caret-down"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                {{ form_widget(annonceForm.sex, {'attr': {'class': 'form-control' } }) }}
+                                </select>
+                                <i class="fa fa-caret-down"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                {{ form_widget(annonceForm.location, {'attr': {'class': 'form-control' ,'Placeholder':'Votre adresse' } }) }}
+                                </select>
+                                <i class="fa fa-caret-down"></i>
+                                </div>
+                            </div>
+
+                        <div class="col-md-6">
+                                <div class="form-group ">
+                                {{ form_widget(annonceForm.expire) }}
+                                </div>
+                            </div>
+                        
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <label class="col-md-3 col-form-label">Parlez de vous</label>
+                        <div class="col-md-9">
+                                {{ form_widget(annonceForm.description, {'attr': {'class': 'form-control' } }) }}
+                        </div>
+                        </div>
+                        <div class="form-group row">
+                        <label class="col-md-3 col-form-label"></label>
+                        <div class="col-md-9">
+                                {{ form_widget(annonceForm.publier, {'attr': {'class': 'button'} }) }}
+                        </div>
+                        </div>
                     </div>
-                    <div class="row">
-                      <label class="col-md-3 col-form-label">Parlez de vous</label>
-                      <div class="col-md-9">
-                             {{ form_widget(annonceForm.description, {'attr': {'class': 'tinymce-editor tinymce-editor-1' } }) }}
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <label class="col-md-3 col-form-label"></label>
-                      <div class="col-md-9">
-                             {{ form_widget(annonceForm.publier, {'attr': {'class': 'button'} }) }}
-                      </div>
-                    </div>
-                  </div>
-                {{form_end(annonceForm)}}
-              </div>
-                {% endif %}
-            
-               {% block sidebar %}    {{ parent() }}
-                        {% endblock %}
+                    {{form_end(annonceForm)}}
+                </div>
+                    {% endif %}
+                
+                {% block sidebar %}    {{ parent() }} {% endblock %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     {% block action %} {{ parent() }} {% endblock %}
     {% block footer %} {{ parent() }} {% endblock %}

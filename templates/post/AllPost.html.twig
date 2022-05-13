@@ -1,15 +1,40 @@
-{% extends 'front.html.twig' %}
-
-{% block title %}Post index{% endblock %}
-
+{% extends template %}
+{% block head %} {% block stylesheet %} {{ parent() }}{% endblock %} {% endblock %}
 {% block body %}
-    <div class="alice-bg section-padding-bottom">
+    {% block con %}    {{ parent() }} {% endblock %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
         <div class="container">
-            <div class="row no-gutters">
-                <div class="col">
-                    <div class="job-listing-container">
-                        <div class="filtered-job-listing-wrapper">
-                            <div class="job-filter-result">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Liste des offres</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Acceuil</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Liste des offres</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="alice-bg section-padding-bottom">
+    <div class="container no-gliters">
+        <div class="row no-gliters">
+            <div class="col">
+                <div class="dashboard-container">
+                    <div class="dashboard-content-wrapper">
                                 All Post : <HR>
                                 {% for p in posts %}
 
@@ -21,7 +46,7 @@
                                             <img src="{{ asset('Upload/')}}{{ p.image }}" width="50%" alt="">
                                         </a>
                                             <div class="content">
-                                                <h4><a href="job-details.html" style="text-align: center !important;">{{ p.description}} </a></h4>
+                                                <h4><a href="{{ path('app_commentaire_new', {'id': p.idPost}) }}" style="text-align: center !important;">{{ p.description}} </a></h4>
                                                 <div class="info">
                                                 </div>
                                             </div>
@@ -37,11 +62,18 @@
                                     </div>
                                     {% endif %}
                                 {% endfor %}
-                            </div>
-                        </div>
-                    </div>
+                             </div>
+                    {% block sidebar %}    {{ parent() }}
+                    {% endblock %}
                 </div>
             </div>
         </div>
     </div>
+
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
+
+
 {% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Offre{% endblock %}
+
+{% block body %}
+    <h1>Offre</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ offre.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ offre.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ offre.description }}</td>
+            </tr>
+            <tr>
+                <th>Autres</th>
+                <td>{{ offre.autres }}</td>
+            </tr>
+            <tr>
+                <th>Responsibilities</th>
+                <td>{{ offre.responsibilities }}</td>
+            </tr>
+            <tr>
+                <th>Eduexp</th>
+                <td>{{ offre.eduexp }}</td>
+            </tr>
+            <tr>
+                <th>Expire</th>
+                <td>{{ offre.expire ? offre.expire|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ offre.categorie }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ offre.type }}</td>
+            </tr>
+            <tr>
+                <th>Salairemin</th>
+                <td>{{ offre.salairemin }}</td>
+            </tr>
+            <tr>
+                <th>Salairemax</th>
+                <td>{{ offre.salairemax }}</td>
+            </tr>
+            <tr>
+                <th>Exp</th>
+                <td>{{ offre.exp }}</td>
+            </tr>
+            <tr>
+                <th>Qualification</th>
+                <td>{{ offre.qualification }}</td>
+            </tr>
+            <tr>
+                <th>Sex</th>
+                <td>{{ offre.sex }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ offre.city }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ offre.createdAt ? offre.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_offre_back_index') }}">back to list</a>
+
+    <a href="{{ path('app_offre_back_edit', {'id': offre.id}) }}">edit</a>
+
+    {{ include('offre_back/_delete_form.html.twig') }}
+{% endblock %}

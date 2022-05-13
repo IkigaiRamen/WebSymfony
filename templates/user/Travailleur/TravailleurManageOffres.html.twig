@@ -45,8 +45,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for annonces in app.user.annonces %}
-                                    {% for apply in annonces.apply %}
+                                {% for annonces in app.user.demandes %}
+                                    {% for apply in annonces.postuleDemandes %}
                                         <tr class="candidates-list">
                                             <td class="title">
                                                 <div class="thumb">
@@ -74,20 +74,14 @@
                                 {% endfor %}
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
-                    {%block sidebar%}    {{ parent() }}
+                    {% block sidebar %}    {{ parent() }}
                     {% endblock %}
                 </div>
             </div>
         </div>
     </div>
-
     {% block action %} {{ parent() }} {% endblock %}
     {% block footer %} {{ parent() }} {% endblock %}
-
-
-
-
 {% endblock %}

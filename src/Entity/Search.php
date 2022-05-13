@@ -5,18 +5,13 @@ namespace App\Entity;
 class Search
 {
 
-   private $city;
-
    private $exp;
    private $categorie;	
-   private $max ;
-   private $min ;
+	private $city;
    private $type;
-   private $sex;
    private $qualification;
 	private $titre;
-	private $salairemin;
-	private $salairemax;
+
 
 public function getCity(): ?string
      {
@@ -31,40 +26,8 @@ public function getCity(): ?string
 	}
 
 
-	public function getSalairemin(): ?string
-	{
-	   return $this->salairemin;
-   }
-
-   public function setSalairemin(string $salairemin): self
-	{
-	   $this->salairemin = $salairemin;
-
-	   return $this;
-   }
-
-   public function getSalairemax(): ?string
-	{
-	   return $this->salairemax;
-   }
-
-   public function setSalairemax(string $salairemax): self
-	{
-	   $this->salairemax = $salairemax;
-
-	   return $this;
-   }
 
 
-	public function getCategorie(): ?string
-     {
-		return $this->categorie;
-	}
-
-	public function setCategorie(string $categorie): self
-     {
-		$this->categoire = $categorie;
-	 }
 
 	public function getTitre(): ?string
      {
@@ -77,6 +40,18 @@ public function getCity(): ?string
 
         return $this;
 	}
+
+	public function getCategorie(): ?string
+	{
+	   return $this->categorie;
+   }
+
+   public function setCategorie(string $categorie): self
+	{
+	   $this->categorie = $categorie;
+
+	   return $this;
+   }
 
 	public function getType(): ?string
      {
@@ -114,18 +89,7 @@ public function getCity(): ?string
 	   return $this;
    }
 
-   public function getSex(): ?string
-	{
-	   return $this->sex;
-   }
-
-   public function setSex(string $sex): self
-	{
-	   $this->sex = $sex;
-
-	   return $this;
-   }
-
+   
 
     
 

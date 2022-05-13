@@ -74,8 +74,8 @@ class ReponseController extends AbstractController
         $evaluation->setSuccess($score> $nbrQuestion -3);
 
 
-        //$entityManager->persist($evaluation);
-        //$entityManager->flush();
+        $entityManager->persist($evaluation);
+        $entityManager->flush();
         
         if($evaluation->getSuccess())
         {   
@@ -114,6 +114,7 @@ class ReponseController extends AbstractController
             $dompdf->stream("mypdf.pdf", [
                 "Attachment" => false
             ]);
+            exit(0);
         }
         else{
             return $this->render('evaluation/failure.html.twig', ['evaluation' => $evaluation]);

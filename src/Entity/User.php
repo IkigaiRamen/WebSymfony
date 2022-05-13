@@ -928,20 +928,16 @@ class User implements UserInterface, \Serializable
     private $offres;
 
     /**
-     * @ORM\OneToOne(targetEntity=Postule::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Postule::class, mappedBy="user", orphanRemoval=true)
      */
-    private $postule;
+    private $postules;
 
     /**
      * @ORM\OneToMany(targetEntity=PostuleDemande::class, mappedBy="user", orphanRemoval=true)
      */
     private $postuleDemandes;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Conversation::class, mappedBy="User")
-     */
-    private $Conversations;
-
+  
    
 
 
@@ -961,7 +957,6 @@ class User implements UserInterface, \Serializable
         $this->offres = new ArrayCollection();
         $this->postuleDemandes = new ArrayCollection();
         $this->friends = new ArrayCollection();
-        $this->Conversations = new ArrayCollection();
         $this->tests = new ArrayCollection();
         $this->reponses = new ArrayCollection();
         $this->evaluations = new ArrayCollection();
@@ -1282,19 +1277,32 @@ class User implements UserInterface, \Serializable
             return $this;
         }
 
-        public function getPostule(): ?Postule
+         /**
+         * @return Collection<int, Postule>
+         */
+        public function getPostules(): Collection
         {
-            return $this->postule;
+            return $this->postules;
         }
 
-        public function setPostule(Postule $postule): self
+        public function addPostule(Postule $postule): self
         {
-            // set the owning side of the relation if necessary
-            if ($postule->getUser() !== $this) {
+            if (!$this->postules->contains($postule)) {
+                $this->postules[] = $postule;
                 $postule->setUser($this);
             }
 
-            $this->postule = $postule;
+            return $this;
+        }
+
+        public function removePostule(Postule $postule): self
+        {
+            if ($this->postules->removeElement($postule)) {
+                // set the owning side to null (unless already changed)
+                if ($postule->getUser() === $this) {
+                    $postule->setUser(null);
+                }
+            }
 
             return $this;
         }
@@ -1371,32 +1379,7 @@ class User implements UserInterface, \Serializable
             return $this;
         }
 
-        /**
-         * @return Collection<int, Conversation>
-         */
-        public function getConversations(): Collection
-        {
-            return $this->Conversations;
-        }
-
-        public function addConversation(Conversation $conversation): self
-        {
-            if (!$this->Conversations->contains($conversation)) {
-                $this->Conversations[] = $conversation;
-                $conversation->addUser($this);
-            }
-
-            return $this;
-        }
-
-        public function removeConversation(Conversation $conversation): self
-        {
-            if ($this->Conversations->removeElement($conversation)) {
-                $conversation->removeUser($this);
-            }
-
-            return $this;
-        }
+    
 
        
     

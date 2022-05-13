@@ -11,7 +11,6 @@ use App\Repository\DemandeRepository;
 use App\Entity\Annonce;
 use App\Entity\Apply;
 use App\Entity\Education;
-use App\Entity\Conversation;
 use App\Form\Travailleur\CvWorkFormType;
 use App\Form\Travailleur\ModifierCvType;
 use App\Form\Travailleur\CvEducationFormType;
@@ -42,7 +41,6 @@ class UserController extends AbstractController
 
     
     /**
-     * @IsGranted("ROLE_USER")
      * @Route("/profile", name="Dashboard")
      */
     public function index(): Response
@@ -55,72 +53,22 @@ class UserController extends AbstractController
     {
         return $this->redirectToRoute('modifier_user');
     }
-    else {
+    else if  ($this->isGranted ('ROLE_ADMIN'))
+    {
+        return $this->redirectToRoute('app_user_back_index');
+    } else
+    {
         return $this->redirectToRoute('modifier_travailleur');
     }
     }
     
-
     /**
      * @IsGranted("ROLE_TRAVAILLEUR")
-     * @Route("/travailleur/cv", name="cv")
-     */
-    public function cv(Request $request){
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        /** @var \App\Entity\User $user */
-        return $this->render('user/Travailleur/cv.html.twig');
-    }
-
-    /**
-     * @IsGranted("ROLE_TRAVAILLEUR")
-     * @Route("/travailleur/modifier", name="modifier_travailleur")
-     */
-    public function modifierProfil(Request $request){
-
-        $user = $this->getUser();
-        $form = $this->createForm(ModifyProfilType::class, $user );
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()){
-           
-            $doctrine = $this->getDoctrine()->getManager();
-            $doctrine->persist($user);
-            $doctrine->flush();
-        }
-
-        return $this->render('user/Travailleur/modifierProfil.html.twig', [
-            'modifierProfilForm' => $form->createView()
-        ]);
-    }
-
-     /**
-     * @IsGranted("ROLE_TRAVAILLEUR")
-     * @Route("/travailleur/MesAnnonces", name="Annonce_Travailleur")
-     */
-    public function annonceTravailleur(Request $request){
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        /** @var \App\Entity\User $user */
-        return $this->render('user/Travailleur/TravailleurManageJobs.html.twig');
-    }
-
-/**
-     * @IsGranted("ROLE_TRAVAILLEUR")
-     * @Route("/travailleur/GererOffres", name="GererOffres")
-     */
-    public function GererOffres(Request $request){
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
-        /** @var \App\Entity\User $user */
-        return $this->render('user/Travailleur/TravailleurManageOffres.html.twig');
-    }
-
-    /**
-     * @IsGranted("ROLE_TRAVAILLEUR")
-     * @Route("/travailleur/modifierCV", name="modifier_CV")
+     * @Route("/travailleur/CVModifier", name="ModifierCV")
      */
     public function modifierCV(Request $request){
+
+            $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $user = $this->getUser();
         $usereducationform= $this->createForm(CvEducationFormType::class,$user );
@@ -168,6 +116,64 @@ class UserController extends AbstractController
 
         ]);
     }
+
+
+    /**
+     * @IsGranted("ROLE_TRAVAILLEUR")
+     * @Route("/travailleur/cv", name="cv")
+     */
+    public function cv(Request $request){
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        /** @var \App\Entity\User $user */
+        return $this->render('user/Travailleur/cv.html.twig');
+    }
+
+    /**
+     * @IsGranted("ROLE_TRAVAILLEUR")
+     * @Route("/travailleur/modifier", name="modifier_travailleur")
+     */
+    public function modifierProfil(Request $request){
+
+        $user = $this->getUser();
+        $form = $this->createForm(ModifyProfilType::class, $user );
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+           
+            $doctrine = $this->getDoctrine()->getManager();
+            $doctrine->persist($user);
+            $doctrine->flush();
+        }
+
+        return $this->render('user/Travailleur/modifierProfil.html.twig', [
+            'modifierProfilForm' => $form->createView()
+        ]);
+    }
+
+     /**
+     * @IsGranted("ROLE_TRAVAILLEUR")
+     * @Route("/travailleur/MesAnnonces", name="Annonce_Travailleur")
+     */
+    public function annonceTravailleur(Request $request){
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        /** @var \App\Entity\User $user */
+        return $this->render('user/Travailleur/TravailleurManageJobs.html.twig');
+    }
+
+    /**
+     * @IsGranted("ROLE_TRAVAILLEUR")
+     * @Route("/travailleur/GererOffres", name="GererOffres")
+     */
+    public function GererOffres(Request $request){
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        /** @var \App\Entity\User $user */
+        return $this->render('user/Travailleur/TravailleurManageOffres.html.twig');
+    }
+
+    
 
     /**
      * @IsGranted("ROLE_EMPLOYEUR")
@@ -279,8 +285,7 @@ class UserController extends AbstractController
          ->getRepository(User::class)
          ->find($id);
          $friend = new Friends();
-         $conversation = new Conversation();
-
+   
 
 
      if (!$user) {
@@ -298,11 +303,7 @@ class UserController extends AbstractController
          
          $friend->setUserOne($this->getUser());
          $friend->setUserTwo($user);
-         $conversation->addUser($this->getUser());
-         $doctrine->persist($conversation);
-         $conversation->addUser($user);
          $doctrine->persist($friend);
-         $doctrine->persist($conversation);
          $doctrine->flush();
      }
      return $this->render('user/UserShowProfile.html.twig', ['user' => $user,'formApply'=>$form->createView()]);

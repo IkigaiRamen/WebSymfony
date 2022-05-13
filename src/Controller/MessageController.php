@@ -21,8 +21,16 @@ class MessageController extends AbstractController
      */
     public function index(): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
         return $this->render('message/index.html.twig', [
             'controller_name' => 'MessageController',
+            'template'=>$template,
         ]);
     }
       /**
@@ -93,7 +101,7 @@ class MessageController extends AbstractController
 
         return new JsonResponse($json);
     }
-      /**
+    /**
      * @Route("/pdf", name="pdf",  methods={"GET","POST"})
      */
     public function pdf(Request $request)
@@ -128,6 +136,7 @@ class MessageController extends AbstractController
             "Attachment" => true
         ]);
         $pdfOptions->set('isRemoteEnabled', true);
+        exit(0);
 
     }
     /**
@@ -135,6 +144,14 @@ class MessageController extends AbstractController
      */
     public function send(Request $request):Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+
+        $template = 'base.html.twig';
+    }
+    else {
+    $template ='base2.html.twig';
+    }
         $this->getDoctrine()->getRepository(Messages::class)->mise_a_jour();
         $message = new Messages;
         $form = $this->createForm(MessageType::class, $message);
@@ -152,7 +169,8 @@ class MessageController extends AbstractController
         }
 
         return $this->render("message/send.html.twig", [
-            "form" => $form->createView()
+            "form" => $form->createView(),
+            'template'=>$template,
         ]);
     }
 
@@ -161,8 +179,18 @@ class MessageController extends AbstractController
      */
     public function received(): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
+        
         $this->getDoctrine()->getRepository(Messages::class)->mise_a_jour();
-        return $this->render('message/received.html.twig');
+        return $this->render('message/received.html.twig',[
+            'template'=>$template,
+        ]);
     }
 
 
@@ -171,8 +199,17 @@ class MessageController extends AbstractController
      */
     public function sent(): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
         $this->getDoctrine()->getRepository(Messages::class)->mise_a_jour();
-        return $this->render('message/sent.html.twig');
+        return $this->render('message/sent.html.twig',[
+            'template'=>$template,
+        ]);
     }
 
     /**
@@ -180,13 +217,22 @@ class MessageController extends AbstractController
      */
     public function read(Messages $message): Response
     {
+        $test= Array_values($this->getUser()->getRoles())[0];
+        if( $test != 'ROLE_EMPLOYEUR') {
+            $template = 'base.html.twig';
+            }
+            else {
+            $template ='base2.html.twig';
+            }
         $this->getDoctrine()->getRepository(Messages::class)->mise_a_jour();
         $message->setIsRead(true);
         $em = $this->getDoctrine()->getManager();
         $em->persist($message);
         $em->flush();
 
-        return $this->render('message/read.html.twig', compact("message"));
+        return $this->render('message/read.html.twig', compact("message"),[
+            'template'=>$template,
+        ]);
     }
     
 

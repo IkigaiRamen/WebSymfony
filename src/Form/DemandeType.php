@@ -18,9 +18,10 @@ class DemandeType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('description',TextAreaType::class)  
+            ->add('description')  
+            ->add('location')  
             ->add('expire',DateType::Class ,[
-                'attr' => ['class' => 'form-control'],
+                'attr' => ['class' => 'form-control '],
             ]) 
             ->add('categorie' ,ChoiceType::class ,[
                 'choices'=>[
