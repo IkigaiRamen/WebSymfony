@@ -1,0 +1,123 @@
+{% extends 'base2.html.twig'%}
+
+{% block title %}Test index{% endblock %}
+
+
+
+
+{% block head %} 
+    {% block stylesheet %} {{ parent() }}
+        <style>
+            td{
+                font-size: 18px
+            }
+            th{
+                font-size: 20px
+            }
+            .font14{
+                font-size: 15px
+            }
+            a:link {
+                color: white;
+                background-color: transparent;
+                text-decoration: none;
+            }
+            a:visited {
+                color: white;
+                background-color: transparent;
+                text-decoration: none;
+                }
+            
+        </style>
+    {% endblock %} 
+{% endblock %}
+{% block body %}
+    {% block con %}    {{ parent() }} {% endblock %}
+    <div class="alice-bg padding-top-70 padding-bottom-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="breadcrumb-area">
+                        <h1>Mes Quizz</h1>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">Employeur</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Mes Quizz</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="breadcrumb-form">
+                        <form action="#">
+                            <input type="text" placeholder="Enter Keywords">
+                            <button><i data-feather="search"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <div class="alice-bg section-padding-bottom">
+        <div class="container no-gliters">
+            <div class="row no-gliters">
+            
+                <div class="col">
+                
+                    <div class="dashboard-container">
+                        <form id="form" method="post" action="{{ path('app_test_candidats', {'id': quizz.id}) }}" enctype="multipart/form-data">
+                            <label  class="display-3" for="addParticipant">Ajouter un candidat pour passer ce test:</label>
+                            <select class="form-select form-select-lg mb-3" name="addParticipant" id="addParticipant">
+                                <option value="">--Selectionner les candidats--</option>
+                                {% set arr = [] %}
+                                {% for annonces in app.user.offres %}
+                                <optgroup label="{{annonces.titre}}">
+                                    {% for apply in annonces.postules %}
+                                        {#{% if apply.user.id not in arr %}#}
+                                            {#{% set arr = arr|merge([apply.user.id]) %}#}
+                                            {% if apply.user.id not in quizz.candidats %}
+
+                                                <option value="{{apply.user.id}}"> {{apply.user.email}}</option>
+                                            {% endif %}
+                                        {#{% endif %}#}
+                                    <optgroup>
+                                    {% endfor %}
+                                {% endfor %}
+                            </select>
+                            <label class="display-3" for="removeParticipant">Choisir un candidat pour l'eliminer de ce test:</label>
+                            <select class="form-select form-select-lg mb-3" name="removeParticipant" id="removeParticipant">
+                                <option value="">--Selectionner un candidat--</option>
+                                {% set arr = [] %}
+                                {% for annonces in app.user.offres %}
+                                <optgroup label="{{annonces.titre}}">
+                                    {% for apply in annonces.postules %}
+                                        {#{% if apply.user.id not in arr %}#}
+                                            {#{% set arr = arr|merge([apply.user.id]) %}#}
+                                            {% if apply.user.id in quizz.candidats %}
+                                                <option value="{{apply.user.id}}"> {{apply.user.email}}</option>
+                                            {% endif %}
+                                        {#{% endif %}#}
+                                    <optgroup>
+                                    {% endfor %}
+                                {% endfor %}
+                            </select>
+                            <button id="btnValider" class="btn btn-primary w-100 py-3" type="submit">Valider</button>
+                        </form>
+                    
+                    </div>
+                        {%block sidebar%}    {{ parent() }}
+                        {%endblock%}
+                        
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    {% block action %} {{ parent() }} {% endblock %}
+    {% block footer %} {{ parent() }} {% endblock %}
+
+
+
+{% endblock %}

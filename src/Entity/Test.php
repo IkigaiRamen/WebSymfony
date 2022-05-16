@@ -102,11 +102,17 @@ class Test
      */
     private $evaluations;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $candidats ;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->reponses = new ArrayCollection();
         $this->evaluations = new ArrayCollection();
+        $this->candidats = [];
     }
 
 
@@ -298,6 +304,37 @@ class Test
             if ($evaluation->getIdtest() === $this) {
                 $evaluation->setIdtest(null);
             }
+        }
+
+        return $this;
+    }
+
+
+    public function getCandidats(): array
+    {
+        return $this->candidats;
+    }
+
+    public function setCandidats(?array $candidats): self
+    {
+        $this->candidats = $candidats;
+
+        return $this;
+    }
+
+    public function addCandidat(User $user): self
+    {
+        if($key = array_search($user->getId(), $this->candidats) == false){
+            array_push($this->candidats,$user->getId());
+        }
+
+        return $this;
+    }
+
+    public function removeCandidat(User $user): self
+    {
+        if ($key = array_search($user->getId(), $this->candidats) !== false) {
+            unset($this->candidats[$key]);            
         }
 
         return $this;

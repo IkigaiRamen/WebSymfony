@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Test;
 use App\Entity\User;
+use App\Entity\Evaluation;
 use App\Form\TestType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -65,6 +66,7 @@ class TestController extends AbstractController
             'tests' => $tests,
         ]);
     }
+    
     /**
      * @Route("/new", name="app_test_new", methods={"GET", "POST"})
      */
@@ -181,7 +183,7 @@ class TestController extends AbstractController
     /**
      * @Route("/pass/{id}", name="app_test_pass", methods={"GET", "POST"})
      */
-    public function pass(Request $request, Test $test, EntityManagerInterface $entityManager): Response
+    public function pass(Request $request, Test $test): Response
     {      
         foreach($test->getQuestions() as $q){
             $list = $q->getChoices()->toArray();
@@ -195,4 +197,77 @@ class TestController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/candidats/{id}", name="app_test_candidats", methods={"GET", "POST"})
+     */
+    public function modifierCandidats(Request $request, Test $quizz, EntityManagerInterface $entityManager): Response
+    {      
+        if ($request->isMethod('POST')) {
+            $time = new \DateTime('@'.strtotime('now'));
+            $quizz->setDatemodification($time);
+            $participant = $request->get("addParticipant");
+            if($participant!== "")
+            {
+                $user = $entityManager
+                ->getRepository(User::class)
+                ->find($participant);
+                if(array_search($user->getId(), $quizz->getCandidats()) == false){
+                    $c = $quizz->getCandidats();
+                    array_push($c,$user->getId());
+                    $quizz->setCandidats($c);
+                }
+                    
+            }
+            
+            $elimine = $request->get("removeParticipant");
+            if( $elimine !== "")
+            {
+                $user = $entityManager
+                ->getRepository(User::class)
+                ->find($elimine);
+                if ($key = array_search($user->getId(), $quizz->getCandidats()) !== false) {
+                    $c = $quizz->getCandidats();
+                    array_splice($c, $key, 1);
+                    $quizz->setCandidats($c);    
+                }
+
+            }
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_test_listquizz', [], Response::HTTP_SEE_OTHER);
+        }
+        
+        $user = $this->getUser();
+        
+        return $this->render('test/testCandidats.html.twig', [
+            'user' => $user,
+            'quizz' => $quizz,
+        ]);
+    }
+
+    /**
+     * @Route("/quizz/dispo", name="app_test_quizzdispo", methods={"GET"})
+     */
+    public function quizzDispo(EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        $tests = $entityManager
+            ->getRepository(Test::class)
+            ->findBy(array(
+                'type' => "Quizz"
+            ));
+        $quizz = [];
+        for ($i = 0; $i < sizeof($tests); $i++) {
+            if( array_search($user->getId(), $tests[$i]->getCandidats()) != false)
+            {
+                array_push($quizz, $tests[$i]);
+            }
+        }
+        
+
+        return $this->render('test/quizzDispo.html.twig', [
+            'tests' => $quizz,
+        ]);
+    }
 }

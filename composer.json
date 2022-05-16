@@ -66,10 +66,14 @@
         "allow-plugins": {
             "symfony/flex": true,
             "endroid/installer": true
+<<<<<<< Updated upstream
         },
         "platform": {
             "php": "8.0.15"
          }
+=======
+        }
+>>>>>>> Stashed changes
     },
     "autoload": {
         "psr-4": {

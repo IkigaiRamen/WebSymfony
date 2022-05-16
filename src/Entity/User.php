@@ -776,9 +776,15 @@ class User implements UserInterface, \Serializable
     private $imageFile;
 
 	public function getImageFile()
+<<<<<<< Updated upstream
                                                                                                           {
                                                                                                               return $this->imageFile;
                                                                                                           }
+=======
+                                                                                                                                                                                                 {
+                   return $this->imageFile;
+                                                                                                                                                                                                 }
+>>>>>>> Stashed changes
 
     public function setImageFile($image = null): void
     {
@@ -807,19 +813,38 @@ class User implements UserInterface, \Serializable
     private $received;
 
     /**
+<<<<<<< Updated upstream
      * @ORM\OneToMany(targetEntity=Test::class, mappedBy="iduser", orphanRemoval=true)
      */
     private $tests;
 
     /**
      * @ORM\OneToMany(targetEntity=Reponse::class, mappedBy="iduser", orphanRemoval=true)
+=======
+     * @ORM\OneToMany(targetEntity=PostuleDemande::class, mappedBy="user", orphanRemoval=true)
+>>>>>>> Stashed changes
      */
     private $reponses;
 
     /**
      * @ORM\OneToMany(targetEntity=Evaluation::class, mappedBy="iduser")
      */
+<<<<<<< Updated upstream
     private $evaluations;
+=======
+    private $Conversations;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Postule::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $postules;
+
+   
+
+
+
+
+>>>>>>> Stashed changes
 
     
 
@@ -832,6 +857,11 @@ class User implements UserInterface, \Serializable
         $this->tests = new ArrayCollection();
         $this->reponses = new ArrayCollection();
         $this->evaluations = new ArrayCollection();
+<<<<<<< Updated upstream
+=======
+        $this->postules = new ArrayCollection();
+      
+>>>>>>> Stashed changes
     }
 
     public function getId(): ?int
@@ -1147,6 +1177,67 @@ class User implements UserInterface, \Serializable
             return $this;
         }
 
+<<<<<<< Updated upstream
         
+=======
+        /**
+         * @return Collection<int, Conversation>
+         */
+        public function getConversations(): Collection
+        {
+            return $this->Conversations;
+        }
+
+        public function addConversation(Conversation $conversation): self
+        {
+            if (!$this->Conversations->contains($conversation)) {
+                $this->Conversations[] = $conversation;
+                $conversation->addUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeConversation(Conversation $conversation): self
+        {
+            if ($this->Conversations->removeElement($conversation)) {
+                $conversation->removeUser($this);
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection<int, Postule>
+         */
+        public function getPostules(): Collection
+        {
+            return $this->postules;
+        }
+
+        public function addPostule(Postule $postule): self
+        {
+            if (!$this->postules->contains($postule)) {
+                $this->postules[] = $postule;
+                $postule->setUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removePostule(Postule $postule): self
+        {
+            if ($this->postules->removeElement($postule)) {
+                // set the owning side to null (unless already changed)
+                if ($postule->getUser() === $this) {
+                    $postule->setUser(null);
+                }
+            }
+
+            return $this;
+        }
+
+       
+>>>>>>> Stashed changes
     
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
+<<<<<<< Updated upstream
 use App\Entity\Annonce;
 use App\Entity\Apply;
 use App\Entity\Education;
@@ -14,17 +15,25 @@ use App\Form\AnnonceFormType;
 use App\Form\Employeur\AnnonceEmployerType;
 
 use App\Form\EducationFormType;
+=======
+use App\Repository\OffreRepository;
+use App\Repository\DemandeRepository;
+use App\Entity\Conversation;
+use App\Form\Travailleur\CvWorkFormType;
+use App\Form\Travailleur\ModifierCvType;
+use App\Form\Travailleur\CvEducationFormType;
+use App\Form\DemandeType;
+use App\Form\OffreType;
+use App\Form\FriendsType;
+>>>>>>> Stashed changes
 use App\Form\Employeur\ModifierProfileType;
 use App\Form\Employeur\ModifySocieteType;
 use App\Form\Travailleur\ModifyProfilType;
-use App\Form\ModifierProfilType;
-use App\Repository\AnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Form\Travailleur\CvQualifType;
 
 
@@ -302,8 +311,14 @@ class UserController extends AbstractController
     public function showmyEmployerPost(int $id, Request $request,UserRepository $ur,AnnonceRepository $ar): Response
     {
 
+<<<<<<< Updated upstream
        
        
+=======
+        $annonce = $this->getDoctrine()
+        ->getRepository(offre::class)
+        ->find($id);
+>>>>>>> Stashed changes
 
         $annonce = $this->getDoctrine()
         ->getRepository(Annonce::class)
@@ -352,7 +367,11 @@ class UserController extends AbstractController
 
        
         $annonce = $this->getDoctrine()
+<<<<<<< Updated upstream
         ->getRepository(Annonce::class)
+=======
+        ->getRepository(Demande::class)
+>>>>>>> Stashed changes
         ->find($id);
 
        

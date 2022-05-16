@@ -74,8 +74,8 @@ class ReponseController extends AbstractController
         $evaluation->setSuccess($score> $nbrQuestion -3);
 
 
-        //$entityManager->persist($evaluation);
-        //$entityManager->flush();
+        $entityManager->persist($evaluation);
+        $entityManager->flush();
         
         if($evaluation->getSuccess())
         {   
